@@ -1,26 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReBrthe</title>
-</head>
-<body>
-  <h1>AA</h1>
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>AA</h1>
     {% for exercise in exercises %} 
+        {{exercise.description}}<br>
+        {{exercise.directions}}<br>
 
- 
-   <br>
-    {{exercise.description}}<br>
-    {{exercise.directions}}<br>
+        {{exercise.in_sec}}<br>
+        {{exercise.hold_sec}}<br>
+        {{exercise.out_sec}}<br>
 
-    {{exercise.in_sec}}<br>
-    {{exercise.hold_sec}}<br>
-    {{exercise.out_sec}}<br>
-
-    {{exercise.repeat_times}}<br> 
-<p> {{exercise.repeat_times}}</p>
+        {{exercise.repeat_times}}<br> 
+        <p> {{exercise.repeat_times}}</p>
      {% endfor %}
-</body>
-</html>
+
+ {% endblock %}
