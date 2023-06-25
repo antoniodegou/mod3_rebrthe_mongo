@@ -1,3 +1,132 @@
-html{
-    background-color: red;
+:root {
+    --myblack: #63403b;
+  }
+
+
+  body{
+    position: relative;
+    background-color: #FF9A8B;
+    height:100vh!important;
+    color:white;
+    overflow:hidden;
+    background: 
+    radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
+    radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    background-size: 200% 200%;
+    animation: gradient 10s ease infinite;
+    height: 100vh;
 }
+
+
+
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 100%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
+
+@font-face {
+    font-family: 'Satoshi-Variable';
+    src: url('/static/fonts/Satoshi-Variable.woff2') format('woff2'),
+         url('/static/fonts/Satoshi-Variable.woff') format('woff'),
+         url('/static/fonts/Satoshi-Variable.ttf') format('truetype');
+         font-weight: 300 900;
+         font-display: swap;
+         font-style: normal;
+  }
+
+
+    html, body {
+        font-family: 'Satoshi-Variable' ;
+    }
+    
+    h1, h2, button[type=submit], h3, h4{
+        font-weight: 900;
+    }
+    
+    a {
+        text-decoration: underline;
+        color: var(--myblack);
+    }
+    a:hover{
+        color: var(--myblack);
+    }
+
+
+    /*
+    
+    **** HOME
+    
+    */
+    
+    .pre-card{
+        background-color: rgba(255, 255, 255, 0.537);
+    }
+    .form-container{
+        background-color: rgba(255, 255, 255 );
+        transition: all 0.5s ease!important;
+    }
+    .my-card{
+        /* // background-color: rgba(255, 255, 255 ); */
+        min-width: 300px;
+        max-width: 300px;
+        color:var(--myblack);
+    }
+    .title{
+        font-size: 4rem;
+    }
+    input{
+        /* // border-top: none!important;
+        // border-left:none!important;
+        // border-right:none!important; */
+        border-bottom: solid 1px!important;
+        border-radius: 0!important;
+    }
+    
+    .form-control:focus {
+        box-shadow: unset!important;
+    }
+    
+    button[type=submit]{
+        width:100%;
+    }
+    h1{
+        position: relative;
+    }
+    h1 > span {
+        position: absolute;
+        transform: rotate(-10deg);
+    }
+    
+    input, button {
+        border-color: var(--myblack)!important;
+        color:var(--myblack)!important;
+    }
+
+
+@keyframes slideaway {
+    from { display: block; }
+    to { transform: translateY(1240px); opacity: 0;}
+  }
+  
+  .hiding {
+    animation: slideaway 1200ms;
+    display: none;
+  }
+
+
+  .hiding {
+    transition: opacity  1200ms, display 200ms;
+    display: none;
+    opacity: 0;
+  }
