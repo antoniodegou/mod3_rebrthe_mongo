@@ -33,19 +33,19 @@
                 </div>
                 <div  id="signup-form" class=" my-card  p-4 m-auto rounded-2  hiding  ">
                    <h2 class="pb-3">signup</h2>
-                   <form action="">
-                      <div class="form-floating mb-3">
-                         <input type="name" class="form-control" id="name" placeholder="name">
-                         <label for="name">name</label>
-                      </div>
-                      <div class="form-floating mb-3">
-                         <input type="email" class="form-control" id="email" placeholder="name@example.com">
-                         <label for="email">Email address</label>
-                      </div>
-                      <div class="form-floating  mb-3">
-                         <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                         <label for="floatingPassword">Password</label>
-                      </div>
+                   <form method="POST" action="{{ url_for('register') }}">
+                    <div class="form-floating mb-3">
+                        <input type="name" class="form-control" id="username" name="username" placeholder="username">
+                        <label for="username">name</label>
+                     </div>
+                     <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                        <label for="email">Email address</label>
+                     </div>
+                     <div class="form-floating  mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                     </div>
                       <div class="form-floating  mb-5">
                          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
                          <label for="confirmPassword">Confirm Password</label>
