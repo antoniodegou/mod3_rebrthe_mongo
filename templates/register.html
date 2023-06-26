@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div  id="signup-form" class=" my-card  p-4 m-auto rounded-2    ">
+    <h2 class="pb-3">signup</h2>
+    <form method="POST" action="{{ url_for('register') }}">
+       <div class="form-floating mb-3">
+          <input type="name" class="form-control" id="username" name="username" placeholder="username">
+          <label for="username">name</label>
+       </div>
+       <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+          <label for="email">Email address</label>
+       </div>
+       <div class="form-floating  mb-3">
+          <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+       </div>
+       <!-- <div class="form-floating  mb-5">
+          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+          <label for="confirmPassword">Confirm Password</label>
+       </div> -->
+       <button   type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
+    </form>
+    <!-- <div class="mt-3">
+       <p class="text-end  mb-0">if you are already registered</p>
+       <a id="signin-button" href="" class="text-end">
+          <h4>signin</h4>
+       </a>
+    </div> -->
+ </div>
+{% endblock %}

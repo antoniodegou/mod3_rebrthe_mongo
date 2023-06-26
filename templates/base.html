@@ -37,14 +37,25 @@
                     <a class="nav-link" href="#">logout</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link">signup</a>
+                    <a class="nav-link" href="{{ url_for('register') }}">signup</a>
                   </li>
                 </ul>
               </div>
             </div>
         </nav>
     </header>
-    <p>im part of base</p>
+    <section>
+      <!-- flash messages -->
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              {% for message in messages %}
+                  <div class="row flashes">
+                      <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+                  </div>
+              {% endfor %}
+          {% endif %}
+      {% endwith %}
+  </section>
     {% block content %}
     {% endblock %}
 
