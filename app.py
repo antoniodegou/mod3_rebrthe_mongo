@@ -19,12 +19,24 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def get_home():
-    return render_template("home.html")
+    if "user" in session:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        return render_template("home.html", username=username)
+    else:
+        return render_template("home.html")
+
 
 @app.route("/get_exercises")
 def get_exercises():
-    exercises = mongo.db.exercises.find()
-    return render_template("exercises.html", exercises=exercises)
+    if "user" in session:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        exercises = mongo.db.exercises.find()
+        return render_template("exercises.html", exercises=exercises, username=username)
+    else:
+        exercises = mongo.db.exercises.find()
+        return render_template("exercises.html", exercises=exercises)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -49,6 +61,7 @@ def register():
         return render_template("home.html")
     return render_template("register.html")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -71,9 +84,28 @@ def login():
             # username doesn't exist
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
+        
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        return render_template("home.html", username=username)
 
-    return render_template("login.html")
+ 
+    return render_template("login.html" )
 
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # grab the session user's username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    return render_template("dashboard.html", username=username)
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

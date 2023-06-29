@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>AA</h1>
+    {% for exercise in exercises %} 
+        {{exercise.description}}<br>
+        {{exercise.directions}}<br>
+
+        {{exercise.in_sec}}<br>
+        {{exercise.hold_sec}}<br>
+        {{exercise.out_sec}}<br>
+
+        {{exercise.repeat_times}}<br> 
+        <p> {{exercise.repeat_times}}</p>
+     {% endfor %}
+
+ {% endblock %}

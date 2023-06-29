@@ -130,3 +130,12 @@
     display: none;
     opacity: 0;
   }
+
+  .username{
+    color:var(--myblack)!important;
+    margin-bottom: 0;
+  }
+
+  .mytitle{
+    font-size: 1.5rem;
+  }

@@ -15,7 +15,10 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-              <a class="navbar-brand" href="{{ url_for('get_home') }}"> <h1 class="col">re<span>B</span>rthe</h1></a>
+              <a class="navbar-brand mb-0 pb-0" href="{{ url_for('get_home') }}"> <h1 class="mytitle title ">re<span>B  </span> &nbsp;  rthe</h1></a>
+              {% if session.user %}
+              <p class="username">Hello, {{ username }}</p>
+              {% endif %}
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -27,18 +30,21 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('get_exercises') }}">Exercises</a>
                   </li>
+                  {% if session.user %}
                   <li class="nav-item">
-                    <a class="nav-link" href="#">dashboard</a>
+                    <a class="nav-link" href="{{ url_for('get_exercises') }}">dashboard</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">logout</a>
+                  </li>
+                  {% else %}
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('login') }}">login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">logout</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('register') }}">signup</a>
                   </li>
+                  {% endif %}
                 </ul>
               </div>
             </div>
