@@ -2,17 +2,44 @@
 
 {% block content %}
 
-    <h1>AA</h1>
+
+    <div class="row justify-content-center mt-5 mb-5">
+      <div class="col">
+        <form class="form-inline">
+          <div class="input-group gap-3">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+<div class="accordion" id="accordionExample">
+ 
     {% for exercise in exercises %} 
-        {{exercise.description}}<br>
-        {{exercise.directions}}<br>
 
-        {{exercise.in_sec}}<br>
-        {{exercise.hold_sec}}<br>
-        {{exercise.out_sec}}<br>
+        <div class="accordion-item rounded-0">
+          <div class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <p>{{exercise.exercise_name}}<br></p>   <br>
+            </button>
+            <h6 class="ms-3">IN: {{exercise.in_sec}}sec HOLD: {{exercise.hold_sec}}sec OUT: {{exercise.out_sec}}sec</h6> 
+            <h6 class="ms-3">REPEAT CYCLES: {{exercise.repeat_times}}</h6>  
+          </div>
+          
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p> Description: {{exercise.description}}<br></p>
+                <p> Directions: {{exercise.directions}}</p>
+            </div>
+          </div>
+        </div>
 
-        {{exercise.repeat_times}}<br> 
-        <p> {{exercise.repeat_times}}</p>
-     {% endfor %}
+    {% endfor %}
+
+</div>
+
 
  {% endblock %}
