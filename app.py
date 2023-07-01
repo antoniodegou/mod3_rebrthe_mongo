@@ -165,8 +165,7 @@ def manage_task(identifier):
             mongo.db.exercises.insert_one(task)
             flash("Task Successfully Added")
             return redirect(url_for("manage_task", identifier="new"))
-        elif identifier != "new":
-            print("AAAAAAAAAA")
+        else:
             # Logic for editing an existing task
             submit = {
                 "exercise_name": request.form.get("exercise_name"),
@@ -191,6 +190,15 @@ def manage_task(identifier):
         exercise = mongo.db.exercises.find_one({"_id": ObjectId(identifier)})
         return render_template("dashboard.html", exercise=exercise, username=username, identifier=identifier)
 
+
+@app.route("/delete_task/<exercise_id>")
+def delete_task(exercise_id):
+    mongo.db.exercises.delete_one({"_id": ObjectId(exercise_id)})
+    flash("Task Successfully Deleted")
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    # return render_template("dashboard.html", username=username)
+    exercises = mongo.db.exercises.find()
+    return render_template("dashboard.html", exercises=exercises, username=username)
 
 
 @app.route("/logout")
