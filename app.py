@@ -92,13 +92,35 @@ def login():
  
     return render_template("login.html" )
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
+@app.route("/profile/<username>", methods=["GET"])
 def profile(username):
     # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    return render_template("dashboard.html", username=username)
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    # return render_template("dashboard.html", username=username)
+    exercises = mongo.db.exercises.find()
+    return render_template("dashboard.html", exercises=exercises, username=username)
 
+
+@app.route("/profile/<username>", methods=["GET","POST"])
+def add_task(username):
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    if request.method == "POST":
+        task = {
+            "exercise_name": request.form.get("exercise_name"),
+            "category_name": request.form.get("category_name"),
+            "in": request.form.get("in"),
+            "hold": request.form.get("hold"),
+            "out": request.form.get("out"),
+            "instructions": request.form.get("instructions"),
+            "cycles": request.form.get("cycles"),
+            "created_by": session["user"]
+        }
+        mongo.db.exercises.insert_one(task)
+        flash("Task Successfully Added")
+        return redirect(url_for("profile", username=username))
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("dashboard.html", username=username)
 
 @app.route("/logout")
 def logout():

@@ -1,18 +1,94 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-    <h1>AA</h1>
+<div class="input-group-append mt-3">
+   <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Add Exercise</button>
+   <h1>{{ username }}</h1>
+</div>
+
+
+<div class="accordion" id="accordionExample">
+ 
     {% for exercise in exercises %} 
-        {{exercise.description}}<br>
-        {{exercise.directions}}<br>
+        {% if username == exercise.created_by %} 
+        <div class="accordion-item rounded-0 mb-4">
+          <div class="accordion-header" id="headingOne">
+            <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}" aria-expanded="true" aria-controls="collapseOne">
+                <p>{{exercise.exercise_name}} &nbsp; by: {{exercise.created_by}}</p>
+            </button>
+            <h6 class="ms-3">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
+            <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
+          </div>
+          
+          <div id="{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p> Description: {{exercise.instructions}}<br></p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+    {% endfor %}
 
-        {{exercise.in_sec}}<br>
-        {{exercise.hold_sec}}<br>
-        {{exercise.out_sec}}<br>
+</div>
 
-        {{exercise.repeat_times}}<br> 
-        <p> {{exercise.repeat_times}}</p>
-     {% endfor %}
 
- {% endblock %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <form method="POST" action="{{ url_for('add_task', username=session['user']) }}">
+               <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="Exercise 1">
+                  <label for="exercise_name">Exercise Name</label>
+               </div>
+               <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Health">
+                  <label for="category_name">Category</label>
+               </div>
+               <div class="row g-2 mb-3">
+                  <div class="col-md">
+                     <div class="form-floating">
+                        <input type="number" class="form-control" id="in" name="in" placeholder="5" value="5">
+                        <label for="in">In Breath</label>
+                     </div>
+                  </div>
+                  <div class="col-md">
+                     <div class="form-floating">
+                        <input type="number" class="form-control" id="hold" name="hold" placeholder="5" value="5">
+                        <label for="hold">Hold</label>
+                     </div>
+                  </div>
+                  <div class="col-md">
+                     <div class="form-floating">
+                        <input type="number" class="form-control" id="out" name="out" placeholder="5" value="5">
+                        <label for="out">Out breath</label>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-floating mb-3">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions"></textarea>
+                  <label for="instructions">Description/Instructions</label>
+               </div>
+               <div class="form-floating">
+                  <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="25">
+                  <label for="CYCLES">Cicles</label>
+               </div>
+               <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+
+            </form>
+         </div>
+         <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+            <!-- <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button> -->
+         </div>
+      </div>
+   </div>
+</div>
+
+
+{% endblock %}

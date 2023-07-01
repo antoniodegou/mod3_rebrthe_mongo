@@ -20,19 +20,18 @@
  
     {% for exercise in exercises %} 
 
-        <div class="accordion-item rounded-0">
+        <div class="accordion-item rounded-0 mb-4">
           <div class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <p>{{exercise.exercise_name}}<br></p>   <br>
+            <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}" aria-expanded="true" aria-controls="collapseOne">
+                <p>{{exercise.exercise_name}} &nbsp; by: {{exercise.created_by}}</p>
             </button>
-            <h6 class="ms-3">IN: {{exercise.in_sec}}sec HOLD: {{exercise.hold_sec}}sec OUT: {{exercise.out_sec}}sec</h6> 
-            <h6 class="ms-3">REPEAT CYCLES: {{exercise.repeat_times}}</h6>  
+            <h6 class="ms-3">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
+            <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
           </div>
           
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div id="{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <p> Description: {{exercise.description}}<br></p>
-                <p> Directions: {{exercise.directions}}</p>
+                <p> Description: {{exercise.instructions}}<br></p>
             </div>
           </div>
         </div>

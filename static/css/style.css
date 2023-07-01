@@ -5,6 +5,29 @@
 
   body{
     position: relative;
+    /* background-color: #FF9A8B;
+    height:100vh!important;
+    color:white;
+    overflow:hidden;
+    background: 
+    radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
+    radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    background-size: 200% 200%;
+    animation: gradient 10s ease infinite;
+    height: 100vh; */
+}
+
+body::after{
+    position: fixed;
+    content: "";
+    left: 0;
+    top: 0;
+    right:0;
+    bottom:0;
+z-index: -1;
     background-color: #FF9A8B;
     height:100vh!important;
     color:white;
@@ -19,7 +42,6 @@
     animation: gradient 10s ease infinite;
     height: 100vh;
 }
-
 
 
 
@@ -142,5 +164,9 @@
 
   h6{
     font-size: 0.75rem;
+    color:var(--myblack)!important;
+  }
+
+  .modal{
     color:var(--myblack)!important;
   }
