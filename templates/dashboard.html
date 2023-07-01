@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
+ 
+  
+
 <div class="input-group-append mt-3">
    <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Add Exercise</button>
    <h1>{{ username }}</h1>
@@ -19,8 +22,8 @@
             <h6 class="ms-3">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
             <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
             <div class="input-group-append m-3">
-                <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Edit</button>
-                <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Delete</button>
+                <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}"  >Edit</button>
+                <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModald" data-bs-backdrop="static" >Delete</button>
              </div>
           </div>
           
@@ -30,13 +33,72 @@
             </div>
           </div>
         </div>
+
+     
+<!-- Modal EDIT -->
+<div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body"> 
+            <form method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
+                <h1>{{exercise.exercise_name}}</h1>  
+                <div class="form-floating mb-3">
+                   
+                   <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
+                   <label for="exercise_name">Exercise Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                   <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
+                   <label for="category_name">Category</label>
+                </div>
+                <div class="row g-2 mb-3">
+                   <div class="col-md">
+                      <div class="form-floating">
+                         <input type="number" class="form-control" id="in" name="in" placeholder="5" value="{{exercise.in}}">
+                         <label for="in">In Breath</label>
+                      </div>
+                   </div>
+                   <div class="col-md">
+                      <div class="form-floating">
+                         <input type="number" class="form-control" id="hold" name="hold" placeholder="5" value="{{exercise.hold}}">
+                         <label for="hold">Hold</label>
+                      </div>
+                   </div>
+                   <div class="col-md">
+                      <div class="form-floating">
+                         <input type="number" class="form-control" id="out" name="out" placeholder="5" value="{{exercise.out}}">
+                         <label for="out">Out breath</label>
+                      </div>
+                   </div>
+                </div>
+                <div class="form-floating mb-3">
+                   <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions">{{exercise.instructions}}</textarea>
+                   <label for="instructions">Description/Instructions</label>
+                </div>
+                <div class="form-floating">
+                   <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="{{exercise.cycles}}">
+                   <label for="cycles">Cicles</label>
+                </div>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+ 
+             </form>
+          </div>
+       </div>
+    </div>
+ </div>
+
+
         {% endif %}
     {% endfor %}
 
 </div>
 
 
-<!-- Modal -->
+<!-- Modal ADD -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
    <div class="modal-dialog">
       <div class="modal-content">
@@ -44,8 +106,8 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
-         <div class="modal-body">
-            <form method="POST" action="{{ url_for('add_task', username=session['user']) }}">
+         <div class="modal-body"> 
+            <form method="POST" action="{{ url_for('manage_task', identifier='new')}}">
                <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="Exercise 1">
                   <label for="exercise_name">Exercise Name</label>
@@ -80,7 +142,7 @@
                </div>
                <div class="form-floating">
                   <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="25">
-                  <label for="CYCLES">Cicles</label>
+                  <label for="cycles">Cicles</label>
                </div>
                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
 
@@ -93,6 +155,11 @@
       </div>
    </div>
 </div>
+
+
+
+
+
 
 
 {% endblock %}
