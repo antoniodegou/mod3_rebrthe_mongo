@@ -18,6 +18,10 @@
             </button>
             <h6 class="ms-3">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
             <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
+            <div class="input-group-append m-3">
+                <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Edit</button>
+                <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Delete</button>
+             </div>
           </div>
           
           <div id="{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
