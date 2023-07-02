@@ -1,40 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div id="app container   " style="height: 100%;">
-    <div class="row h-100 d-flex align-items-center">
-       <div class="col-sm m-5">
-          <h1 class="title">re<span>B  </span> &nbsp;  rthe</h1>
-          <p>The Breathing exercise database</p>
-          <!-- <a href="/nested/about.html">aa</a> -->
-       </div>
-       <div class="col-md w-100  d-flex justify-items-center m-auto">
-          <div id="homecard"  class="pre-card p-2 m-auto rounded-3">
-             <div id="formcont" class="form-container p-4">
-                <div id="signin-form" class=" my-card  p-4 m-auto rounded-2  ">
-                   <h2 class="pb-3">signin</h2>
-                   <form action="">
-                      <div class="form-floating mb-3">
-                         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                         <label for="floatingInput">Email address</label>
-                      </div>
+
+{% if session.user %}
+<div id="app container"  >
+   <div class="row h-100 d-flex align-items-center">
+      <div class="col-md-6 col-12 p-5">
+         <h1 id="headertitle" class="title headertitle">re<span>B  </span> &nbsp;  rthe</h1>
+         <p>The breathing exercise database</p>
+      </div>
+      <div class="col-md-6 col-12  p-0 d-flex justify-content-center ">
+         <div class="breathing">
+            <div class="circle-center"></div>
+         </div>
+       
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if not session.user %}
+<div id="app container"  >
+   <div class="row h-100 d-flex align-items-center">
+      <div class="col-md-6 col-12 p-5">
+         <h1 id="headertitle" class="title headertitle">re<span>B  </span> &nbsp;  rthe</h1>
+         <p>The breathing exercise database</p>
+      </div>
+      <div class="col-md-6 col-12  p-0  ">
+         <div id="homecard"  class="      rounded-3">
+            <div id="formcont" class="form-container p-4">
+               <div id="signin-form" class=" my-card  p-4 m-auto rounded-2  ">
+                  <h2 class="pb-3">signin</h2>
+                  <form  method="POST" action="{{ url_for('login') }}" >
+                     <div class="form-floating mb-3">
+                        <input type="name" class="form-control" id="username" name="username" placeholder="username">
+                        <label for="username">name</label>
+                     </div>
                       <div class="form-floating  mb-5">
-                         <input type="password" class="form-control" id="Password" placeholder="Password">
+                         <input type="password" class="form-control" id="Password" name="password" placeholder="Password">
                          <label for="Password">Password</label>
                       </div>
-                      <button type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
-                   </form>
-                   <div class="mt-3">
-                      <p class="text-end mb-0">if your don't have an account</p>
-                      <a id="signup-button" href="" class="text-end">
-                         <h4>signup</h4>
-                      </a>
-                   </div>
-                </div>
-                <div  id="signup-form" class=" my-card  p-4 m-auto rounded-2  hiding  ">
-                   <h2 class="pb-3">signup</h2>
-                   <form method="POST" action="{{ url_for('register') }}">
-                    <div class="form-floating mb-3">
+                     <button type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
+                  </form>
+                  <div class="mt-3 mb-5">
+                     <p class="text-end mb-0">if your don't have an account</p>
+                     <a id="signup-button" href="" class="text-end">
+                        <h4>signup</h4>
+                     </a>
+                  </div>
+               </div>
+               <div  id="signup-form" class=" my-card  p-4 m-auto rounded-2  hiding  ">
+                  <h2 class="pb-3">signup</h2>
+                  <form method="POST" action="{{ url_for('register') }}">
+                     <div class="form-floating mb-3">
                         <input type="name" class="form-control" id="username" name="username" placeholder="username">
                         <label for="username">name</label>
                      </div>
@@ -46,23 +64,24 @@
                         <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
                         <label for="floatingPassword">Password</label>
                      </div>
-                      <div class="form-floating  mb-5">
-                         <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-                         <label for="confirmPassword">Confirm Password</label>
-                      </div>
-                      <button   type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
-                   </form>
-                   <div class="mt-3">
-                      <p class="text-end  mb-0">if you are already registered</p>
-                      <a id="signin-button" href="" class="text-end">
-                         <h4>signin</h4>
-                      </a>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
- </div>
+                     <div class="form-floating  mb-5">
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                        <label for="confirmPassword">Confirm Password</label>
+                     </div>
+                     <button   type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
+                  </form>
+                  <div class="mt-3 mb-5">
+                     <p class="text-end  mb-0">if you are already registered</p>
+                     <a id="signin-button" href="" class="text-end">
+                        <h4>signin</h4>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
 
  {% endblock %}
