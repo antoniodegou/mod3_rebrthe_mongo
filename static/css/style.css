@@ -169,16 +169,32 @@ z-index: -1;
 .breathing{
     width: 250px;
     height: 250px;
-    /* border: 1px solid orange; */
     position:relative;
 }
 
 .circle-center {
     width: 250px;
     height: 250px;
-    /* border: 1px solid yellow; */
-    /* background-color: pink; */
     position:relative;
+  }
+
+  .circle-static{
+    width: 250px;
+    height: 250px;
+    position:relative;
+  }
+
+
+  .circle-static::after{
+    position: absolute;
+    content: "";
+    width: 250px;
+    height: 250px;
+    border: 1px solid white;
+    transform: translate(-50%, -50%);
+   left:50%;
+   top: 50%;
+   border-radius: 50%;
   }
 
 
@@ -188,12 +204,9 @@ z-index: -1;
     width: 100px;
     height: 100px;
     background-color: white;
-    /* border: 1px solid white; */
-    /* right:50%; */
     transform: translate(-50%, -50%);
    left:50%;
    top: 50%;
-   /* bottom: 50%; */
    border-radius: 50%;
     animation: breathingAnimation2 3s infinite ease-in-out;
 
@@ -205,53 +218,28 @@ z-index: -1;
     content: "";
     width: 100px;
     height: 100px;
-    /* background-color: pink; */
-    border: 1px solid white;
-    /* right:50%; */
+    background-color: rgba(255, 255, 255, 0.383);
     transform: translate(-50%, -50%);
    left:50%;
    top: 50%;
-   /* bottom: 50%; */
    border-radius: 50%;
     animation: breathingAnimation 5s infinite ease-in-out;
   }
 
-  /* .breathing::after{
-    position: absolute;
-    content: "";
-    width:300px;
-    height:300px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid white;
-    animation: breathingAnimation 3s infinite ease-in-out;
-  }
 
-  .circle-center::after{
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    content: "";
-    top: 50%;
-    left: 50%;
-    transform: translate(130%, -50%);
-    animation: breathingAnimation2 3s infinite ease-in-out;
-  } */
 
 @keyframes breathingAnimation {
     0% { 
-        width:300px;
-        height:300px;
+        width:250px;
+        height:250px;
     }
     50% { 
         width:90px;
         height:90px;
     }
     100% { 
-        width:300px;
-        height:300px;
+        width:250px;
+        height:250px;
     }
   }
 
