@@ -215,7 +215,7 @@ z-index: -1;
 
   .circle-center::after{
     position: absolute;
-    content: "";
+
     width: 100px;
     height: 100px;
     background-color: rgba(255, 255, 255, 0.383);
@@ -224,6 +224,7 @@ z-index: -1;
    top: 50%;
    border-radius: 50%;
     animation: breathingAnimation 5s infinite ease-in-out;
+    content: "";
   }
 
 
@@ -232,6 +233,7 @@ z-index: -1;
     0% { 
         width:250px;
         height:250px;
+   
     }
     50% { 
         width:90px;
@@ -247,14 +249,18 @@ z-index: -1;
     0% { 
         width: 100px;
         height: 100px;
+        left:50%;
+
     }
     50% { 
         width: 90px;
         height: 90px;
+      
     }
     100% { 
         width: 100px;
         height: 100px;
+    
     }
   }
 
