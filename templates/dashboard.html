@@ -4,28 +4,30 @@
  
   
 
-<div class="input-group-append mt-3">
+<div class="input-group-append mt-3 mb-5">
    <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Add Exercise</button>
-   <h1>{{ username }}</h1>
+   
 </div>
 
 
-<div class="accordion" id="accordionExample">
+<div class="accordion  row    d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
  
     {% for exercise in exercises %} 
         {% if username == exercise.created_by %} 
-        <div class="accordion-item rounded-0 mb-4">
-          <div class="accordion-header" id="headingOne">
+        <!-- <div class=" row gap-4"> -->
+
+  <div class="col-12 col-md-6 m-0 p-0 pe-4">
+        <div class="accordion-item rounded-0    m-0 mb-4 ">
+          <div class="accordion-header " id="headingOne">
             <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}" aria-expanded="true" aria-controls="collapseOne">
                 <p>{{exercise.exercise_name}} &nbsp; by: {{exercise.created_by}}</p>
             </button>
             <h6 class="ms-3">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
             <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
             <div class="input-group-append m-3">
-                <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}"  >Edit</button>
-                <!-- <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn"  ><a href="{{ url_for('delete_task', exercise_id=exercise._id) }}"></a>Delete</button> -->
+                <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
 
-                <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4">Done</a>
+                <button class="btn btn-outline-primary rounded-0 me-3" type="button"><a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4">Done</a></button>
              </div>
           </div>
           
@@ -35,7 +37,8 @@
             </div>
           </div>
         </div>
-
+    </div>
+    <!-- </div> -->
      
 <!-- Modal EDIT -->
 <div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
