@@ -365,11 +365,14 @@
             <div class="box m-auto">
                 <div id="circle2"></div>
                 <div id="circle"></div>
+                <div id="circletext"> </div>
             </div>
             <div id="timer" class="ms-auto d-flex justify-content-center">TIME:</div>
             <div   id="cycle-counter" class="ms-auto d-flex justify-content-center">Cycle:</div>
-            <button id="start">Start</button>
-            <button id="stop">Stop</button>
+            <div class="d-flex justify-content-center mt-5">
+                <button id="start" class="btn btn-outline-primary rounded-0 me-3" type="button" >Start</button>
+                <button id="stop" class="btn btn-outline-primary rounded-0 me-3" type="button" >Stop</button>
+            </div>
         </div>
 
 
@@ -385,8 +388,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const exerciseButtons = document.querySelectorAll('.exercise-button');
     const exerciseModal = document.getElementById('exerciseModal222');
-    const exerciseIdElement = exerciseModal.querySelector('.exercise-id');
-    const exerciseDescriptionElement = exerciseModal.querySelector('.exercise-instructions');
+    // const exerciseIdElement = exerciseModal.querySelector('.exercise-id');
+    // const exerciseDescriptionElement = exerciseModal.querySelector('.exercise-instructions');
     const exerciseTitleElement = exerciseModal.querySelector('.exercise-title');
 
     exerciseModal.addEventListener('hidden.bs.modal', function () {
@@ -396,12 +399,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     exerciseButtons.forEach(function(button) {
       button.addEventListener('click', function() {
-        var exerciseId = button.getAttribute('data-exercise-id');
-        var exerciseDescription = button.getAttribute('data-exercise-description');
+        // var exerciseId = button.getAttribute('data-exercise-id');
+        // var exerciseDescription = button.getAttribute('data-exercise-description');
         var exerciseTitle = button.getAttribute('data-exercise-title');
 
-        exerciseIdElement.textContent = 'Exercise ID: ' + exerciseId;
-        exerciseDescriptionElement.textContent = exerciseDescription;
+        // exerciseIdElement.textContent = 'Exercise ID: ' + exerciseId;
+        // exerciseDescriptionElement.textContent = exerciseDescription;
         exerciseTitleElement.textContent =   'Exercise: ' +  exerciseTitle;
 
         var modal = new bootstrap.Modal(exerciseModal);
@@ -424,6 +427,7 @@ var cycleCounter = document.getElementById('cycle-counter');;
 var startButton = document.getElementById("start");
 // var pauseButton = document.getElementById("pause");
 var stopButton = document.getElementById("stop");
+var circletext = document.getElementById("circletext");
 
 var inDuration = button.getAttribute('data-exercise-in'); // seconds
 var holdDuration = button.getAttribute('data-exercise-hold'); // seconds
@@ -469,11 +473,13 @@ if (currentPhase === "IN") {
     circle.style.width = newSize + "px";
     circle.style.height = newSize + "px";
     timer.innerText = "TIME: IN " + Math.ceil(elapsed / 1000) + "s";
+    circletext.innerText = "IN ";
     } else {
     // IN phase completed, move to HOLD phase
     currentPhase = "HOLD";
     phaseStartTime = timestamp; // Reset the phase start time
     timer.innerText = "TIME: HOLD 0s"; // Reset timer for the HOLD phase
+    circletext.innerText = "HOLD";
     }
 } else if (currentPhase === "HOLD") {
     if (elapsed < holdDuration * 1000) {
@@ -481,11 +487,13 @@ if (currentPhase === "IN") {
     circle.style.width = "250px";
     circle.style.height = "250px";
     timer.innerText = "TIME: HOLD " + Math.ceil(elapsed / 1000) + "s";
+    circletext.innerText = "HOLD ";
     } else {
     // HOLD phase completed, move to OUT phase
     currentPhase = "OUT";
     phaseStartTime = timestamp; // Reset the phase start time
     timer.innerText = "TIME: OUT 0s"; // Reset timer for the OUT phase
+    circletext.innerText = "OUT";
     }
 } else if (currentPhase === "OUT") {
     if (elapsed < outDuration * 1000) {
@@ -496,6 +504,7 @@ if (currentPhase === "IN") {
     circle.style.width = newSize + "px";
     circle.style.height = newSize + "px";
     timer.innerText = "TIME: OUT " + Math.ceil(elapsed / 1000) + "s";
+    circletext.innerText = "OUT";
     } else {
     // OUT phase completed
     currentPhase = ""; // Reset current phase

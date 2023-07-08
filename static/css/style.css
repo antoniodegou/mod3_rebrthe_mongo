@@ -307,3 +307,13 @@ z-index: -1;
     margin-bottom: 10px;
   }
   
+
+  #circletext{
+    position: absolute;
+    content: "";
+      transform: translate(-50%, -50%);
+      left:50%;
+    top:50%;
+    bottom: 50%;
+    line-height: 0rem;
+  }
