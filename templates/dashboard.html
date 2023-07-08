@@ -6,95 +6,280 @@
 
 <div class="input-group-append mt-3 mb-5">
    <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Add Exercise</button>
-   
 </div>
 
 
-<div class="accordion  row    d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
- 
+<div class="accordion  row  d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
+
     {% for exercise in exercises %} 
         {% if username == exercise.created_by %} 
-        <!-- <div class=" row gap-4"> -->
 
-  <div class="col-12 col-md-6 m-0 p-0 pe-4">
+    <div class="col-12 col-md-6 m-0 p-0 pe-4">
         <div class="accordion-item rounded-0    m-0 mb-4 ">
-          <div class="accordion-header " id="headingOne">
-            <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}" aria-expanded="true" aria-controls="collapseOne">
-                <p>{{exercise.exercise_name}} &nbsp; by: {{exercise.created_by}}</p>
-            </button>
-            <h6 class="ms-3">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
-            <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
-            <div class="input-group-append m-3">
-                <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
+            <div class="accordion-header " id="headingOne">
+                <div class="input-group-append m-3">
+                    <button type="button" id="exercise-button" class="btn btn-primary exercise-button" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
+                    data-exercise-id="{{ exercise._id }}" 
+                    data-exercise-title="{{ exercise.exercise_name }}" 
+                    data-exercise-description="{{ exercise.instructions }}"
+                    data-exercise-in="{{ exercise.in }}"
+                    data-exercise-hold="{{ exercise.hold }}"
+                    data-exercise-out="{{ exercise.out }}"
+                    data-exercise-cycles="{{ exercise.cycles }}"
+                    > Play2 </button>
 
-                <button class="btn btn-outline-primary rounded-0 me-3" type="button"><a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4">Done</a></button>
-             </div>
-          </div>
-          
-          <div id="{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <p> Description: {{exercise.instructions}}<br></p>
+                </div>
+                <!-- <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}" aria-expanded="true" aria-controls="collapseOne">
+                    <p>{{exercise.exercise_name}} &nbsp; by: {{exercise.created_by}}</p>
+                </button> -->
+                <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">NAME:{{exercise.exercise_name}}&nbsp; by: {{exercise.created_by}} </p>
+                <h6 class="ms-3 text-uppercase">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
+                <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
+                <div class="input-group-append m-3">
+                    <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}play" data-bs-backdrop="static" data-exercise-id="{{ exercise._id   }}play">Play</button>
+                </div>
             </div>
-          </div>
+            
+            <div id="{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p> Description: {{exercise.instructions}}<br></p>
+                    <div class="input-group-append m-3">
+                        <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
+                        <button class="btn btn-outline-primary rounded-0 me-3" type="button">
+                            <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4">Delete</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- </div> -->
-     
-<!-- Modal EDIT -->
-<div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
-    <div class="modal-dialog">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
-             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body"> 
-            <form method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
-                <h1>{{exercise.exercise_name}}</h1>  
-                <div class="form-floating mb-3">
-                   
-                   <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
-                   <label for="exercise_name">Exercise Name</label>
-                </div>
-                <div class="form-floating mb-3">
-                   <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
-                   <label for="category_name">Category</label>
-                </div>
-                <div class="row g-2 mb-3">
-                   <div class="col-md">
-                      <div class="form-floating">
-                         <input type="number" class="form-control" id="in" name="in" placeholder="5" value="{{exercise.in}}">
-                         <label for="in">In Breath</label>
-                      </div>
-                   </div>
-                   <div class="col-md">
-                      <div class="form-floating">
-                         <input type="number" class="form-control" id="hold" name="hold" placeholder="5" value="{{exercise.hold}}">
-                         <label for="hold">Hold</label>
-                      </div>
-                   </div>
-                   <div class="col-md">
-                      <div class="form-floating">
-                         <input type="number" class="form-control" id="out" name="out" placeholder="5" value="{{exercise.out}}">
-                         <label for="out">Out breath</label>
-                      </div>
-                   </div>
-                </div>
-                <div class="form-floating mb-3">
-                   <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions">{{exercise.instructions}}</textarea>
-                   <label for="instructions">Description/Instructions</label>
-                </div>
-                <div class="form-floating">
-                   <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="{{exercise.cycles}}">
-                   <label for="cycles">Cicles</label>
-                </div>
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
  
-             </form>
-          </div>
-       </div>
+    <!-- Modal Play -->
+    <div class="modal fade " id="exampleModalEdit_{{exercise._id   }}play" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Practice</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> 
+                    <div class="row">
+                        <div class="col d-flex align-items-center justify-content-center flex-column m-5">        
+                            <h1>{{exercise.exercise_name}}</h1>  
+                            <div class="breathing">
+                                <!-- <div class="circle-center2">
+                                    <div id="circle-static2{{exercise._id   }}" class="circle-static2"></div>
+                                </div> -->
+                                <!-- <div id="cycle-info"><p id="breatheText"></p></div> -->
+                                <div class="box">
+                                    <div id="circle2"></div>
+                                    <div id="circle{{exercise._id}}aa"></div>
+                                </div>
+                                <div id="timer{{exercise._id   }}"></div>
+                                    <div   id="cycle-counter{{exercise._id}}"></div>
+                                <button id="start{{exercise._id   }}">Start</button>
+                                <button id="stop{{exercise._id   }}">Stop</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <button    id="play-btn2{{exercise._id   }}" class="btn btn-primary mb-3"  >PLAY</button> -->
+                    <button type="submit" class="btn btn-primary mb-3" data-bs-dismiss="modal">PAUSE</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">CLOSE</button>
+                    
+                    <style>
+
+
+                    </style>
+
+                </div>
+            </div>
+        </div>
     </div>
- </div>
+
+<!-- 
+    <script>
+
+        var circle = document.getElementById("circle");
+
+
+        var timer = document.getElementById("timer{{exercise._id}}");
+        var cycleCounter = document.getElementById("cycle-counter{{exercise._id}}");
+        var startButton = document.getElementById("start{{exercise._id}}");
+        // var pauseButton = document.getElementById("pause");
+        var stopButton = document.getElementById("stop{{exercise._id}}");
+
+        var inDuration = 2; // seconds
+        var holdDuration = 3; // seconds
+        var outDuration = 2; // seconds
+        var cycles = 3; // Set the desired number of cycles
+
+        var isAnimating = false;
+        var animationId = null;
+        var currentCycle = 0;
+        var currentPhase = "";
+        var phaseStartTime = null;
+        var totalCycles = cycles;
+
+        startButton.addEventListener("click", startAnimation);
+        
+        stopButton.addEventListener("click", stopAnimation);
+
+        function startAnimation() {
+        if (!isAnimating) {
+            isAnimating = true;
+            currentCycle = 0;
+            currentPhase = "OUT"; // Set the initial phase to "OUT"
+            phaseStartTime = null;
+            updateCycleCounter();
+            animateCircle();
+        }
+        }
+
+
+        function animateCircle(timestamp) {
+        if (!phaseStartTime) {
+            phaseStartTime = timestamp;
+        }
+
+        var elapsed = timestamp - phaseStartTime;
+
+        if (currentPhase === "IN") {
+            if (elapsed < inDuration * 1000) {
+            // Ease-in effect
+            var progress = elapsed / (inDuration * 1000);
+            var easedProgress = Math.sin(progress * (Math.PI / 2));
+            var newSize = 100 + easedProgress * (250 - 100);
+            circle.style.width = newSize + "px";
+            circle.style.height = newSize + "px";
+            timer.innerText = "IN: " + Math.ceil(elapsed / 1000) + "s";
+            } else {
+            // IN phase completed, move to HOLD phase
+            currentPhase = "HOLD";
+            phaseStartTime = timestamp; // Reset the phase start time
+            timer.innerText = "HOLD: 0s"; // Reset timer for the HOLD phase
+            }
+        } else if (currentPhase === "HOLD") {
+            if (elapsed < holdDuration * 1000) {
+            // Hold the circle
+            circle.style.width = "250px";
+            circle.style.height = "250px";
+            timer.innerText = "HOLD: " + Math.ceil(elapsed / 1000) + "s";
+            } else {
+            // HOLD phase completed, move to OUT phase
+            currentPhase = "OUT";
+            phaseStartTime = timestamp; // Reset the phase start time
+            timer.innerText = "OUT: 0s"; // Reset timer for the OUT phase
+            }
+        } else if (currentPhase === "OUT") {
+            if (elapsed < outDuration * 1000) {
+            // Ease-out effect
+            var progress = elapsed / (outDuration * 1000);
+            var easedProgress = Math.sin(progress * (Math.PI / 2));
+            var newSize = 250 - easedProgress * (250 - 100);
+            circle.style.width = newSize + "px";
+            circle.style.height = newSize + "px";
+            timer.innerText = "OUT: " + Math.ceil(elapsed / 1000) + "s";
+            } else {
+            // OUT phase completed
+            currentPhase = ""; // Reset current phase
+            phaseStartTime = null; // Reset phase start time
+            currentCycle++;
+
+            if (currentCycle === cycles) {
+                // All cycles completed
+                isAnimating = false;
+                cycleCounter.innerText = "";
+                return;
+            } else {
+                // Start the next cycle
+                currentPhase = "IN";
+                phaseStartTime = timestamp; // Reset the phase start time
+                updateCycleCounter();
+            }
+            }
+        }
+
+        animationId = requestAnimationFrame(animateCircle);
+        }
+
+
+        
+
+        function stopAnimation() {
+        cancelAnimationFrame(animationId);
+        isAnimating = false;
+        currentCycle = 0;
+        currentPhase = "";
+        phaseStartTime = null;
+        circle.style.width = "100px";
+        circle.style.height = "100px";
+        timer.innerText = "";
+        cycleCounter.innerText = "";
+        }
+
+        function updateCycleCounter() {
+        cycleCounter.innerText = (currentCycle + 0) + " of " + totalCycles;
+        }
+
+
+    </script>
+         -->
+    <!-- Modal EDIT -->
+    <div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"> 
+                <form method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
+                    <h1>{{exercise.exercise_name}}</h1>  
+                    <div class="form-floating mb-3">
+                    
+                    <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
+                    <label for="exercise_name">Exercise Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
+                    <label for="category_name">Category</label>
+                    </div>
+                    <div class="row g-2 mb-3">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="in" name="in" placeholder="5" value="{{exercise.in}}">
+                            <label for="in">In Breath</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="hold" name="hold" placeholder="5" value="{{exercise.hold}}">
+                            <label for="hold">Hold</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="out" name="out" placeholder="5" value="{{exercise.out}}">
+                            <label for="out">Out breath</label>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions">{{exercise.instructions}}</textarea>
+                    <label for="instructions">Description/Instructions</label>
+                    </div>
+                    <div class="form-floating">
+                    <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="{{exercise.cycles}}">
+                    <label for="cycles">Cicles</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+    
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
 
 
         {% endif %}
@@ -162,7 +347,201 @@
 </div>
 
 
+<!-- Modal PLAY2 -->
+<div class="modal fade" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
 
+          <h5 class="modal-title exercise-title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h2 class="exercise-title"></h2>
+          <p class="exercise-id"></p>
+          <p class="exercise-instructions"></p>
+
+          <div class="breathing mb-5">
+            <div class="box m-auto">
+                <div id="circle2"></div>
+                <div id="circle"></div>
+            </div>
+            <div id="timer" class="ms-auto d-flex justify-content-center">TIME:</div>
+            <div   id="cycle-counter" class="ms-auto d-flex justify-content-center">Cycle:</div>
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ <script>
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const exerciseButtons = document.querySelectorAll('.exercise-button');
+    const exerciseModal = document.getElementById('exerciseModal222');
+    const exerciseIdElement = exerciseModal.querySelector('.exercise-id');
+    const exerciseDescriptionElement = exerciseModal.querySelector('.exercise-instructions');
+    const exerciseTitleElement = exerciseModal.querySelector('.exercise-title');
+
+    exerciseModal.addEventListener('hidden.bs.modal', function () {
+      document.querySelector('.modal-backdrop').remove();
+      stopAnimation() 
+    });
+
+    exerciseButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        var exerciseId = button.getAttribute('data-exercise-id');
+        var exerciseDescription = button.getAttribute('data-exercise-description');
+        var exerciseTitle = button.getAttribute('data-exercise-title');
+
+        exerciseIdElement.textContent = 'Exercise ID: ' + exerciseId;
+        exerciseDescriptionElement.textContent = exerciseDescription;
+        exerciseTitleElement.textContent =   'Exercise: ' +  exerciseTitle;
+
+        var modal = new bootstrap.Modal(exerciseModal);
+        modal.show();
+      });
+    });
+  });
+
+
+
+
+
+//   const exerciseButtons = document.querySelectorAll('.exercise-button');
+  const exerciseModal = document.getElementById('exerciseModal222');
+  var circle = document.getElementById("circle");
+  const button = document.getElementById('exercise-button');
+
+var timer = document.getElementById("timer");
+var cycleCounter = document.getElementById('cycle-counter');;
+var startButton = document.getElementById("start");
+// var pauseButton = document.getElementById("pause");
+var stopButton = document.getElementById("stop");
+
+var inDuration = button.getAttribute('data-exercise-in'); // seconds
+var holdDuration = button.getAttribute('data-exercise-hold'); // seconds
+var outDuration = button.getAttribute('data-exercise-out'); // seconds
+var cycles = parseInt(button.getAttribute('data-exercise-cycles')); // Set the desired number of cycles
+
+var isAnimating = false;
+var animationId = null;
+var currentCycle = 0;
+var currentPhase = "IN";
+var phaseStartTime = null;
+var totalCycles = cycles;
+
+startButton.addEventListener("click", startAnimation);
+
+stopButton.addEventListener("click", stopAnimation);
+
+function startAnimation() {
+    if (!isAnimating) {
+        isAnimating = true;
+        currentCycle = 0;
+        currentPhase = "OUT"; // Set the initial phase to "OUT"
+        phaseStartTime = null;
+        updateCycleCounter();
+        animateCircle();
+    }
+}
+
+
+function animateCircle(timestamp) {
+    if (!phaseStartTime) {
+        phaseStartTime = timestamp;
+    }
+
+    var elapsed = timestamp - phaseStartTime;
+
+if (currentPhase === "IN") {
+    if (elapsed < inDuration * 1000) {
+    // Ease-in effect
+    var progress = elapsed / (inDuration * 1000);
+    var easedProgress = Math.sin(progress * (Math.PI / 2));
+    var newSize = 100 + easedProgress * (250 - 100);
+    circle.style.width = newSize + "px";
+    circle.style.height = newSize + "px";
+    timer.innerText = "TIME: IN " + Math.ceil(elapsed / 1000) + "s";
+    } else {
+    // IN phase completed, move to HOLD phase
+    currentPhase = "HOLD";
+    phaseStartTime = timestamp; // Reset the phase start time
+    timer.innerText = "TIME: HOLD 0s"; // Reset timer for the HOLD phase
+    }
+} else if (currentPhase === "HOLD") {
+    if (elapsed < holdDuration * 1000) {
+    // Hold the circle
+    circle.style.width = "250px";
+    circle.style.height = "250px";
+    timer.innerText = "TIME: HOLD " + Math.ceil(elapsed / 1000) + "s";
+    } else {
+    // HOLD phase completed, move to OUT phase
+    currentPhase = "OUT";
+    phaseStartTime = timestamp; // Reset the phase start time
+    timer.innerText = "TIME: OUT 0s"; // Reset timer for the OUT phase
+    }
+} else if (currentPhase === "OUT") {
+    if (elapsed < outDuration * 1000) {
+    // Ease-out effect
+    var progress = elapsed / (outDuration * 1000);
+    var easedProgress = Math.sin(progress * (Math.PI / 2));
+    var newSize = 250 - easedProgress * (250 - 100);
+    circle.style.width = newSize + "px";
+    circle.style.height = newSize + "px";
+    timer.innerText = "TIME: OUT " + Math.ceil(elapsed / 1000) + "s";
+    } else {
+    // OUT phase completed
+    currentPhase = ""; // Reset current phase
+    phaseStartTime = null; // Reset phase start time
+    currentCycle++;
+
+    if (currentCycle === cycles + 1) {
+        // All cycles completed
+        console.log("AAAA")
+        isAnimating = false;
+        cycleCounter.innerText = "Cycle:";
+        return;
+    } else {
+        // Start the next cycle
+        currentPhase = "IN";
+        phaseStartTime = timestamp; // Reset the phase start time
+        updateCycleCounter();
+    }
+    }
+}
+
+animationId = requestAnimationFrame(animateCircle);
+}
+
+
+
+
+function stopAnimation() {
+cancelAnimationFrame(animationId);
+isAnimating = false;
+currentCycle = 0;
+currentPhase = "";
+phaseStartTime = null;
+circle.style.width = "100px";
+circle.style.height = "100px";
+timer.innerText = "TIME:";
+cycleCounter.innerText = "Cycle:";
+}
+
+function updateCycleCounter() {
+cycleCounter.innerText = "Cycle: " + (currentCycle + 0) + " of " + totalCycles;
+}
+
+
+
+  </script>
 
 
 

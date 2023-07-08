@@ -3,12 +3,13 @@
   }
 
 
-  body{
+  body, .modal-content{
     position: relative;
  
 }
 
-body::after{
+
+body::after {
     position: fixed;
     content: "";
     left: 0;
@@ -31,7 +32,17 @@ z-index: -1;
     height: 100vh;
 }
 
-
+.modal-content{
+    overflow:hidden;
+    background: 
+    radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
+    radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
+   radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%)!important;
+   background-size: 200% 200%;
+   animation: gradient 10s ease infinite;
+}
 
   @keyframes gradient {
     0% {
@@ -166,66 +177,6 @@ z-index: -1;
     width: 100%;
 }
 
-.breathing{
-    width: 250px;
-    height: 250px;
-    position:relative;
-}
-
-.circle-center {
-    width: 250px;
-    height: 250px;
-    position:relative;
-  }
-
-  .circle-static{
-    width: 250px;
-    height: 250px;
-    position:relative;
-  }
-
-
-  .circle-static::after{
-    position: absolute;
-    content: "";
-    width: 250px;
-    height: 250px;
-    border: 1px solid white;
-    transform: translate(-50%, -50%);
-   left:50%;
-   top: 50%;
-   border-radius: 50%;
-  }
-
-
-  .breathing::after{
-    position: absolute;
-    content: "";
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    transform: translate(-50%, -50%);
-   left:50%;
-   top: 50%;
-   border-radius: 50%;
-    animation: breathingAnimation2 3s infinite ease-in-out;
-
-
-  }
-
-  .circle-center::after{
-    position: absolute;
-
-    width: 100px;
-    height: 100px;
-    background-color: rgba(255, 255, 255, 0.383);
-    transform: translate(-50%, -50%);
-   left:50%;
-   top: 50%;
-   border-radius: 50%;
-    animation: breathingAnimation 5s infinite ease-in-out;
-    content: "";
-  }
 
 
 
@@ -264,4 +215,95 @@ z-index: -1;
     }
   }
 
+  .animate-circle-center::after {
+    /* Your existing styles for the circle-center animation */
+    /* ... */
+    animation: breathingAnimation 5s infinite ease-in-out;
+}
+
+
+
+@keyframes breathingAnimation3 {
+    0% { 
+        width: 0px;
+        height: 0px;
+ 
+
+    }
+ 
+    100% { 
+        width: 250px;
+        height: 250px;
+    
+    }
+  }
+
+  @keyframes breathingAnimation4 {
+    0% { 
+        width: 250px;
+        height: 250px;
+ 
+
+    }
+ 
+    100% { 
+        width: 0px;
+        height: 0px;
+    
+    }
+  }
+
+
+  .box{
+    position:relative;
+    width:270px; 
+    height:270px;
+      }
+  
+  #circle {
+    position: absolute;
+    content: "";
+      transform: translate(-50%, -50%);
+      left:50%;
+    top:50%;
+    bottom: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.524);
+    border-radius: 50%;
+    margin-bottom: 20px;
+ 
+  }
+
+
+  #circle2 {
+    position: absolute;
+    content: "";
+      transform: translate(-50%, -50%);
+      left:50%;
+    top:50%;
+    bottom: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    margin-bottom: 20px;
+ 
+  }
+
+  button {
+    margin-right: 10px;
+  }
+  
+  
+  #timer {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  #cycle-counter {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
   
