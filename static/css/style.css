@@ -317,3 +317,7 @@ z-index: -1;
     bottom: 50%;
     line-height: 0rem;
   }
+
+  section{
+    overflow-y: auto;
+  }

@@ -5,7 +5,7 @@
   
 
 <div class="input-group-append mt-3 mb-5">
-   <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" >Add Exercise</button>
+   <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"   >Add Exercise</button>
 </div>
 
 
@@ -54,177 +54,9 @@
         </div>
     </div>
  
-    <!-- Modal Play -->
-    <div class="modal fade " id="exampleModalEdit_{{exercise._id   }}play" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Practice</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body"> 
-                    <div class="row">
-                        <div class="col d-flex align-items-center justify-content-center flex-column m-5">        
-                            <h1>{{exercise.exercise_name}}</h1>  
-                            <div class="breathing">
-                                <!-- <div class="circle-center2">
-                                    <div id="circle-static2{{exercise._id   }}" class="circle-static2"></div>
-                                </div> -->
-                                <!-- <div id="cycle-info"><p id="breatheText"></p></div> -->
-                                <div class="box">
-                                    <div id="circle2"></div>
-                                    <div id="circle{{exercise._id}}aa"></div>
-                                </div>
-                                <div id="timer{{exercise._id   }}"></div>
-                                    <div   id="cycle-counter{{exercise._id}}"></div>
-                                <button id="start{{exercise._id   }}">Start</button>
-                                <button id="stop{{exercise._id   }}">Stop</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <button    id="play-btn2{{exercise._id   }}" class="btn btn-primary mb-3"  >PLAY</button> -->
-                    <button type="submit" class="btn btn-primary mb-3" data-bs-dismiss="modal">PAUSE</button>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">CLOSE</button>
-                    
-                    <style>
 
 
-                    </style>
 
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- 
-    <script>
-
-        var circle = document.getElementById("circle");
-
-
-        var timer = document.getElementById("timer{{exercise._id}}");
-        var cycleCounter = document.getElementById("cycle-counter{{exercise._id}}");
-        var startButton = document.getElementById("start{{exercise._id}}");
-        // var pauseButton = document.getElementById("pause");
-        var stopButton = document.getElementById("stop{{exercise._id}}");
-
-        var inDuration = 2; // seconds
-        var holdDuration = 3; // seconds
-        var outDuration = 2; // seconds
-        var cycles = 3; // Set the desired number of cycles
-
-        var isAnimating = false;
-        var animationId = null;
-        var currentCycle = 0;
-        var currentPhase = "";
-        var phaseStartTime = null;
-        var totalCycles = cycles;
-
-        startButton.addEventListener("click", startAnimation);
-        
-        stopButton.addEventListener("click", stopAnimation);
-
-        function startAnimation() {
-        if (!isAnimating) {
-            isAnimating = true;
-            currentCycle = 0;
-            currentPhase = "OUT"; // Set the initial phase to "OUT"
-            phaseStartTime = null;
-            updateCycleCounter();
-            animateCircle();
-        }
-        }
-
-
-        function animateCircle(timestamp) {
-        if (!phaseStartTime) {
-            phaseStartTime = timestamp;
-        }
-
-        var elapsed = timestamp - phaseStartTime;
-
-        if (currentPhase === "IN") {
-            if (elapsed < inDuration * 1000) {
-            // Ease-in effect
-            var progress = elapsed / (inDuration * 1000);
-            var easedProgress = Math.sin(progress * (Math.PI / 2));
-            var newSize = 100 + easedProgress * (250 - 100);
-            circle.style.width = newSize + "px";
-            circle.style.height = newSize + "px";
-            timer.innerText = "IN: " + Math.ceil(elapsed / 1000) + "s";
-            } else {
-            // IN phase completed, move to HOLD phase
-            currentPhase = "HOLD";
-            phaseStartTime = timestamp; // Reset the phase start time
-            timer.innerText = "HOLD: 0s"; // Reset timer for the HOLD phase
-            }
-        } else if (currentPhase === "HOLD") {
-            if (elapsed < holdDuration * 1000) {
-            // Hold the circle
-            circle.style.width = "250px";
-            circle.style.height = "250px";
-            timer.innerText = "HOLD: " + Math.ceil(elapsed / 1000) + "s";
-            } else {
-            // HOLD phase completed, move to OUT phase
-            currentPhase = "OUT";
-            phaseStartTime = timestamp; // Reset the phase start time
-            timer.innerText = "OUT: 0s"; // Reset timer for the OUT phase
-            }
-        } else if (currentPhase === "OUT") {
-            if (elapsed < outDuration * 1000) {
-            // Ease-out effect
-            var progress = elapsed / (outDuration * 1000);
-            var easedProgress = Math.sin(progress * (Math.PI / 2));
-            var newSize = 250 - easedProgress * (250 - 100);
-            circle.style.width = newSize + "px";
-            circle.style.height = newSize + "px";
-            timer.innerText = "OUT: " + Math.ceil(elapsed / 1000) + "s";
-            } else {
-            // OUT phase completed
-            currentPhase = ""; // Reset current phase
-            phaseStartTime = null; // Reset phase start time
-            currentCycle++;
-
-            if (currentCycle === cycles) {
-                // All cycles completed
-                isAnimating = false;
-                cycleCounter.innerText = "";
-                return;
-            } else {
-                // Start the next cycle
-                currentPhase = "IN";
-                phaseStartTime = timestamp; // Reset the phase start time
-                updateCycleCounter();
-            }
-            }
-        }
-
-        animationId = requestAnimationFrame(animateCircle);
-        }
-
-
-        
-
-        function stopAnimation() {
-        cancelAnimationFrame(animationId);
-        isAnimating = false;
-        currentCycle = 0;
-        currentPhase = "";
-        phaseStartTime = null;
-        circle.style.width = "100px";
-        circle.style.height = "100px";
-        timer.innerText = "";
-        cycleCounter.innerText = "";
-        }
-
-        function updateCycleCounter() {
-        cycleCounter.innerText = (currentCycle + 0) + " of " + totalCycles;
-        }
-
-
-    </script>
-         -->
     <!-- Modal EDIT -->
     <div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
         <div class="modal-dialog">
@@ -349,7 +181,7 @@
 
 <!-- Modal PLAY2 -->
 <div class="modal fade" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="height: 80vh; overflow-y: auto;">
       <div class="modal-content">
         <div class="modal-header">
 
