@@ -102,47 +102,7 @@ def profile(username):
     return render_template("dashboard.html", exercises=exercises, username=username)
 
 
-# @app.route("/profile/<username>", methods=["GET","POST"])
-# def add_task(username):
-#     username = mongo.db.users.find_one({"username": session["user"]})["username"]
-#     if request.method == "POST":
-#         task = {
-#             "exercise_name": request.form.get("exercise_name"),
-#             "category_name": request.form.get("category_name"),
-#             "in": request.form.get("in"),
-#             "hold": request.form.get("hold"),
-#             "out": request.form.get("out"),
-#             "instructions": request.form.get("instructions"),
-#             "cycles": request.form.get("cycles"),
-#             "created_by": session["user"]
-#         }
-#         mongo.db.exercises.insert_one(task)
-#         flash("Task Successfully Added")
-#         return redirect(url_for("profile", username=username))
 
-#     categories = mongo.db.categories.find().sort("category_name", 1)
-#     return render_template("dashboard.html", username=username)
-
-# @app.route("/profile/<exercise_id>", methods=["GET", "POST"])
-# def edit_task(exercise_id):
-#     username = mongo.db.users.find_one({"username": session["user"]})["username"]
-#     exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
-#     if request.method == "POST":
-#         submit = {
-#             "exercise_name": request.form.get("exercise_name"),
-#             "category_name": request.form.get("category_name"),
-#             "in": request.form.get("in"),
-#             "hold": request.form.get("hold"),
-#             "out": request.form.get("out"),
-#             "instructions": request.form.get("instructions"),
-#             "cycles": request.form.get("cycles"),
-#             "created_by": session["user"]
-#         }
-#         mongo.db.exercises.update_one({"_id": ObjectId(exercise_id)}, {"$set": submit})
-#         flash("Task Successfully Updated")
-#         return redirect(url_for("profile", username=username))
-
-#     return render_template("dashboard.html", exercise=exercise, username=username)
 
 
 @app.route("/profile/<identifier>", methods=["GET", "POST"])

@@ -1,11 +1,10 @@
 :root {
     --myblack: #4f332e;
-  }
+}
 
 
-  body, .modal-content{
-    position: relative;
- 
+body, .modal-content{
+    position: relative; 
 }
 
 
@@ -16,7 +15,7 @@ body::after {
     top: 0;
     right:0;
     bottom:0;
-z-index: -1;
+    z-index: -1;
     background-color: #FF9A8B;
     height:100vh!important;
     color:white;
@@ -24,7 +23,7 @@ z-index: -1;
     background: 
     radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
     radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
-   radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
    radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
    radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
     background-size: 200% 200%;
@@ -37,11 +36,11 @@ z-index: -1;
     background: 
     radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
     radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
-   radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
-   radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
-   radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%)!important;
-   background-size: 200% 200%;
-   animation: gradient 10s ease infinite;
+    radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%)!important;
+    background-size: 200% 200%;
+    animation: gradient 10s ease infinite;
 }
 
   @keyframes gradient {
@@ -88,9 +87,7 @@ z-index: -1;
     font-size: 6vw!important;
 }
     /*
-    
     **** HOME
-    
     */
     
     .pre-card{
@@ -263,8 +260,8 @@ z-index: -1;
   #circle {
     position: absolute;
     content: "";
-      transform: translate(-50%, -50%);
-      left:50%;
+    transform: translate(-50%, -50%);
+    left:50%;
     top:50%;
     bottom: 50%;
     width: 100px;
@@ -279,8 +276,8 @@ z-index: -1;
   #circle2 {
     position: absolute;
     content: "";
-      transform: translate(-50%, -50%);
-      left:50%;
+    transform: translate(-50%, -50%);
+    left:50%;
     top:50%;
     bottom: 50%;
     width: 100px;
@@ -311,13 +308,29 @@ z-index: -1;
   #circletext{
     position: absolute;
     content: "";
-      transform: translate(-50%, -50%);
-      left:50%;
+    transform: translate(-50%, -50%);
+    left:50%;
     top:50%;
     bottom: 50%;
     line-height: 0rem;
+    color: var(--myblack);
   }
 
   section{
     overflow-y: auto;
+  }
+
+  #exerciseModal222, #start, #stop{
+    color: white!important;
+    border-color: white!important;
+  }
+
+  .modal-content{
+    border: unset;
+  }
+
+  .accordion-button:not(.collapsed) {
+    color: var(--myblack);
+    background-color: unset;
+    box-shadow: unset;
   }

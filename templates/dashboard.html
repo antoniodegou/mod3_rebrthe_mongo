@@ -5,6 +5,7 @@
   
 
 <div class="input-group-append mt-3 mb-5">
+    <h3>Exercises by: {{username}}</h3>
    <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"   >Add Exercise</button>
 </div>
 
@@ -17,8 +18,11 @@
     <div class="col-12 col-md-6 m-0 p-0 pe-4">
         <div class="accordion-item rounded-0    m-0 mb-4 ">
             <div class="accordion-header " id="headingOne">
+                <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">NAME: {{exercise.exercise_name}}</p>
+                <h6 class="ms-3 text-uppercase">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
+                <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
                 <div class="input-group-append m-3">
-                    <button type="button" id="exercise-button" class="btn btn-primary exercise-button" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
+                    <button type="button"   class="btn btn-outline-primary exercise-button rounded-0" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                     data-exercise-id="{{ exercise._id }}" 
                     data-exercise-title="{{ exercise.exercise_name }}" 
                     data-exercise-description="{{ exercise.instructions }}"
@@ -26,24 +30,14 @@
                     data-exercise-hold="{{ exercise.hold }}"
                     data-exercise-out="{{ exercise.out }}"
                     data-exercise-cycles="{{ exercise.cycles }}"
-                    > Play2 </button>
-
-                </div>
-                <!-- <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}" aria-expanded="true" aria-controls="collapseOne">
-                    <p>{{exercise.exercise_name}} &nbsp; by: {{exercise.created_by}}</p>
-                </button> -->
-                <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">NAME:{{exercise.exercise_name}}&nbsp; by: {{exercise.created_by}} </p>
-                <h6 class="ms-3 text-uppercase">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
-                <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
-                <div class="input-group-append m-3">
-                    <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}play" data-bs-backdrop="static" data-exercise-id="{{ exercise._id   }}play">Play</button>
+                    > Play </button>
                 </div>
             </div>
             
             <div id="{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <p> Description: {{exercise.instructions}}<br></p>
-                    <div class="input-group-append m-3">
+                    <div class="input-group-append m-3 ms-0">
                         <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
                         <button class="btn btn-outline-primary rounded-0 me-3" type="button">
                             <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4">Delete</a>
@@ -213,176 +207,9 @@
     </div>
   </div>
 
-
- <script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const exerciseButtons = document.querySelectorAll('.exercise-button');
-    const exerciseModal = document.getElementById('exerciseModal222');
-    // const exerciseIdElement = exerciseModal.querySelector('.exercise-id');
-    // const exerciseDescriptionElement = exerciseModal.querySelector('.exercise-instructions');
-    const exerciseTitleElement = exerciseModal.querySelector('.exercise-title');
-
-    exerciseModal.addEventListener('hidden.bs.modal', function () {
-      document.querySelector('.modal-backdrop').remove();
-      stopAnimation() 
-    });
-
-    exerciseButtons.forEach(function(button) {
-      button.addEventListener('click', function() {
-        // var exerciseId = button.getAttribute('data-exercise-id');
-        // var exerciseDescription = button.getAttribute('data-exercise-description');
-        var exerciseTitle = button.getAttribute('data-exercise-title');
-
-        // exerciseIdElement.textContent = 'Exercise ID: ' + exerciseId;
-        // exerciseDescriptionElement.textContent = exerciseDescription;
-        exerciseTitleElement.textContent =   'Exercise: ' +  exerciseTitle;
-
-        var modal = new bootstrap.Modal(exerciseModal);
-        modal.show();
-      });
-    });
-  });
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
 
-
-
-
-//   const exerciseButtons = document.querySelectorAll('.exercise-button');
-  const exerciseModal = document.getElementById('exerciseModal222');
-  var circle = document.getElementById("circle");
-  const button = document.getElementById('exercise-button');
-
-var timer = document.getElementById("timer");
-var cycleCounter = document.getElementById('cycle-counter');;
-var startButton = document.getElementById("start");
-// var pauseButton = document.getElementById("pause");
-var stopButton = document.getElementById("stop");
-var circletext = document.getElementById("circletext");
-
-var inDuration = button.getAttribute('data-exercise-in'); // seconds
-var holdDuration = button.getAttribute('data-exercise-hold'); // seconds
-var outDuration = button.getAttribute('data-exercise-out'); // seconds
-var cycles = parseInt(button.getAttribute('data-exercise-cycles')); // Set the desired number of cycles
-
-var isAnimating = false;
-var animationId = null;
-var currentCycle = 0;
-var currentPhase = "IN";
-var phaseStartTime = null;
-var totalCycles = cycles;
-
-startButton.addEventListener("click", startAnimation);
-
-stopButton.addEventListener("click", stopAnimation);
-
-function startAnimation() {
-    if (!isAnimating) {
-        isAnimating = true;
-        currentCycle = 0;
-        currentPhase = "OUT"; // Set the initial phase to "OUT"
-        phaseStartTime = null;
-        updateCycleCounter();
-        animateCircle();
-    }
-}
-
-
-function animateCircle(timestamp) {
-    if (!phaseStartTime) {
-        phaseStartTime = timestamp;
-    }
-
-    var elapsed = timestamp - phaseStartTime;
-
-if (currentPhase === "IN") {
-    if (elapsed < inDuration * 1000) {
-    // Ease-in effect
-    var progress = elapsed / (inDuration * 1000);
-    var easedProgress = Math.sin(progress * (Math.PI / 2));
-    var newSize = 100 + easedProgress * (250 - 100);
-    circle.style.width = newSize + "px";
-    circle.style.height = newSize + "px";
-    timer.innerText = "TIME: IN " + Math.ceil(elapsed / 1000) + "s";
-    circletext.innerText = "IN ";
-    } else {
-    // IN phase completed, move to HOLD phase
-    currentPhase = "HOLD";
-    phaseStartTime = timestamp; // Reset the phase start time
-    timer.innerText = "TIME: HOLD 0s"; // Reset timer for the HOLD phase
-    circletext.innerText = "HOLD";
-    }
-} else if (currentPhase === "HOLD") {
-    if (elapsed < holdDuration * 1000) {
-    // Hold the circle
-    circle.style.width = "250px";
-    circle.style.height = "250px";
-    timer.innerText = "TIME: HOLD " + Math.ceil(elapsed / 1000) + "s";
-    circletext.innerText = "HOLD ";
-    } else {
-    // HOLD phase completed, move to OUT phase
-    currentPhase = "OUT";
-    phaseStartTime = timestamp; // Reset the phase start time
-    timer.innerText = "TIME: OUT 0s"; // Reset timer for the OUT phase
-    circletext.innerText = "OUT";
-    }
-} else if (currentPhase === "OUT") {
-    if (elapsed < outDuration * 1000) {
-    // Ease-out effect
-    var progress = elapsed / (outDuration * 1000);
-    var easedProgress = Math.sin(progress * (Math.PI / 2));
-    var newSize = 250 - easedProgress * (250 - 100);
-    circle.style.width = newSize + "px";
-    circle.style.height = newSize + "px";
-    timer.innerText = "TIME: OUT " + Math.ceil(elapsed / 1000) + "s";
-    circletext.innerText = "OUT";
-    } else {
-    // OUT phase completed
-    currentPhase = ""; // Reset current phase
-    phaseStartTime = null; // Reset phase start time
-    currentCycle++;
-
-    if (currentCycle === cycles + 1) {
-        // All cycles completed
-        console.log("AAAA")
-        isAnimating = false;
-        cycleCounter.innerText = "Cycle:";
-        return;
-    } else {
-        // Start the next cycle
-        currentPhase = "IN";
-        phaseStartTime = timestamp; // Reset the phase start time
-        updateCycleCounter();
-    }
-    }
-}
-
-animationId = requestAnimationFrame(animateCircle);
-}
-
-
-
-
-function stopAnimation() {
-cancelAnimationFrame(animationId);
-isAnimating = false;
-currentCycle = 0;
-currentPhase = "";
-phaseStartTime = null;
-circle.style.width = "100px";
-circle.style.height = "100px";
-timer.innerText = "TIME:";
-cycleCounter.innerText = "Cycle:";
-}
-
-function updateCycleCounter() {
-cycleCounter.innerText = "Cycle: " + (currentCycle + 0) + " of " + totalCycles;
-}
-
-
-
-  </script>
 
 
 
