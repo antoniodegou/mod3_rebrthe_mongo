@@ -21,6 +21,7 @@
                 <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">NAME: {{exercise.exercise_name}}</p>
                 <h6 class="ms-3 text-uppercase">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
                 <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
+                <p>{{exercise.created_by}}</p>
                 <div class="input-group-append m-3">
                     <button type="button"   class="btn btn-outline-primary exercise-button rounded-0" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                     data-exercise-id="{{ exercise._id }}" 

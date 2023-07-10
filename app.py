@@ -34,9 +34,11 @@ def get_exercises():
         username = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
         exercises = mongo.db.exercises.find()
-        return render_template("exercises.html", exercises=exercises, username=username)
+        categories = mongo.db.exercises.distinct('category_name')
+        return render_template("exercises.html", exercises=exercises, username=username, categories=categories)
     else:
         exercises = mongo.db.exercises.find()
+        
         return render_template("exercises.html", exercises=exercises)
 
 @app.route("/register", methods=["GET", "POST"])

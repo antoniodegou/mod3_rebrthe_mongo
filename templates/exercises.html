@@ -3,42 +3,89 @@
 {% block content %}
 
 
-    <div class="row justify-content-center mt-5 mb-5">
-      <div class="col">
+    <div class="col-12 justify-content-center mt-3 mb-4 p-0">
+      <!-- <div class="col p-0"> -->
         <form class="form-inline">
           <div class="input-group gap-3">
             <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
             <div class="input-group-append">
-              <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn">Search</button>
+              <button class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Search</button>
             </div>
           </div>
         </form>
-      </div>
+      <!-- </div> -->
     </div>
 
-<div class="accordion" id="accordionExample">
- 
-    {% for exercise in exercises %} 
-
-        <div class="accordion-item rounded-0 mb-4">
-          <div class="accordion-header" id="headingOne">
-            <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}" aria-expanded="true" aria-controls="collapseOne">
-                <p>{{exercise.exercise_name}} &nbsp; by: {{exercise.created_by}}</p>
-            </button>
-            <h6 class="ms-3">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
-            <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
-          </div>
-          
-          <div id="{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <p> Description: {{exercise.instructions}}<br></p>
-            </div>
-          </div>
-        </div>
-
-    {% endfor %}
-
+<div class="col-12 justify-content-center  mb-4  p-0">
+   
+    <!-- <div class="col p-0"> -->
+        
+        <select id="categorySelect" class="form-select form-select-l rounded-0" aria-label=".form-select-sm example">
+            <option value="all" selected>All Categories</option>
+            {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+    <!-- </div> -->
 </div>
 
+<div class="accordion row d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
+    {% for exercise in exercises %}
+    {% if loop.index is even %}
+    <div class="col-12 col-md-6 m-0 p-0 ps-2" data-category="{{ exercise.category_name }}">
+    {% else %}
+    <div class="col-12 col-md-6 m-0 p-0 pe-2" data-category="{{ exercise.category_name }}">
+    {% endif %}
+    <div class="accordion-item rounded-0 m-0 mb-4">
+                <div class="accordion-header " id="headingOne">
+                    <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">NAME: {{exercise.exercise_name}}</p>
+                    <p  class="ms-3 text-uppercase" >    
+                        <a class="nav-link btn-outline-dark" href="{{ url_for('profile', username=exercise.created_by) }}">NAME: {{exercise.created_by}} </a></p>
+                    <h6 class="ms-3 text-uppercase">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
+                    <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
+                    <div class="input-group-append m-3">
+                        <button type="button"   class="btn btn-outline-primary exercise-button rounded-0" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
+                        data-exercise-id="{{ exercise._id }}" 
+                        data-exercise-title="{{ exercise.exercise_name }}" 
+                        data-exercise-description="{{ exercise.instructions }}"
+                        data-exercise-in="{{ exercise.in }}"
+                        data-exercise-hold="{{ exercise.hold }}"
+                        data-exercise-out="{{ exercise.out }}"
+                        data-exercise-cycles="{{ exercise.cycles }}"
+                        > Play </button>
+                    </div>
+                </div>
+                
+                <div id="{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p> Description: {{exercise.instructions}}<br></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+     
+        {% endfor %}
+    
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var categorySelect = document.getElementById('categorySelect');
+    var exerciseItems = document.querySelectorAll('.accordion .col-12');
+
+    categorySelect.addEventListener('change', function() {
+        var selectedCategory = categorySelect.value;
+
+        exerciseItems.forEach(function(item) {
+            if (selectedCategory === 'all' || item.getAttribute('data-category') === selectedCategory) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+        </script>
 
  {% endblock %}
