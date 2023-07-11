@@ -5,12 +5,14 @@
 
     <div class="col-12 justify-content-center mt-3 mb-4 p-0">
       <!-- <div class="col p-0"> -->
-        <form class="form-inline">
+        <form class="form-inline" action="{{ url_for('search') }}" method="post" >
           <div class="input-group gap-3">
-            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
+            <!-- <form > -->
+            <input type="text" name="query" id="name" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
             <div class="input-group-append">
-              <button class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Search</button>
+              <button type="submit" class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Search</button>
             </div>
+            <!-- </form> -->
           </div>
         </form>
       <!-- </div> -->
@@ -38,11 +40,15 @@
     {% endif %}
     <div class="accordion-item rounded-0 m-0 mb-4">
                 <div class="accordion-header " id="headingOne">
-                    <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">NAME: {{exercise.exercise_name}}</p>
-                    <p  class="ms-3 text-uppercase" >    
-                        <a class="nav-link btn-outline-dark" href="{{ url_for('profile', username=exercise.created_by) }}">NAME: {{exercise.created_by}} </a></p>
-                    <h6 class="ms-3 text-uppercase">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
-                    <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
+               
+                    <div class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">
+                        <p class="mb-2">{{exercise.exercise_name}}</p>
+                        <a class="nav-link btn-outline-dark ms-3"  href="{{ url_for('profile', username=exercise.created_by) }}"><p class="mb-2">By: {{exercise.created_by}}</p> </a> 
+                    </div>
+
+                    <p class="ms-3 text-uppercase">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times</p> 
+                     
+
                     <div class="input-group-append m-3">
                         <button type="button"   class="btn btn-outline-primary exercise-button rounded-0" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                         data-exercise-id="{{ exercise._id }}" 

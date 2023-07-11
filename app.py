@@ -30,16 +30,25 @@ def get_home():
 
 @app.route("/get_exercises")
 def get_exercises():
+    exercises = mongo.db.exercises.find()
+    categories = mongo.db.exercises.distinct('category_name')
     if "user" in session:
         username = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
-        exercises = mongo.db.exercises.find()
-        categories = mongo.db.exercises.distinct('category_name')
+
         return render_template("exercises.html", exercises=exercises, username=username, categories=categories)
     else:
         exercises = mongo.db.exercises.find()
-        
-        return render_template("exercises.html", exercises=exercises)
+
+        return render_template("exercises.html", exercises=exercises, categories=categories)
+    
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form["query"]
+
+    exercises = list(mongo.db.exercises.find({"$text": {"$search": query}}))
+    return render_template("exercises.html",  exercises=exercises)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
