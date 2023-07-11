@@ -30,7 +30,7 @@ def get_home():
 
 @app.route("/get_exercises")
 def get_exercises():
-    exercises = mongo.db.exercises.find()
+    exercises = list(mongo.db.exercises.find())
     categories = mongo.db.exercises.distinct('category_name')
     if "user" in session:
         username = mongo.db.users.find_one(
