@@ -38,8 +38,6 @@ def get_exercises():
 
         return render_template("exercises.html", exercises=exercises, username=username, categories=categories)
     else:
-        exercises = mongo.db.exercises.find()
-
         return render_template("exercises.html", exercises=exercises, categories=categories)
     
 
