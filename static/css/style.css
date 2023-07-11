@@ -241,7 +241,6 @@ body::after {
         width: 0px;
         height: 0px;
  
-
     }
  
     100% { 
@@ -349,4 +348,60 @@ body::after {
     color: var(--myblack);
     background-color: unset;
     box-shadow: unset;
+  }
+
+
+ 
+
+  .circle-center{
+    border: white 1px solid;
+    width: 270px;
+    height:270px;
+    border-radius: 50%;
+ 
+  }
+
+  .circle-static{
+    border: white 1px solid;
+    background-color: white;
+    width: 100px;
+    height:100px;
+    border-radius: 50%;
+position: relative;
+  }
+
+  .circle-static::after{
+    position: absolute;
+
+    content:"";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.425);
+    border-radius: 50%;
+    width: 100px;
+    height:100px;
+
+    animation: breathingAnimation66 7s infinite ease-in-out;
+  }
+
+
+ 
+
+
+  @keyframes breathingAnimation66 {
+    0% { 
+        width: 100px;
+        height: 100px;
+    }
+    50% { 
+      
+        height: 270px;
+        width: 270px ;
+      
+    }
+    100% { 
+        width: 100px;
+        height: 100px;
+    }
   }

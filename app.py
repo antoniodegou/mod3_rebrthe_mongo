@@ -46,9 +46,9 @@ def get_exercises():
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form["query"]
-
+    username = mongo.db.users.find_one({"username": session["user"]})["username"]
     exercises = list(mongo.db.exercises.find({"$text": {"$search": query}}))
-    return render_template("exercises.html",  exercises=exercises)
+    return render_template("exercises.html",  exercises=exercises, username=username)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

@@ -11,6 +11,12 @@
             <input type="text" name="query" id="name" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
             <div class="input-group-append">
               <button type="submit" class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Search</button>
+
+            </div>
+            <div class="input-group-append">
+                <a href="{{ url_for('get_exercises') }}"> 
+                    <button   class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Reset</button>
+                </a>
             </div>
             <!-- </form> -->
           </div>
