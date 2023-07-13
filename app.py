@@ -110,6 +110,24 @@ def profile(username):
     exercises = mongo.db.exercises.find()
     return render_template("dashboard.html", exercises=exercises, username=username)
 
+@app.route("/profile-user/<username>/<username2>", methods=["GET"])
+def profile_user(username, username2):
+    # grab the session user's username from db
+    session_username = mongo.db.users.find_one({"username": session["user"]})["username"]
+    
+    # Find the selected user's username from db
+    selected_username = mongo.db.users.find_one({"username": username2})
+    
+    if selected_username:
+        # Retrieve the exercises for the selected user
+        exercises = mongo.db.exercises.find({"created_by": username2})
+        categories = mongo.db.exercises.distinct('category_name', {"created_by": username2})
+        # Render the profile page with the selected user's exercises
+        return render_template("exercises-user.html", exercises=exercises, username=session_username, username2=selected_username["username"], categories=categories)
+    else:
+        # Handle the case when the selected user is not found
+        return render_template("user-not-found.html", username=username2)
+
 
 
 

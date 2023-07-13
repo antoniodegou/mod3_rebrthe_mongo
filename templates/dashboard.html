@@ -19,9 +19,8 @@
         <div class="accordion-item rounded-0    m-0 mb-4 ">
             <div class="accordion-header " id="headingOne">
                 <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">NAME: {{exercise.exercise_name}}</p>
-                <h6 class="ms-3 text-uppercase">IN: {{exercise.in}}sec HOLD: {{exercise.hold}}sec OUT: {{exercise.out}}sec</h6> 
-                <h6 class="ms-3">REPEAT CYCLES: {{exercise.cycles}}</h6>  
-                <p>{{exercise.created_by}}</p>
+                <p class="ms-3 text-uppercase">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times</p>  
+      
                 <div class="input-group-append m-3">
                     <button type="button"   class="btn btn-outline-primary exercise-button rounded-0" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                     data-exercise-id="{{ exercise._id }}" 
@@ -96,11 +95,11 @@
                     <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions">{{exercise.instructions}}</textarea>
                     <label for="instructions">Description/Instructions</label>
                     </div>
-                    <div class="form-floating">
+                    <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="{{exercise.cycles}}">
                     <label for="cycles">Cicles</label>
                     </div>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+                    <button type="submit" class="btn btn-primary rounded-0" data-bs-dismiss="modal">Add</button>
     
                 </form>
             </div>
@@ -147,7 +146,7 @@
                      </div>
                   </div>
                   <div class="col-md">
-                     <div class="form-floating">
+                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="out" name="out" placeholder="5" value="5">
                         <label for="out">Out breath</label>
                      </div>
@@ -157,11 +156,11 @@
                   <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions"></textarea>
                   <label for="instructions">Description/Instructions</label>
                </div>
-               <div class="form-floating">
-                  <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="25">
+               <div class="form-floating mb-3">
+                  <input type="number" class="form-control mb-3" id="cycles" name="cycles" placeholder="25" value="25"  >
                   <label for="cycles">Cicles</label>
                </div>
-               <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+               <button type="submit" class="btn btn-primary mb-3" data-bs-dismiss="modal">Add</button>
 
             </form>
          </div>

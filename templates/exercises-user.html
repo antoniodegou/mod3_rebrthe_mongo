@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<h3>Exercises by: {{username2}}</h3>
 
     <div class="col-12 justify-content-center mt-3 mb-4 p-0">
       <!-- <div class="col p-0"> -->
@@ -24,7 +24,7 @@
       <!-- </div> -->
     </div>
 
-<div class="col-12 justify-content-center  mb-4  p-0">      
+    <div class="col-12 justify-content-center  mb-4  p-0">      
         <select id="categorySelect" class="form-select form-select-l rounded-0" aria-label=".form-select-sm example">
             <option value="all" selected>All Categories</option>
             {% for category in categories %}
@@ -33,9 +33,9 @@
         </select>
 </div>
 
+ 
 
-{% if exercises|list|length  > 0 %}
-
+ 
 
 <div class="accordion row d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
     {% for exercise in exercises %}
@@ -50,7 +50,7 @@
             <div class="accordion-header " id="headingOne">
                 <div class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">
                     <p class="mb-2">{{exercise.exercise_name}}</p>
-                    <a class="nav-link btn-outline-dark ms-3"  href="{{ url_for('profile_user',  username=session['user'], username2=exercise.created_by) }}"><p class="mb-2">By: {{exercise.created_by}}</p> </a> 
+                    <a class="nav-link btn-outline-dark ms-3"  href="{{ url_for('profile', username=exercise.created_by) }}"><p class="mb-2">By: {{exercise.created_by}}</p> </a> 
                 </div>
 
                 <p class="ms-3 text-uppercase">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times</p>  
@@ -79,9 +79,7 @@
     
     {% endfor %}
 
-    {% else %}
-    <h3 class="red-text text-darken-4 center-align">No Results Found</h3>
-    {% endif %}
+ 
 
 </div>
 
