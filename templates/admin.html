@@ -1,21 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <h1>Admin Page</h1>
+  <h2>Welcome, {{ username }}</h2>
 
-{% for user in users %}
+  <h3>Users:</h3>
+  {% for user in users %}
     <div class="user-info">
-        <p>Username: {{ user.username }}</p>
-        <p>Email: {{ user.email }}</p>
-        <form method="post" action="{{ url_for('admin', username=username) }}">
-            <input type="hidden" name="user_id" value="{{ user._id }}">
-            <select name="action">
-                <option value="delete">Delete User and Exercises</option>
-                <option value="grant_admin">Grant Admin Privileges</option>
-                <option value="revoke_admin">Revoke Admin Privileges</option>
-            </select>
-            <button type="submit">Perform Action</button>
-        </form>
+      <p>Username: {{ user.username }}</p>
+      <p>Email: {{ user.email }}</p>
+      <p>Admin Privileges: {% if user.is_admin %}Yes{% else %}No{% endif %}</p>
+      {% for exercise_count in exercises_count %}
+        {% if exercise_count.username == user.username %}
+          <p>Number of exercises: {{ exercise_count.count }}</p>
+        {% endif %}
+      {% endfor %}
+      <form method="post" action="{{ url_for('admin', username=username) }}">
+        <input type="hidden" name="user_id" value="{{ user._id }}">
+        <select name="action">
+          <option value="delete">Delete User and Exercises</option>
+          <option value="grant_admin">Grant Admin Privileges</option>
+          <option value="revoke_admin">Revoke Admin Privileges</option>
+        </select>
+        <button type="submit">Perform Action</button>
+      </form>
     </div>
-{% endfor %}
-
+  {% endfor %}
 {% endblock %}

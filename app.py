@@ -152,6 +152,7 @@ def profile(username):
         return redirect(url_for("login"))
 
 
+
 @app.route("/admin/<username>", methods=["GET", "POST"])
 def admin(username):
     # Check if the user has admin privileges
@@ -161,12 +162,20 @@ def admin(username):
         if request.method == "POST":
             return handle_admin_request()
 
-        # User has admin privileges, retrieve all users
-        users = list(mongo.db.users.find())
-        return render_template("admin.html", username=username, users=users,  admin=admin)
+        # User has admin privileges, retrieve all users except the user in session
+        users = list(mongo.db.users.find({"username": {"$ne": session["user"]}}))
+        exercises_count = []
+
+        for user in users:
+            exercise_count = mongo.db.exercises.count_documents({"created_by": user["username"]})
+            exercises_count.append({"username": user["username"], "count": exercise_count})
+
+        return render_template("admin.html", username=username, users=users, exercises_count=exercises_count, admin=user)
     else:
         # User does not have admin privileges, redirect to the home page
         return redirect(url_for("get_home"))
+
+
 
 
 def handle_admin_request():
@@ -174,9 +183,13 @@ def handle_admin_request():
     user_id = request.form.get("user_id")
 
     if action == "delete":
+        # Retrieve the username of the user being deleted
+        user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+        username = user["username"]
+
         # Delete user and their exercises
         mongo.db.users.delete_one({"_id": ObjectId(user_id)})
-        mongo.db.exercises.delete_many({"created_by": user_id})
+        mongo.db.exercises.delete_many({"created_by": username})
         flash("User and associated exercises deleted successfully.")
     elif action == "grant_admin":
         # Grant admin privileges to the user
@@ -189,7 +202,8 @@ def handle_admin_request():
     else:
         flash("Invalid action.")
 
-    return redirect(url_for("admin", username=g.username,  admin=g.admin))
+    return redirect(url_for("admin", username=g.username))
+
 
 
 @app.route("/profile-user/<username>/<username2>", methods=["GET"])
