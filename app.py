@@ -47,20 +47,25 @@ def get_exercises():
     exercises = list(mongo.db.exercises.find())
     categories = mongo.db.exercises.distinct('category_name')
     
-
     if "user" in session:
-        username = mongo.db.users.find_one({"username": session["user"]})["username"]
-        return render_template("exercises.html", exercises=exercises, username=username, categories=categories )
+        username = g.username
+        admin = g.admin
+        return render_template("exercises.html", exercises=exercises, username=username, admin=admin, categories=categories)
     else:
         return render_template("exercises.html", exercises=exercises, categories=categories)
+
     
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    query = request.form["query"]
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
-    exercises = list(mongo.db.exercises.find({"$text": {"$search": query}}))
-    return render_template("exercises.html",  exercises=exercises, username=username)
+    if request.method == "POST":
+        query = request.form.get("query")
+        username = g.username
+        admin = g.admin
+        exercises = list(mongo.db.exercises.find({"$text": {"$search": query}}))
+        return render_template("exercises.html", exercises=exercises, username=username, admin=admin)
+    else:
+        return redirect(url_for("get_home"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -138,11 +143,14 @@ def handle_login_request():
 
 @app.route("/profile/<username>", methods=["GET"])
 def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
-    # return render_template("dashboard.html", username=username)
-    exercises = mongo.db.exercises.find()
-    return render_template("dashboard.html", exercises=exercises, username=username)
+    if "user" in session:
+        logged_in_username = g.username
+        admin = g.admin
+        exercises = mongo.db.exercises.find()
+        return render_template("dashboard.html", exercises=exercises, username=logged_in_username, admin=admin)
+    else:
+        return redirect(url_for("login"))
+
 
 @app.route("/admin/<username>", methods=["GET", "POST"])
 def admin(username):
@@ -159,22 +167,21 @@ def admin(username):
 
 @app.route("/profile-user/<username>/<username2>", methods=["GET"])
 def profile_user(username, username2):
-    # grab the session user's username from db
-    session_username = mongo.db.users.find_one({"username": session["user"]})["username"]
-    
-    # Find the selected user's username from db
-    selected_username = mongo.db.users.find_one({"username": username2})
-    user_fields = selected_username.keys()
-    if selected_username:
-        # Retrieve the exercises for the selected user
-        exercises = mongo.db.exercises.find({"created_by": username2})
-        categories = mongo.db.exercises.distinct('category_name', {"created_by": username2})
+    if "user" in session:
+        session_username = g.username
+        admin = g.admin
 
-        # Render the profile page with the selected user's exercises
-        return render_template("exercises-user.html", exercises=exercises, username=session_username, username2=selected_username["username"], categories=categories,  email = selected_username["email"]  )
+        selected_username = mongo.db.users.find_one({"username": username2})
+        if selected_username:
+            exercises = mongo.db.exercises.find({"created_by": username2})
+            categories = mongo.db.exercises.distinct('category_name', {"created_by": username2})
+            email = selected_username.get("email")
+            return render_template("exercises-user.html", exercises=exercises, username=session_username, username2=selected_username["username"], categories=categories, email=email, admin=admin)
+        else:
+            return render_template("user-not-found.html", username=username2)
     else:
-        # Handle the case when the selected user is not found
-        return render_template("user-not-found.html", username=username2)
+        return redirect(url_for("login"))
+
 
 
 
