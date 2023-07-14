@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for user in users %}
+    <div class="user-info">
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <form method="post" action="{{ url_for('admin', username=username) }}">
+            <input type="hidden" name="user_id" value="{{ user._id }}">
+            <select name="action">
+                <option value="delete">Delete User and Exercises</option>
+                <option value="grant_admin">Grant Admin Privileges</option>
+                <option value="revoke_admin">Revoke Admin Privileges</option>
+            </select>
+            <button type="submit">Perform Action</button>
+        </form>
+    </div>
+{% endfor %}
+
+{% endblock %}

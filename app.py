@@ -158,11 +158,38 @@ def admin(username):
     user = mongo.db.users.find_one({"username": username, "is_admin": True})
 
     if user:
-        # User has admin privileges, render the admin page
-        return render_template("admin.html", username=username)
+        if request.method == "POST":
+            return handle_admin_request()
+
+        # User has admin privileges, retrieve all users
+        users = list(mongo.db.users.find())
+        return render_template("admin.html", username=username, users=users,  admin=admin)
     else:
         # User does not have admin privileges, redirect to the home page
         return redirect(url_for("get_home"))
+
+
+def handle_admin_request():
+    action = request.form.get("action")
+    user_id = request.form.get("user_id")
+
+    if action == "delete":
+        # Delete user and their exercises
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+        mongo.db.exercises.delete_many({"created_by": user_id})
+        flash("User and associated exercises deleted successfully.")
+    elif action == "grant_admin":
+        # Grant admin privileges to the user
+        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {"$set": {"is_admin": True}})
+        flash("Admin privileges granted to the user.")
+    elif action == "revoke_admin":
+        # Revoke admin privileges from the user
+        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {"$set": {"is_admin": False}})
+        flash("Admin privileges revoked from the user.")
+    else:
+        flash("Invalid action.")
+
+    return redirect(url_for("admin", username=g.username,  admin=g.admin))
 
 
 @app.route("/profile-user/<username>/<username2>", methods=["GET"])
