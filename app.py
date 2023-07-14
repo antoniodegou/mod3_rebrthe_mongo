@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, g)
 from flask_pymongo import PyMongo,  ObjectId
 
 from bson import ObjectId
@@ -17,26 +17,40 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+@app.before_request
+def before_request():
+    # Make the admin and username variables accessible as globals using the g object
+    g.admin = False
+    g.username = None
+
+    if "user" in session:
+        username = mongo.db.users.find_one({"username": session["user"]})["username"]
+        selected_username = mongo.db.users.find_one({"username": username})
+        g.admin = selected_username.get("is_admin", False)
+        g.username = username
+
+
 
 @app.route("/")
 def get_home():
-    if "user" in session:
-        username = mongo.db.users.find_one(
-            {"username": session["user"]})["username"]
-        return render_template("home.html", username=username)
+    admin = g.admin
+    username = g.username
+
+    if username:
+        return render_template("home.html", username=username, admin=admin)
     else:
-        return render_template("home.html")
+        return render_template("home.html", admin=False)
 
 
 @app.route("/get_exercises")
 def get_exercises():
     exercises = list(mongo.db.exercises.find())
     categories = mongo.db.exercises.distinct('category_name')
-    if "user" in session:
-        username = mongo.db.users.find_one(
-            {"username": session["user"]})["username"]
+    
 
-        return render_template("exercises.html", exercises=exercises, username=username, categories=categories)
+    if "user" in session:
+        username = mongo.db.users.find_one({"username": session["user"]})["username"]
+        return render_template("exercises.html", exercises=exercises, username=username, categories=categories )
     else:
         return render_template("exercises.html", exercises=exercises, categories=categories)
     
@@ -61,7 +75,8 @@ def register():
         register = {
             "username": request.form.get("username").lower(),
             "email": request.form.get("email").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "is_admin": False  # Set is_admin to False by default
         }
         mongo.db.users.insert_one(register)
 
@@ -75,32 +90,38 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        # check if username exists in db
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+        return handle_login_request()
 
-        if existing_user:
-            # ensure hashed password matches user input
-            if check_password_hash(
-                existing_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(request.form.get("username")))
-            else:
-                # invalid password match
-                flash("Incorrect Username and/or Password")
-                return redirect(url_for("login"))
+    return render_template("login.html")
+
+
+def handle_login_request():
+    # check if username exists in db
+    existing_user = mongo.db.users.find_one(
+        {"username": request.form.get("username").lower()})
+
+    if existing_user:
+        # ensure hashed password matches user input
+        if check_password_hash(
+            existing_user["password"], request.form.get("password")):
+            session["user"] = request.form.get("username").lower()
+            flash("Welcome, {}".format(request.form.get("username")))
+            g.username = session["user"]  # Set g.username to the logged-in username
+            g.admin = existing_user.get("is_admin", False)  # Set g.admin to the admin status
 
         else:
-            # username doesn't exist
+            # invalid password match
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
-        
-        username = mongo.db.users.find_one(
-            {"username": session["user"]})["username"]
-        return render_template("home.html", username=username)
+    else:
+        # username doesn't exist
+        flash("Incorrect Username and/or Password")
+        return redirect(url_for("login"))
 
- 
-    return render_template("login.html" )
+    username = g.username
+    admin = g.admin
+
+    return render_template("home.html", username=username, admin=admin)
 
 @app.route("/profile/<username>", methods=["GET"])
 def profile(username):
@@ -110,6 +131,19 @@ def profile(username):
     exercises = mongo.db.exercises.find()
     return render_template("dashboard.html", exercises=exercises, username=username)
 
+@app.route("/admin/<username>", methods=["GET", "POST"])
+def admin(username):
+    # Check if the user has admin privileges
+    user = mongo.db.users.find_one({"username": username, "is_admin": True})
+
+    if user:
+        # User has admin privileges, render the admin page
+        return render_template("admin.html", username=username)
+    else:
+        # User does not have admin privileges, redirect to the home page
+        return redirect(url_for("get_home"))
+
+
 @app.route("/profile-user/<username>/<username2>", methods=["GET"])
 def profile_user(username, username2):
     # grab the session user's username from db
@@ -117,13 +151,14 @@ def profile_user(username, username2):
     
     # Find the selected user's username from db
     selected_username = mongo.db.users.find_one({"username": username2})
-    
+    user_fields = selected_username.keys()
     if selected_username:
         # Retrieve the exercises for the selected user
         exercises = mongo.db.exercises.find({"created_by": username2})
         categories = mongo.db.exercises.distinct('category_name', {"created_by": username2})
+
         # Render the profile page with the selected user's exercises
-        return render_template("exercises-user.html", exercises=exercises, username=session_username, username2=selected_username["username"], categories=categories)
+        return render_template("exercises-user.html", exercises=exercises, username=session_username, username2=selected_username["username"], categories=categories,  email = selected_username["email"]  )
     else:
         # Handle the case when the selected user is not found
         return render_template("user-not-found.html", username=username2)
