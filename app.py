@@ -65,26 +65,39 @@ def search():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # check if username already exists in db
-        existing_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+        return handle_register_request()
 
-        if existing_user:
-            flash("Username already exists")
-            return redirect(url_for("register"))
-
-        register = {
-            "username": request.form.get("username").lower(),
-            "email": request.form.get("email").lower(),
-            "password": generate_password_hash(request.form.get("password")),
-            "is_admin": False  # Set is_admin to False by default
-        }
-        mongo.db.users.insert_one(register)
-
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
-        flash("Registration Successful!")
-        return render_template("home.html")
     return render_template("register.html")
+
+
+def handle_register_request():
+    # check if username already exists in db
+    existing_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+
+    if existing_user:
+        flash("Username already exists")
+        return redirect(url_for("register"))
+
+    register = {
+        "username": request.form.get("username").lower(),
+        "email": request.form.get("email").lower(),
+        "password": generate_password_hash(request.form.get("password")),
+        "is_admin": False  # Set is_admin to False by default
+    }
+    mongo.db.users.insert_one(register)
+
+    # put the new user into 'session' cookie
+    session["user"] = request.form.get("username").lower()
+    flash("Registration Successful!")
+
+    # Set the global variables
+    g.username = session["user"]
+    g.admin = False
+
+    username = g.username
+    admin = g.admin
+
+    return render_template("home.html", username=username, admin=admin)
 
 
 @app.route("/login", methods=["GET", "POST"])

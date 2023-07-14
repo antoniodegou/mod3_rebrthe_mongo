@@ -13,7 +13,6 @@
          <div class="breathing d-flex justify-content-center align-items-center ">
             <div class="circle-center d-flex justify-content-center align-items-center ">
                <div class="circle-static d-flex justify-content-center align-items-center">
-                  <!-- <div class="circle-moving "></div> -->
                </div>
             </div>
 
@@ -42,7 +41,7 @@
                         <label for="username">name</label>
                      </div>
                       <div class="form-floating  mb-5">
-                         <input type="password" class="form-control" id="Password" name="password" placeholder="Password">
+                         <input type="password" class="form-control" id="Password" name="password" placeholder="Password" autocomplete="current-password">
                          <label for="Password">Password</label>
                       </div>
                      <button type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
@@ -58,19 +57,19 @@
                   <h2 class="pb-3">signup</h2>
                   <form method="POST" action="{{ url_for('register') }}">
                      <div class="form-floating mb-3">
-                        <input type="name" class="form-control" id="username" name="username" placeholder="username">
-                        <label for="username">name</label>
+                        <input type="name" class="form-control" id="usernameS" name="username" placeholder="username">
+                        <label for="usernameS">name</label>
                      </div>
                      <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
                         <label for="email">Email address</label>
                      </div>
                      <div class="form-floating  mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" autocomplete="new-password">
+                        <label for="floatingPassword" >Password</label>
                      </div>
                      <div class="form-floating  mb-5">
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" autocomplete="new-password">
                         <label for="confirmPassword">Confirm Password</label>
                      </div>
                      <button   type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
@@ -122,5 +121,7 @@
    <p class=" ">You can practice any of the exercise with our timer and graphic circle. Our system will indicate the timming or in breathe , hold or out breathe. this goes on for a number of pre define cycles.</p>
 </div>
 </div>
+{% if not session.user %}
 <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+{% endif %}
  {% endblock %}
