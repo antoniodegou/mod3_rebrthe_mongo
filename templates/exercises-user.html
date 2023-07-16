@@ -3,34 +3,30 @@
 {% block content %}
 <h3>Exercises by: {{email }}</h3>
 
-    <div class="col-12 justify-content-center mt-3 mb-4 p-0">
-      <!-- <div class="col p-0"> -->
-        <form class="form-inline" action="{{ url_for('search') }}" method="post" >
-          <div class="input-group gap-3">
-            <!-- <form > -->
+<div class="col-12 justify-content-center mt-3 mb-4 p-0">
+    <form class="form-inline" action="{{ url_for('search') }}" method="post" >
+        <div class="input-group gap-3">
+
             <input type="text" name="query" id="name" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
             <div class="input-group-append">
-              <button type="submit" class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Search</button>
-
+                <button type="submit" class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Search</button>
             </div>
             <div class="input-group-append">
                 <a href="{{ url_for('get_exercises') }}"> 
                     <button   class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Reset</button>
                 </a>
             </div>
-            <!-- </form> -->
-          </div>
-        </form>
-      <!-- </div> -->
-    </div>
+        </div>
+    </form>
+</div>
 
-    <div class="col-12 justify-content-center  mb-4  p-0">      
-        <select id="categorySelect" class="form-select form-select-l rounded-0" aria-label=".form-select-sm example">
-            <option value="all" selected>All Categories</option>
-            {% for category in categories %}
-            <option value="{{ category }}">{{ category }}</option>
-            {% endfor %}
-        </select>
+<div class="col-12 justify-content-center  mb-4  p-0">      
+    <select id="categorySelect" class="form-select form-select-l rounded-0" aria-label=".form-select-sm example">
+        <option value="all" selected>All Categories</option>
+        {% for category in categories %}
+        <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+    </select>
 </div>
 
  
@@ -85,25 +81,6 @@
 
  
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var categorySelect = document.getElementById('categorySelect');
-            var exerciseItems = document.querySelectorAll('.accordion .col-12');
-
-            categorySelect.addEventListener('change', function() {
-                var selectedCategory = categorySelect.value;
-
-                exerciseItems.forEach(function(item) {
-                    if (selectedCategory === 'all' || item.getAttribute('data-category') === selectedCategory) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-        </script>
-
 <!-- Modal PLAY2 -->
 <div class="modal fade" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 80vh; overflow-y: auto;">
@@ -139,4 +116,5 @@
   </div>
 
   <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/select-menu.js') }}"></script>
  {% endblock %}

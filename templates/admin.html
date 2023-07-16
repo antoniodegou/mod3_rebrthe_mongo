@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Admin Page</h1>
-  <h2>Welcome, {{ username }}</h2>
+ 
+  <h2>Welcome to admin page, {{ username }}</h2>
 
-<div class="col-12 justify-content-center  mb-4  p-0">      
+<div class="col-12 justify-content-center  mb-4 mt-4 p-0">      
     <select id="categorySelect" class="form-select form-select-l rounded-0" aria-label=".form-select-sm example">
-        <option value="all" selected>All Categories</option>
+        <option value="all" selected>All Contributers</option>
         {% for user in users %}
         <option value="{{ user.username}}">{{ user.username }}</option>
         {% endfor %}
@@ -33,21 +33,25 @@
         </h2>    
         <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="user{{ loop.index }}" data-bs-parent="#usersAccordion">
           <div class="accordion-body">
-            <p>Email: {{ user.email }}</p>
-            <p>Admin Privileges: {% if user.is_admin %}Yes{% else %}No{% endif %}</p>
-            {% for exercise_count in exercises_count %}
-              {% if exercise_count.username == user.username %}
-                <p>Number of exercises: {{ exercise_count.count }}</p>
-              {% endif %}
-            {% endfor %}
-            <form method="post" class="mb-3" action="{{ url_for('admin', username=username) }}">
-              <input type="hidden" name="user_id" class="mb-3" value="{{ user._id }}">
-              <select name="action">
+            <p>Email: {{ user.email }} 
+              <br> Admin Privileges: {% if user.is_admin %}Yes{% else %}No{% endif %}
+              <br>
+              {% for exercise_count in exercises_count %}
+                {% if exercise_count.username == user.username %}
+                  Number of exercises: {{ exercise_count.count }} 
+                {% endif %}
+              {% endfor %}
+            </p>
+          
+
+            <form method="post" class="mb-5" action="{{ url_for('admin', username=username) }}">
+              <input type="hidden" name="user_id" class="form-select form-select-l mb-3 rounded-0" value="{{ user._id }}">
+              <select name="action" class="form-select form-select-l mb-3 rounded-0">
                 <option value="delete">Delete User and Exercises</option>
                 <option value="grant_admin">Grant Admin Privileges</option>
                 <option value="revoke_admin">Revoke Admin Privileges</option>
               </select>
-              <button type="submit" class="mt-0">Perform Action</button>
+              <button type="submit" class="mt-4 btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text">Perform Action</button>
             </form>
           </div>
         </div>
@@ -57,25 +61,8 @@
     {% endfor %}
 
 </div>
- 
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var categorySelect = document.getElementById('categorySelect');
-        var exerciseItems = document.querySelectorAll('.accordion .col-12');
+<script src="{{ url_for('static', filename='js/select-menu.js') }}"></script>
 
-        categorySelect.addEventListener('change', function() {
-            var selectedCategory = categorySelect.value;
-
-            exerciseItems.forEach(function(item) {
-                if (selectedCategory === 'all' || item.getAttribute('data-category') === selectedCategory) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    });
-    </script>
 
 {% endblock %}

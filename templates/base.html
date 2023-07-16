@@ -18,7 +18,7 @@
 <body class="container-md d-flex flex-column min-vh-100 colorLight">
 
   <header class="row">
-    <nav class="navbar navbar-expand-lg bg-light mb-5 mt-1">
+    <nav class="navbar navbar-expand-lg bg-light mb-5 mt-1" aria-label="Main navigation">
       <div class="container-fluid">
         <a class="navbar-brand mb-0 pb-0 me-1 noUnder" href="{{ url_for('get_home') }}"> <h1 class=" noUnder colorDark  noUnder">re<span class="colorDark noUnder">B  </span> &nbsp;  rthe</h1></a>
         {% if session.user %}
@@ -89,10 +89,10 @@
 </div>
   <!-- Footer -->
 
-  <footer class="row py-3 my-4 ms-auto container-md pb-5  ">
+  <footer class="row py-3 my-4 ms-auto container-md pb-5  " aria-label="Footer navigation">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item">
-        <a class="nav-link active colorDark" aria-current="page" href="{{ url_for('get_home') }}">Home</a>
+        <a class="nav-link  colorDark"  href="{{ url_for('get_home') }}">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link colorDark" href="{{ url_for('get_exercises') }}">Exercises</a>
@@ -126,17 +126,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>  
      
+    <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
 
-    {% block scripts %}
-    <script>
-      var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-      var toastList = toastElList.map(function (toastEl) {
-          return new bootstrap.Toast(toastEl);
-      });
-      toastList.forEach(function (toast) {
-          toast.show();
-      });
-  </script>
-    {% endblock %}
 </body>
 </html>
