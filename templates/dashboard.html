@@ -22,7 +22,7 @@
                 <p class="ms-3 text-uppercase">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times</p>  
       
                 <div class="input-group-append m-3">
-                    <button type="button"   class="btn btn-outline-primary exercise-button rounded-0" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
+                    <button type="button"   class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                     data-exercise-id="{{ exercise._id }}" 
                     data-exercise-title="{{ exercise.exercise_name }}" 
                     data-exercise-description="{{ exercise.instructions }}"
@@ -38,23 +38,40 @@
                 <div class="accordion-body">
                     <p> Description: {{exercise.instructions}}<br></p>
                     <div class="input-group-append m-3 ms-0">
-                        <button class="btn btn-outline-primary rounded-0 me-3" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
-                        <button class="btn btn-outline-primary rounded-0 me-3" type="button">
-                            <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4">Delete</a>
-                        </button>
+                        <button class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
+                        <button type="button" class="btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text" data-bs-toggle="modal" data-bs-target="#deleteModal{{exercise._id}}"> Delete it?  </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
  
-
+      <!-- DELETE Modal -->
+      <div class="modal fade" id="deleteModal{{exercise._id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content rounded-0 border-0 ">
+    
+            <div class="modal-body d-flex justify-content-center row flex-column">
+                <div class="col-12    d-flex justify-content-center mb-5  mt-5"> 
+                    <h2>Are you sure?</h2>
+                </div>
+                <div class="col-12 d-flex justify-content-center mb-5">
+                    <button type="button" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5"  data-bs-dismiss="modal"> No</button>
+                    <button class="btn btn-outline-primary dark-border button-hover thick-text   rounded-0 me-3 " type="button">
+                    <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4 exercise-button  thick-text colorDark button-hover dark-border">Yes</a>
+                    </button>
+                </div>
+            </div>
+    
+          </div>
+        </div>
+      </div>
 
 
     <!-- Modal EDIT -->
     <div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
-        <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-0 border-0">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -63,43 +80,44 @@
                 <form method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
                     <h1>{{exercise.exercise_name}}</h1>  
                     <div class="form-floating mb-3">       
-                        <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
-                        <label for="exercise_name">Exercise Name</label>
+                        <input type="text" class="form-control rounded-0" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
+                        <label for="exercise_name" class="rounded-0">Exercise Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
-                        <label for="category_name">Category</label>
+                        <input type="text" class="form-control rounded-0" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
+                        <label for="category_name" class="rounded-0">Category</label>
                     </div>
                     <div class="row g-2 mb-3">
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="in" name="in" placeholder="5" value="{{exercise.in}}">
-                            <label for="in">In Breath</label>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="number" class="form-control rounded-0" id="in" name="in" placeholder="5" value="{{exercise.in}}">
+                                <label for="in" class="rounded-0">In Breath</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="hold" name="hold" placeholder="5" value="{{exercise.hold}}">
-                            <label for="hold">Hold</label>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="number" class="form-control rounded-0" id="hold" name="hold" placeholder="5" value="{{exercise.hold}}">
+                                <label for="hold" class="rounded-0">Hold</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="out" name="out" placeholder="5" value="{{exercise.out}}">
-                            <label for="out">Out breath</label>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="number" class="form-control rounded-0" id="out" name="out" placeholder="5" value="{{exercise.out}}">
+                                <label for="out" class="rounded-0">Out breath</label>
+                            </div>
                         </div>
-                    </div>
                     </div>
                     <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions">{{exercise.instructions}}</textarea>
-                    <label for="instructions">Description/Instructions</label>
+                        <textarea class="form-control rounded-0 pb-5" placeholder="Leave a comment here" id="instructions" name="instructions" rows="20">{{exercise.instructions}}</textarea>
+                        <label for="instructions" class="rounded-0">Description/Instructions</label>
                     </div>
                     <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="cycles" name="cycles" placeholder="25" value="{{exercise.cycles}}">
-                    <label for="cycles">Cicles</label>
+                        <input type="number" class="form-control rounded-0" id="cycles" name="cycles" placeholder="25" value="{{exercise.cycles}}">
+                        <label for="cycles" class="rounded-0">Cicles</label>
                     </div>
-                    <button type="submit" class="btn btn-primary rounded-0" data-bs-dismiss="modal">Add</button>
-    
+                    <div class="mb-4 mt-4">
+                        <button type="submit" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5" data-bs-dismiss="modal">Edit Exercise</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -115,58 +133,57 @@
 
 <!-- Modal ADD -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-0 border-0  ">
+         <div class=" ">
+            <h1 class="modal-title fs-5 " id="exampleModalLabel">Add Exercise</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body"> 
             <form method="POST" action="{{ url_for('manage_task', identifier='new')}}">
                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="Exercise 1">
-                  <label for="exercise_name">Exercise Name</label>
+                  <input type="text" class="form-control colorDark rounded-0" id="exercise_name" name="exercise_name" placeholder="Exercise 1">
+                  <label for="exercise_name" class="colorDark">Exercise Name</label>
                </div>
                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Health">
-                  <label for="category_name">Category</label>
+                  <input type="text" class="form-control colorDark rounded-0" id="category_name" name="category_name" placeholder="Health">
+                  <label for="category_name"  class="colorDark">Category</label>
                </div>
                <div class="row g-2 mb-3">
                   <div class="col-md">
                      <div class="form-floating">
-                        <input type="number" class="form-control" id="in" name="in" placeholder="5" value="5">
-                        <label for="in">In Breath</label>
+                        <input type="number" class="form-control rounded-0" id="in" name="in" placeholder="5" value="5">
+                        <label for="in"  class="colorDark">In Breath</label>
                      </div>
                   </div>
                   <div class="col-md">
                      <div class="form-floating">
-                        <input type="number" class="form-control" id="hold" name="hold" placeholder="5" value="5">
-                        <label for="hold">Hold</label>
+                        <input type="number" class="form-control rounded-0" id="hold" name="hold" placeholder="5" value="5">
+                        <label for="hold"  class="colorDark">Hold</label>
                      </div>
                   </div>
                   <div class="col-md">
                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="out" name="out" placeholder="5" value="5">
-                        <label for="out">Out breath</label>
+                        <input type="number" class="form-control rounded-0" id="out" name="out" placeholder="5" value="5">
+                        <label for="out"  class="colorDark">Out breath</label>
                      </div>
                   </div>
                </div>
                <div class="form-floating mb-3">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="instructions" name="instructions"></textarea>
-                  <label for="instructions">Description/Instructions</label>
+                  <textarea rows="40" class="form-control rounded-0 pb-5"  placeholder="Leave a comment here" id="instructions" name="instructions" ></textarea>
+                  <label for="instructions"  class="colorDark">Description/Instructions</label>
                </div>
                <div class="form-floating mb-3">
-                  <input type="number" class="form-control mb-3" id="cycles" name="cycles" placeholder="25" value="25"  >
-                  <label for="cycles">Cicles</label>
+                  <input type="number" class="form-control mb-3 rounded-0" id="cycles" name="cycles" placeholder="25" value="25"  >
+                  <label for="cycles"  class="colorDark">Cicles</label>
                </div>
-               <button type="submit" class="btn btn-primary mb-3" data-bs-dismiss="modal">Add</button>
+               <div class="mt-4 mb-4">
+               <button type="submit" class="btn  dark-border button-hover thick-text colorDark rounded-0 me-5 ps-5 pe-5" data-bs-dismiss="modal">Add Exercise</button>
+            </div>
 
             </form>
          </div>
-         <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-            <!-- <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button> -->
-         </div>
+
       </div>
    </div>
 </div>
@@ -174,8 +191,8 @@
 
 <!-- Modal PLAY2 -->
 <div class="modal fade" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 80vh; overflow-y: auto;">
-      <div class="modal-content">
+    <div class="modal-dialog    modal-dialog-centered modal-dialog-scrollable"  >
+      <div class="modal-content rounded-0 border-0">
         <div class="modal-header">
 
           <h5 class="modal-title exercise-title"></h5>
