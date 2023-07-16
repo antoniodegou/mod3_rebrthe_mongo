@@ -1,0 +1,150 @@
+:root {
+    --myblack: #4f332e;
+    --mywhite: white;
+}
+
+@font-face {
+    font-family: 'Satoshi-Variable';
+    src: url('/static/fonts/Satoshi-Variable.woff2') format('woff2'),
+         url('/static/fonts/Satoshi-Variable.woff') format('woff'),
+         url('/static/fonts/Satoshi-Variable.ttf') format('truetype');
+         font-weight: 300 900;
+         font-display: swap;
+         font-style: normal;
+  }
+
+html, body {
+    font-family: 'Satoshi-Variable' ;
+}
+    h1, h2, button[type=submit], h3, h4{
+    font-weight: 900;
+    }
+
+    a, button {
+        text-decoration: underline!important;
+    }
+
+    .noUnder{
+        text-decoration: none!important;
+    }
+
+
+body{
+    position: relative;
+}
+
+body::after {
+    position: fixed;
+    content: "";
+    left: 0;
+    top: 0;
+    right:0;
+    bottom:0;
+    z-index: -1;
+    background: 
+    radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
+    radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+    background-size: 200% 200%;
+    animation: BGgradient 10s ease infinite;
+    height: 100vh;
+}
+
+@keyframes BGgradient {
+    0% {
+      background-position: 0% 100%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
+
+.colorLight{
+    color:var(--mywhite)!important;
+}
+
+.colorDark{
+    color:var(--myblack)!important;
+}
+
+.hiding {
+    transition: opacity  1200ms, display 200ms;
+    display: none;
+    opacity: 0;
+  }
+
+  #headertitle span, #headertitle{
+    font-size: 6vw!important;
+}
+h1 > span {
+    position: absolute;
+    transform: rotate(-10deg);
+}
+
+  footer {
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+}
+
+button:hover{
+    background-color:var(--myblack)!important;
+    border-color:var(--myblack)!important;
+}
+
+/* HEADER CIRCLE ANIMATION*/
+
+.circle-center{
+    border: white 1px solid;
+    width: 270px;
+    height:270px;
+    border-radius: 50%;
+  }
+
+  .circle-static{
+    border: white 1px solid;
+    background-color: white;
+    width: 100px;
+    height:100px;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .circle-static::after{
+    position: absolute;
+    content:"";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.425);
+    border-radius: 50%;
+    width: 100px;
+    height:100px;
+    animation: breathingAnimation66 7s infinite ease-in-out;
+  }
+
+
+
+  @keyframes breathingAnimation66 {
+    0% { 
+        width: 100px;
+        height: 100px;
+    }
+    50% { 
+      
+        height: 270px;
+        width: 270px ;
+    }
+    100% { 
+        width: 100px;
+        height: 100px;
+    }
+  }
+
+/* END*/
+/* HEADER CIRCLE ANIMATION*/
