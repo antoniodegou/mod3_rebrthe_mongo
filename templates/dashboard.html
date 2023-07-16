@@ -5,8 +5,8 @@
   
 
 <div class="input-group-append mt-3 mb-5">
-    <h3>Exercises by: {{username}}</h3>
-   <button class="btn btn-outline-primary rounded-0" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"   >Add Exercise</button>
+    <h3 class="colorDark">Exercises by: {{username}}</h3>
+   <button class="btn btn-outline-primary rounded-0 colorDark dark-border thick-text button-hover" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"   >Add Exercise</button>
 </div>
 
 
@@ -62,14 +62,13 @@
             <div class="modal-body"> 
                 <form method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
                     <h1>{{exercise.exercise_name}}</h1>  
-                    <div class="form-floating mb-3">
-                    
-                    <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
-                    <label for="exercise_name">Exercise Name</label>
+                    <div class="form-floating mb-3">       
+                        <input type="text" class="form-control" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
+                        <label for="exercise_name">Exercise Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
-                    <label for="category_name">Category</label>
+                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
+                        <label for="category_name">Category</label>
                     </div>
                     <div class="row g-2 mb-3">
                     <div class="col-md">

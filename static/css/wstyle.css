@@ -52,6 +52,18 @@ body::after {
     height: 100vh;
 }
 
+.modal-content{
+    overflow:hidden;
+    background: 
+    radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
+    radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
+    radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%)!important;
+    background-size: 200% 200%;
+    animation: gradient 10s ease infinite;
+}
+
 @keyframes BGgradient {
     0% {
       background-position: 0% 100%;
@@ -72,12 +84,25 @@ body::after {
     color:var(--myblack)!important;
 }
 
+.thick-text{
+    font-weight: 900!important;
+}
+
+.dark-border{
+    border-color:var(--myblack)!important;
+}
+
+.light-border{
+    border-color:var(--mywhite)!important;
+}
+
 .hiding {
     transition: opacity  1200ms, display 200ms;
     display: none;
     opacity: 0;
   }
 
+  /*logo*/
   #headertitle span, #headertitle{
     font-size: 6vw!important;
 }
@@ -86,18 +111,41 @@ h1 > span {
     transform: rotate(-10deg);
 }
 
+  /*end */
+  /*end logo*/
+
   footer {
     height: 100px;
     bottom: 0;
     width: 100%;
 }
-
-button:hover{
+ 
+.button-hover:hover{
     background-color:var(--myblack)!important;
-    border-color:var(--myblack)!important;
+    color:var(--mywhite)!important;
+    font-weight: 900!important;
 }
 
+.accordion-header p {
+    font-size: 0.75rem;
+    /* color:var(--myblack)!important; */
+    text-transform: uppercase;
 
+}
+
+.accordion-header  a p {
+    display: inline-block; /* Display the link as an inline element */
+    font-size: 0.75rem;
+    background-color: var(--myblack)!important;
+    color: white!important;
+    padding: 3px;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--myblack);
+    background-color: unset;
+    box-shadow: unset;
+  }
 
 /* HEADER CIRCLE ANIMATION*/
 
@@ -150,3 +198,75 @@ button:hover{
 
 /* END*/
 /* HEADER CIRCLE ANIMATION*/
+
+
+
+
+/* START*/
+/* EXERFCISE CIRCLE ANIMATION*/
+
+.box{
+    position:relative;
+    width:270px; 
+    height:270px;
+      }
+  
+  #circle {
+    position: absolute;
+    content: "";
+    transform: translate(-50%, -50%);
+    left:50%;
+    top:50%;
+    bottom: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.524);
+    border-radius: 50%;
+    margin-bottom: 20px;
+ 
+  }
+
+
+  #circle2 {
+    position: absolute;
+    content: "";
+    transform: translate(-50%, -50%);
+    left:50%;
+    top:50%;
+    bottom: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    margin-bottom: 20px;
+ 
+  }
+
+#timer {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  #cycle-counter {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+
+  #circletext{
+    position: absolute;
+    content: "";
+    transform: translate(-50%, -50%);
+    left:50%;
+    top:50%;
+    bottom: 50%;
+    line-height: 0rem;
+    color: var(--myblack);
+  }
+  #exerciseModal222, #start, #stop{
+    color: white!important;
+    border-color: white!important;
+  }
+/* END*/
+/* EXERCISE CIRCLE ANIMATION*/
