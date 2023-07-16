@@ -22,7 +22,7 @@
       <div class="container-fluid">
         <a class="navbar-brand mb-0 pb-0 me-1 noUnder" href="{{ url_for('get_home') }}"> <h1 class=" noUnder colorDark  noUnder">re<span class="colorDark noUnder">B  </span> &nbsp;  rthe</h1></a>
         {% if session.user %}
-        <p class="username">,{{- username -}}!</p>
+        <p class="colorDark mt-3 mb-0">,{{- username -}}!</p>
         {% endif %}
         <button class="navbar-toggler rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -66,9 +66,9 @@
   <section>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <div class="toast-container position-fixed top-0 start-0 p-3">
+        <div class="toast-container position-fixed top-0 start-0 p-3 ">
           {% for message in messages %}
-            <div class="toast  " role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+            <div class="toast rounded-0 " role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
                 <div class="toast-header">
                     <strong class="me-auto">Flash Message</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

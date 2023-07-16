@@ -20,7 +20,7 @@ html, body {
     font-weight: 900;
     }
 
-    a, button {
+    a:active, .active,  button {
         text-decoration: underline!important;
     }
 
@@ -68,7 +68,7 @@ body::after {
     color:var(--mywhite)!important;
 }
 
-.colorDark{
+.colorDark, .nav-link{
     color:var(--myblack)!important;
 }
 
@@ -96,6 +96,8 @@ button:hover{
     background-color:var(--myblack)!important;
     border-color:var(--myblack)!important;
 }
+
+
 
 /* HEADER CIRCLE ANIMATION*/
 
