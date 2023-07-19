@@ -238,45 +238,177 @@ Mongo Users Collection and Exercises Collection
 
 #### Wireframes
 
-
+wireframes were made using Adobe Illustrator.
 
 **Wireframes / Site Design**
 
 <details><summary>HOME</summary>
 
-<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/readme-img/home.png" width="50%">
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/home.png" width="80%">
 
 </details>
 
 
 <details><summary>EXERCISE PAGE , DASHBOARD PAGE and CREATED BY PAGE</summary>
 
-<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/readme-img/exercises.png" width="50%">
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/exercises.png" width="80%">
 
 </details>
 
 <details><summary>ADDING MODAL</summary>
 
-<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/readme-img/add.png" width="50%">
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/add.png" width="80%">
 
 </details>
 
 <details><summary>EDIT MODAL</summary>
 
-<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/readme-img/edit.png" width="50%">
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/edit.png" width="80%">
 
 </details>
 
 <details><summary>ADMIN PAGE</summary>
 
-<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/readme-img/admin.png" width="50%">
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/admin.png" width="80%">
 
 </details>
 
 #### Design
 
+I chose a very simple design where the main piece is the ever-rotating gradient with a very minimal white and off-black for the content. I use boxes or floating text. 
+
+
 ##### Colour Scheme
+
+I selected four colours and incorporated them into an intricate gradient pattern. Additionally, I utilised a pseudo ::after element, enabling me to amplify the effect by 200% and create a slow, rotating motion, resulting in a pleasing, calming, and hypnotic visual effect.
+
+
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/colours.png" width="80%">
+
+The rest is all black or off-black on top of this colourful background.
+
 
 ##### Typography
 
+I used Satochi in BOLD and Normal for the whole site. Due to its simplistic approach, there was no need for a second font, also due to the fact that Satochi is very versatile. 
+
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/fonts.png" width="80%">
+
 ##### Graphics / Imagery
+
+Most of the website is based on its design elements like text, rectangles and circles. But I did use some SVGs bought from freepik.com	to decorate the home page. 
+
+
+
+## Features
+
+ 
+Details of all features on the finished site, expanding on the broader features listed above, including content, functionality & security.
+
+### All Pages (*)
+
+* All elements are adjusted with the help of Bootstrap to any device from mobile to desktop.
+
+* Favicon
+
+* NavBar (responsive)
+
+* Name of the username in Navbar (when logged)
+
+* Footer
+
+* flash message on all moments that are relevant:
+	* add exercise
+	* edit exercise
+	* log in
+	* log out
+	* delete exercise
+	* delete user
+	* add/revoke admin priveledges 
+
+### Home (/)
+
+* Header different if logged in or not.
+
+* If not logged in, shows login or sign up in the header.
+
+* Rest of the page is Branding and Information 
+
+* all Responsive from 2 columns to 1 when mobile.
+
+### Exercises (/get_exercises)
+
+* Search button (searches in exercise name and instructions)
+
+* Select Element to help you filter by categories
+
+* Grid with the Breathing Exercises
+
+* Each Breathing Exercise comes with information
+
+	* Play button ( you can practice the exercise)
+	* Edit (if admin) you can edit any exercise
+	* Delete (if admin) you can delete any exercise
+	* A title
+	* A category
+	* A description/Instructions
+	* It part of a bootstrap accordion component
+	* A "Made by" field
+
+
+### Dashboard (only logged in) (/profile/<username>)
+
+* And "add exercise" button
+	* It opens a modal where you can fill and add to the database
+* Each Breathing Exercise comes with information belonging to logged user
+
+	* Play button ( you can practice the exercise) (opens a modal)
+	* Edit you can edit any exercise (opens a modal)
+	* Delete you can delete any exercise
+	* A title
+	* A category
+	* A description/Instructions
+	* It part of a bootstrap accordion component
+	* A "Made by" field
+
+### Admin (only logged in) (/admin/<username>)
+
+* Each Breathing Exercise comes with information belonging to logged user
+* An accordion with each user
+	* info on the name
+	* info on email
+	* info on admin rights
+	* select three actions
+		* revoke admin right
+		* give admin rights
+		* delete the user and exercise
+* a select button so you can filter through users
+
+
+	
+### Login Page and Sign up Page (/register) or (/login)
+
+* fields with validation
+* Adds a user to session cookie (log in). Welcomes user with flash message on submission.
+* All fields in reBrthe are mandatory, with built-in HTML validation to ensure the correct type, format, and length.
+* Username and password are essential fields in reBrthe, and their correctness is enforced. The platform uses Werkzeug's 'check_password_hash' method to safeguard user data, ensuring secure and protected user credentials.
+
+### AUTHOR Page (/profile-user/<username>/<username2>')
+
+* On the Exercise page, usernames serve as clickable links, leading users to view all exercises created by each individual. The page layout follows a template similar to the dashboard, ensuring a familiar and user-friendly experience. This feature empowers users to explore exercises contributed by various authors with ease and convenience.
+
+* username is the user in session
+
+* username 2 is the user being looked at
+
+### The ADD or EDIT MODAL (/profile/<identifier>)
+
+* You don't leave the page When you add or edit and exercise. You get a modal.
+
+* The modal has empty fields in the case of ADD EXERCISE
+
+* The modal fetches the current fields and populates the fields to be edited
+
+
+
+
