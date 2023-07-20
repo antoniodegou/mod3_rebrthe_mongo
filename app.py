@@ -39,6 +39,9 @@ def before_request():
 
 @app.route('/')
 def get_home():
+    '''
+    Renders home page template
+    '''
     admin = g.admin
     username = g.username
 
@@ -51,6 +54,11 @@ def get_home():
 
 @app.route('/get_exercises')
 def get_exercises():
+    '''
+    Renders the Exercise page
+    This all exercises for all users
+
+    '''
     exercises = list(mongo.db.exercises.find())
     categories = mongo.db.exercises.distinct('category_name')
 
@@ -67,6 +75,10 @@ def get_exercises():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    '''
+    Searches within the exercise page
+    the name and instrucxtions fields are up for search
+    '''
     if request.method == 'POST':
         query = request.form.get('query')
         username = g.username
@@ -81,6 +93,15 @@ def search():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+ 
+    '''
+    Checks if a user is already logged in,
+    if so redirects to user profile.
+    Renders the sign in page template
+    Allows registered users to sign in to their account
+    Adds user to session cookie
+    Redirects to user profile on submission.
+    '''
     if request.method == 'POST':
         return handle_register_request()
 
@@ -126,6 +147,11 @@ def handle_register_request():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    '''
+    Checks if a user is already logged in,
+    Checks username and password
+    redirects to login page if any is wrong
+    '''
     if request.method == 'POST':
         return handle_login_request()
 
@@ -278,7 +304,7 @@ def profile_user(username, username2):
                 admin=admin,
                 )
         else:
-            return render_template('user-not-found.html',
+            return render_template('404.html',
                                    username=username2)
     else:
         return redirect(url_for('login'))
@@ -286,6 +312,10 @@ def profile_user(username, username2):
 
 @app.route('/profile/<identifier>', methods=['GET', 'POST'])
 def manage_task(identifier):
+    """
+    edit and add task on the same page
+    you choose add and edit
+    """
     username = mongo.db.users.find_one({'username': session['user'
             ]})['username']
 
@@ -312,12 +342,12 @@ def manage_task(identifier):
             # Logic for editing an existing task
 
             submit = {
-                'exercise_name': request.form.get('exercise_name'),
-                'category_name': request.form.get('category_name'),
-                'in': request.form.get('in'),
-                'hold': request.form.get('hold'),
-                'out': request.form.get('out'),
-                'instructions': request.form.get('instructions'),
+                'exercise_name': request.form.get('exercise_nameE'),
+                'category_name': request.form.get('category_nameE'),
+                'in': request.form.get('inE'),
+                'hold': request.form.get('holdE'),
+                'out': request.form.get('outE'),
+                'instructions': request.form.get('instructionsE'),
                 'cycles': request.form.get('cycles'),
                 'created_by': session['user'],
                 }
@@ -330,8 +360,6 @@ def manage_task(identifier):
     if identifier == 'new':
 
         # Render the page for adding a new task
-
-        categories = mongo.db.categories.find().sort('category_name', 1)
         return render_template('dashboard.html', username=username,
                                identifier='new')
     else:
@@ -346,6 +374,10 @@ def manage_task(identifier):
 
 @app.route('/delete_task/<exercise_id>')
 def delete_task(exercise_id):
+    """
+    Get the exercise id
+    deletes the records
+    """
     mongo.db.exercises.delete_one({'_id': ObjectId(exercise_id)})
     flash('Task Successfully Deleted')
     username = mongo.db.users.find_one({'username': session['user'
@@ -366,6 +398,26 @@ def logout():
     flash('You have been logged out')
     session.pop('user')
     return redirect(url_for('login'))
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    '''
+    Renders custom 404 page
+    '''
+    return render_template("404.html", error=error), 404
+
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    '''
+    Renders custom 500 page
+    '''
+    return render_template("500.html", error=error), 500
+
+
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT'

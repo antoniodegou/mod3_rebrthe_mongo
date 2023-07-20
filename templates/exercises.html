@@ -8,11 +8,11 @@
        <div class="input-group gap-3">
           <input type="text" name="query" id="name" class="form-control thick-text rounded-0 colorDark" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
           <div class="input-group-append">
-             <button type="submit" class="btn btn-outline-primary colorDark dark-border thick-text rounded-0 m-0 button-hover" type="button" id="search-btn">Search</button>
+             <button type="submit" class="btn btn-outline-primary colorDark dark-border thick-text rounded-0 m-0 button-hover"   id="search-btn">Search</button>
           </div>
           <div class="input-group-append">
              <a href="{{ url_for('get_exercises') }}"> 
-             <button   class="btn btn-outline-primary rounded-0 m-0 colorDark dark-border button-hover thick-text" type="button" id="search-btn">Reset</button>
+             <button   class="btn btn-outline-primary rounded-0 m-0 colorDark dark-border button-hover thick-text" type="button" id="reset-btn">Reset</button>
              </a>
           </div>
        </div>
@@ -96,7 +96,7 @@
 
 
 <!-- Modal PLAY2 -->
-<div class="modal fade" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true" class="rounded-0">
+<div class="modal fade rounded-0" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true"  >
     <div class="modal-dialog rounded-0" style="height: 80vh; overflow-y: auto;">
        <div class="modal-content rounded-0">
           <div class="modal-header">

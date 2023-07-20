@@ -3,7 +3,7 @@
 Description: reBrthe is a breathing exercise database that provides users with information and guided practice for various breathing exercises. Users can explore different breathing exercises and practice them with the help of a play button.
 
 
-![Mockup](readme-img/mockup.jpg)
+![Mockup](https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/mockup.png)
 
 ---
 
@@ -403,12 +403,155 @@ Details of all features on the finished site, expanding on the broader features 
 
 ### The ADD or EDIT MODAL (/profile/<identifier>)
 
-* You don't leave the page When you add or edit and exercise. You get a modal.
+* You don't leave the page When you add, edit, and exercise. You get a modal.
 
 * The modal has empty fields in the case of ADD EXERCISE
 
 * The modal fetches the current fields and populates the fields to be edited
 
+### DELETE exercise (/delete_task/<exercise_id>)
 
+* it deletes this exercise based on its ID
+* A modal opens to confirm if you want to take action
+* Maintains Whatever page it was, let that be exercises, admin or dashboard
+
+
+
+---
+
+## Technologies
+
+### Languages
+
+- [HTML](https://en.wikipedia.org/wiki/HTML5)
+  - Used to build the main structure of the site
+- [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
+  - Used to style the website
+- [Vanilla JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+- [Python](<https://en.wikipedia.org/wiki/Python_(programming_language)>)
+  - Used to build the core of the backend of the project as well as the running/viewing of the website
+  - Python Modules Used:
+1. click==8.1.3
+1. dnspython==2.3.0
+1. Flask==2.3.2
+1. Flask-PyMongo==2.3.0
+1. itsdangerous==2.1.2
+1. pymongo==4.3.3
+1. Werkzeug==2.3.4
+
+### Tools
+
+- [Git](https://git-scm.com/)
+  - Used for version control via Code Anywhere by using the terminal to Git and Push to GitHub
+- [GitHub](https://github.com/)
+  - Used to store the project code
+- [Heroku](https://dashboard.heroku.com/apps)
+  - Used to deploy the live site
+- [Adobe Illustrator](https://www.adobe.com/)
+  - Used to develop the wireframes in to a full site design including colours, fonts, proportions etc
+- [Bootstrap](https://bootstrap.com/)
+  - Used to help with the responsiveness of the site in much of the structural layout
+  - Used date and time picker for the add event form
+- [Font Share](https://www.fontshare.com/)
+  - Used to add icons to the site to help with UX and to add more character
+- [Adobe Illustrator](https://www.adobe.com/uk/products/illustrator.html)
+  - Used to create the site logo
+- [Favicon.io](https://favicon.io/favicon-converter/)
+  - Used to create and add the favicon to the browser tab
+- [Google Chrome Dev Tools](https://developers.google.com/web/tools/chrome-devtools)
+  - Used to inspect page elements, debug issues with the site & test responsiveness on different 
+
+
+---
+
+### Test Results & Bugs
+
+The full test results and details of any bugs and their fixes can be found in the [TESTING document](https://raw.githubusercontent.com/antoniodegou/web-portfolio-mod1/main/TESTING.md)
+
+---
+
+
+## Deployment
+### Project Creation
+I used no template and built all in VISUAL STUDIO CODE to create this project.
+
+Steps to create this project from the CI Mongo template:
+
+- Click on 'Use this template' and select 'Create a new repository.'
+- Enter your chosen repo name.
+- Click 'Create Repository.'
+- Copy the page URL from the new GitHub repo.
+- Open Code Anywhere and navigate to the 'workspaces' page.
+- Click on 'New Workspace.'
+- Paste the GitHub repo URL into the 'Repository URL' box.
+- Click 'Create.'
+- Deployment to Heroku
+- I deployed this project using Heroku.
+
+To deploy to Heroku:
+
+1. In Code Anywhere CLI from the main directory, run pip3 freeze > requirements.txt to create/update a requirements.txt file containing project dependencies.
+2. In Code Anywhere CLI from the main directory, run echo web: python app.py > Procfile to create a Procfile. Ensure the file contains 'web: python app.py' and remove any blank lines at the bottom.
+3. Push the two new files to the GitHub repository.
+4. Login to Heroku, select 'Create New App,' provide a unique name for the app, and choose your nearest region. Click 'Create App.'
+5. Go to the Deploy tab on the Heroku dashboard, select Github, search for your repository by name, and click 'connect.'
+6. Navigate to 'settings,' click 'reveal config vars,' and enter the following:
+
+
+| Key | Value |
+| :---: | :---: |
+| CLOUD_API_KEY | _Cloudinary API key_ |
+| CLOUD_API_SECRET | _Cloudinary API secret_ |
+| CLOUD_NAME | _Cloudinary Name_   |
+| IP | 0.0.0.0 |
+| PORT | 5001 |
+| MONGO_DB | _Mongodb Database Name_ |
+| MONGO_URI | mongodb+srv://<_USERNAME_>:<_PASSWORD_>@<_CLUSTER_>.tfci8tb.mongodb.net/<_DATABASE_>?retryWrites=true&w=majority |
+| SECRET_KEY | _Secret Key From env.py required for 'Session' & 'Flash' functions of Flask_ |
+
+
+ 
+
+7. Return to the Deploy tab and click 'Enable Automatic Deploys.'
+8. Click 'deploy branch.'
+9. Once the build is complete, click 'View' to launch the new app.
+10. Local Development
+11. NB: This project will not run locally with database connections unless the user sets up an env.py file configuring the above environment variables as these are not included in the GitHub files for security reasons.
+
+To Run Locally:
+
+1. Navigate to the GitHub Repository.
+2. Click on 'Code' and select 'Download Zip' to download the files locally and open them with an IDE, or copy the URL from the top box.
+3. If copying the code, open your development editor and use the 'Git Clone' command followed by the above URL to create a local clone of the project.
+
+
+To Fork Project:
+
+1. Navigate to the GitHub Repository.
+2. Click on the 'Fork' button at the top right of the page.
+3. This will duplicate the project for you to work on. 
+
+
+## Credits
+
+### Code
+
+- [HTML PRETIFY](https://www.freeformatter.com/html-formatter.html): make HTML pretty
+
+- [Code Reference](https://www.w3schools.com/html/): for html css , javascript and flask reference
+
+- [in Depth JS reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript): javascript reference
+
+- [flask reference](https://flask.palletsprojects.com/en/2.3.x/): reference for flask
+
+- [code institute](https://learn.codeinstitute.net/dashboard): for everything
+
+- [Mongo and flask](https://www.mongodb.com/compatibility/setting-up-flask-with-mongodb): flask and mongo
+
+- [flask globals](https://www.fullstackpython.com/flask-globals-g-examples.html): learn flask globals
+
+- [flask-mong reference](https://flask-pymongo.readthedocs.io/en/latest/): flask mongo reference
+
+- [complex css generator](https://colorgradient.dev/gradient-generator): beautiful css
 
 

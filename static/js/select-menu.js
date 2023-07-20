@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var categorySelect = document.getElementById('categorySelect');
-    var exerciseItems = document.querySelectorAll('.accordion .col-12');
+    let categorySelect = document.getElementById('categorySelect');
+    let exerciseItems = document.querySelectorAll('.accordion .col-12');
 
     categorySelect.addEventListener('change', function() {
-        var selectedCategory = categorySelect.value;
+        let selectedCategory = categorySelect.value;
 
         exerciseItems.forEach(function(item) {
             if (selectedCategory === 'all' || item.getAttribute('data-category') === selectedCategory) {

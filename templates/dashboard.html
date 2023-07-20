@@ -38,7 +38,8 @@
                 <div class="accordion-body">
                     <p> Description: {{exercise.instructions}}<br></p>
                     <div class="input-group-append m-3 ms-0">
-                        <button class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
+                        <button class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" type="button"   data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
+
                         <button type="button" class="btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text" data-bs-toggle="modal" data-bs-target="#deleteModal{{exercise._id}}"> Delete it?  </button>
                     </div>
                 </div>
@@ -77,43 +78,43 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body"> 
-                <form method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
+                <form  method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
                     <h1>{{exercise.exercise_name}}</h1>  
                     <div class="form-floating mb-3">       
-                        <input type="text" class="form-control rounded-0" id="exercise_name" name="exercise_name" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
-                        <label for="exercise_name" class="rounded-0">Exercise Name</label>
+                        <input type="text" class="form-control rounded-0" id="exercise_nameE" name="exercise_nameE" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
+                        <label for="exercise_nameE" class="rounded-0">Exercise Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-0" id="category_name" name="category_name" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
-                        <label for="category_name" class="rounded-0">Category</label>
+                        <input type="text" class="form-control rounded-0" id="category_nameE" name="category_nameE" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
+                        <label for="category_nameE" class="rounded-0">Category</label>
                     </div>
                     <div class="row g-2 mb-3">
                         <div class="col-md">
                             <div class="form-floating">
-                                <input type="number" class="form-control rounded-0" id="in" name="in" placeholder="5" value="{{exercise.in}}">
-                                <label for="in" class="rounded-0">In Breath</label>
+                                <input type="number" class="form-control rounded-0" id="inE" name="inE" placeholder="5" value="{{exercise.in}}">
+                                <label for="inE" class="rounded-0">In Breath</label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
-                                <input type="number" class="form-control rounded-0" id="hold" name="hold" placeholder="5" value="{{exercise.hold}}">
-                                <label for="hold" class="rounded-0">Hold</label>
+                                <input type="number" class="form-control rounded-0" id="holdE" name="holdE" placeholder="5" value="{{exercise.hold}}">
+                                <label for="holdE" class="rounded-0">Hold</label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
-                                <input type="number" class="form-control rounded-0" id="out" name="out" placeholder="5" value="{{exercise.out}}">
-                                <label for="out" class="rounded-0">Out breath</label>
+                                <input type="number" class="form-control rounded-0" id="outE" name="outE" placeholder="5" value="{{exercise.out}}">
+                                <label for="outE" class="rounded-0">Out breath</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea class="form-control rounded-0 pb-5" placeholder="Leave a comment here" id="instructions" name="instructions" rows="20">{{exercise.instructions}}</textarea>
-                        <label for="instructions" class="rounded-0">Description/Instructions</label>
+                        <textarea class="form-control rounded-0 pb-5" placeholder="Leave a comment here" id="instructionsE" name="instructionsE" rows="20">{{exercise.instructions}}</textarea>
+                        <label for="instructionsE" class="rounded-0">Description/Instructions</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-0" id="cycles" name="cycles" placeholder="25" value="{{exercise.cycles}}">
-                        <label for="cycles" class="rounded-0">Cicles</label>
+                        <input type="number" class="form-control rounded-0" id="cyclesE" name="cyclesE" placeholder="25" value="{{exercise.cycles}}">
+                        <label for="cyclesE" class="rounded-0">Cicles</label>
                     </div>
                     <div class="mb-4 mt-4">
                         <button type="submit" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5" data-bs-dismiss="modal">Edit Exercise</button>
@@ -140,41 +141,41 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body"> 
-            <form method="POST" action="{{ url_for('manage_task', identifier='new')}}">
+            <form name="add_form" method="POST" action="{{ url_for('manage_task', identifier='new')}}">
                <div class="form-floating mb-3">
-                  <input type="text" class="form-control colorDark rounded-0" id="exercise_name" name="exercise_name" placeholder="Exercise 1">
+                  <input type="text" class="form-control colorDark rounded-0" id="exercise_name" name="exercise_name" placeholder="Exercise 1" required>
                   <label for="exercise_name" class="colorDark">Exercise Name</label>
                </div>
                <div class="form-floating mb-3">
-                  <input type="text" class="form-control colorDark rounded-0" id="category_name" name="category_name" placeholder="Health">
+                  <input type="text" class="form-control colorDark rounded-0" id="category_name" name="category_name" placeholder="Health" required>
                   <label for="category_name"  class="colorDark">Category</label>
                </div>
                <div class="row g-2 mb-3">
                   <div class="col-md">
                      <div class="form-floating">
-                        <input type="number" class="form-control rounded-0" id="in" name="in" placeholder="5" value="5">
+                        <input type="number" class="form-control rounded-0" id="in" name="in" placeholder="5" value="5" required>
                         <label for="in"  class="colorDark">In Breath</label>
                      </div>
                   </div>
                   <div class="col-md">
                      <div class="form-floating">
-                        <input type="number" class="form-control rounded-0" id="hold" name="hold" placeholder="5" value="5">
+                        <input type="number" class="form-control rounded-0" id="hold" name="hold" placeholder="5" value="5" required>
                         <label for="hold"  class="colorDark">Hold</label>
                      </div>
                   </div>
                   <div class="col-md">
                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-0" id="out" name="out" placeholder="5" value="5">
+                        <input type="number" class="form-control rounded-0" id="out" name="out" placeholder="5" value="5" required>
                         <label for="out"  class="colorDark">Out breath</label>
                      </div>
                   </div>
                </div>
                <div class="form-floating mb-3">
-                  <textarea rows="40" class="form-control rounded-0 pb-5"  placeholder="Leave a comment here" id="instructions" name="instructions" ></textarea>
+                  <textarea rows="40" class="form-control rounded-0 pb-5"  placeholder="Leave a comment here" id="instructions" name="instructions" required></textarea>
                   <label for="instructions"  class="colorDark">Description/Instructions</label>
                </div>
                <div class="form-floating mb-3">
-                  <input type="number" class="form-control mb-3 rounded-0" id="cycles" name="cycles" placeholder="25" value="25"  >
+                  <input type="number" class="form-control mb-3 rounded-0" id="cycles" name="cycles" placeholder="25" value="25"  required>
                   <label for="cycles"  class="colorDark">Cicles</label>
                </div>
                <div class="mt-4 mb-4">
