@@ -22,15 +22,16 @@ mongo = PyMongo(app)
 
 @app.before_request
 def before_request():
-
-    # Make the admin and username variables accessible as globals using the g object
-
+    """
+    Make the admin and username variables
+    accessible as globals using the g object
+    """
     g.admin = False
     g.username = None
 
     if 'user' in session:
         username = mongo.db.users.find_one({'username': session['user'
-                ]})['username']
+                                                                ]})['username']
         selected_username = \
             mongo.db.users.find_one({'username': username})
         g.admin = selected_username.get('is_admin', False)
@@ -93,7 +94,7 @@ def search():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
- 
+
     '''
     Checks if a user is already logged in,
     if so redirects to user profile.
@@ -114,7 +115,7 @@ def handle_register_request():
 
     existing_user = \
         mongo.db.users.find_one({'username': request.form.get('username'
-                                ).lower()})
+                                                              ).lower()})
 
     if existing_user:
         flash('Username already exists')
@@ -124,7 +125,7 @@ def handle_register_request():
         'username': request.form.get('username').lower(),
         'email': request.form.get('email').lower(),
         'password': generate_password_hash(request.form.get('password'
-                )),
+                                                            )),
         'is_admin': False,
         }
     mongo.db.users.insert_one(register)
@@ -164,7 +165,7 @@ def handle_login_request():
 
     existing_user = \
         mongo.db.users.find_one({'username': request.form.get('username'
-                                ).lower()})
+                                                              ).lower()})
 
     if existing_user:
 
@@ -174,8 +175,10 @@ def handle_login_request():
                                request.form.get('password')):
             session['user'] = request.form.get('username').lower()
             flash('Welcome, {}'.format(request.form.get('username')))
-            g.username = session['user']  # Set g.username to the logged-in username
-            g.admin = existing_user.get('is_admin', False)  # Set g.admin to the admin status
+            # Set g.username to the logged-in username
+            g.username = session['user']
+            # Set g.admin to the admin status
+            g.admin = existing_user.get('is_admin', False)
         else:
 
             # invalid password match
@@ -218,18 +221,19 @@ def admin(username):
     if user:
         if request.method == 'POST':
             return handle_admin_request()
-
-        # User has admin privileges, retrieve all users except the user in session
-
+        """
+        User has admin privileges, retrieve all
+        users except the user in session
+        """
         users = \
             list(mongo.db.users.find({'username': {'$ne': session['user'
-                 ]}}))
+                                                                  ]}}))
         exercises_count = []
 
         for user in users:
             exercise_count = \
-                mongo.db.exercises.count_documents({'created_by': user['username'
-                    ]})
+                mongo.db.exercises.count_documents(
+                    {'created_by': user['username']})
             exercises_count.append({'username': user['username'],
                                    'count': exercise_count})
 
@@ -291,8 +295,8 @@ def profile_user(username, username2):
         if selected_username:
             exercises = \
                 mongo.db.exercises.find({'created_by': username2})
-            categories = mongo.db.exercises.distinct('category_name',
-                    {'created_by': username2})
+            categories = mongo.db.exercises.distinct(
+                'category_name', {'created_by': username2})
             email = selected_username.get('email')
             return render_template(
                 'exercises-user.html',
@@ -316,8 +320,8 @@ def manage_task(identifier):
     edit and add task on the same page
     you choose add and edit
     """
-    username = mongo.db.users.find_one({'username': session['user'
-            ]})['username']
+    username = mongo.db.users.find_one(
+        {'username': session['user']})['username']
 
     if request.method == 'POST':
         if identifier == 'new':
@@ -342,17 +346,17 @@ def manage_task(identifier):
             # Logic for editing an existing task
 
             submit = {
-                'exercise_name': request.form.get('exercise_nameE'),
-                'category_name': request.form.get('category_nameE'),
-                'in': request.form.get('inE'),
-                'hold': request.form.get('holdE'),
-                'out': request.form.get('outE'),
-                'instructions': request.form.get('instructionsE'),
-                'cycles': request.form.get('cycles'),
+                'exercise_name': request.form.get('exercise_nameE'+identifier),
+                'category_name': request.form.get('category_nameE'+identifier),
+                'in': request.form.get('inE'+identifier),
+                'hold': request.form.get('holdE'+identifier),
+                'out': request.form.get('outE'+identifier),
+                'instructions': request.form.get('instructionsE'+identifier),
+                'cycles': request.form.get('cyclesE'+identifier),
                 'created_by': session['user'],
                 }
             mongo.db.exercises.update_one({'_id': ObjectId(identifier)},
-                    {'$set': submit})
+                                          {'$set': submit})
             flash('Task Successfully Updated')
             return redirect(url_for('manage_task',
                             identifier=identifier))
@@ -380,8 +384,8 @@ def delete_task(exercise_id):
     """
     mongo.db.exercises.delete_one({'_id': ObjectId(exercise_id)})
     flash('Task Successfully Deleted')
-    username = mongo.db.users.find_one({'username': session['user'
-            ]})['username']
+    username = mongo.db.users.find_one(
+        {'username': session['user']})['username']
 
     # return render_template("dashboard.html", username=username)
 
@@ -408,7 +412,6 @@ def page_not_found(error):
     return render_template("404.html", error=error), 404
 
 
-
 @app.errorhandler(500)
 def internal_error(error):
     '''
@@ -417,8 +420,6 @@ def internal_error(error):
     return render_template("500.html", error=error), 500
 
 
-
-
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT'
-            )), debug=True)
+    app.run(host=os.environ.get('IP'),
+            port=int(os.environ.get('PORT')), debug=True)

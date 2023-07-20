@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 
@@ -40,13 +39,14 @@
     {% endif %}
     <div class="accordion-item rounded-0 m-0 mb-4">
         <div class="accordion-header " id="headingOne">
-            <div class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne colorDark">
+            <div class="accordion-button pb-0 ps-3  colorDark" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">
                 <p class="mb-2">{{exercise.exercise_name}}</p>
                 <a class="nav-link btn-outline-dark ms-3"  href="{{ url_for('profile_user',  username=session['user'], username2=exercise.created_by) }}">
-                <p class="mb-2">By: {{exercise.created_by}}</p>
+                  <p class="mb-2">By: {{exercise.created_by}}</p>
                 </a>
             </div>
             <p class="ms-3 text-uppercase colorDark">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times <br>category: {{exercise.category_name}}</p>
+             
             <div class="input-group-append m-3">
                 <button type="button"   class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                 data-exercise-id="{{ exercise._id }}" 
@@ -56,14 +56,16 @@
                 data-exercise-hold="{{ exercise.hold }}"
                 data-exercise-out="{{ exercise.out }}"
                 data-exercise-cycles="{{ exercise.cycles }}"> Play </button>
+
                 {% if admin %}
                 <button type="button" class="btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text" data-bs-toggle="modal" data-bs-target="#deleteModal{{exercise._id}}"> Delete it?  </button>
                 {% endif %}
+
             </div>
         </div>
         <div id="{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body colorDark">
-                <p > Description: {{exercise.instructions}}<br></p>
+                <p class="colorDark"> Description: {{exercise.instructions}}<br></p>
             </div>
         </div>
     </div>
@@ -71,23 +73,23 @@
 
 
     <!-- DELETE Modal -->
-<div class="modal fade" id="deleteModal{{exercise._id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content rounded-0 border-0 ">
-            <div class="modal-body d-flex justify-content-center row flex-column">
-                <div class="col-12    d-flex justify-content-center mb-5  mt-5">
+<div class="modal fade" id="deleteModal{{exercise._id}}" tabindex="-1"   aria-hidden="true">
+   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content rounded-0 border-0 ">
+         <div class="modal-body d-flex justify-content-center row flex-column">
+            <div class="col-12    d-flex justify-content-center mb-5  mt-5">
                 <h2>Are you sure?</h2>
-                </div>
-                <div class="col-12 d-flex justify-content-center mb-5">
+            </div>
+            <div class="col-12 d-flex justify-content-center mb-5">
                 <button type="button" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5"  data-bs-dismiss="modal"> No</button>
                 <button class="btn btn-outline-primary dark-border button-hover thick-text   rounded-0 me-3 " type="button">
                 <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4 exercise-button  thick-text colorDark button-hover dark-border">Yes</a>
                 </button>
-                </div>
             </div>
-        </div>
-    </div>
-    </div>
+         </div>
+      </div>
+   </div>
+</div>
     {% endfor %}
     {% else %}
     <h3 class="red-text text-darken-4 center-align">No Results Found</h3>
@@ -96,15 +98,15 @@
 
 
 <!-- Modal PLAY2 -->
-<div class="modal fade rounded-0" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true"  >
+<div class="modal fade rounded-0" id="exerciseModal222" tabindex="-1"   aria-hidden="true"  >
     <div class="modal-dialog rounded-0" style="height: 80vh; overflow-y: auto;">
        <div class="modal-content rounded-0">
           <div class="modal-header">
-             <h5 class="modal-title exercise-title"></h5>
+             <h5 class="modal-title exercise-title">READY?</h5>
              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-             <h2 class="exercise-title"></h2>
+             <h2 class="exercise-title">PRESS START!</h2>
              <p class="exercise-id"></p>
              <p class="exercise-instructions"></p>
              <div class="breathing mb-5">

@@ -1,33 +1,31 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h3>Exercises by: {{email }}</h3>
+
+<h2>Exercises by: {{username2 }}</h2>
 
 <div class="col-12 justify-content-center mt-3 mb-4 p-0">
     <form class="form-inline" action="{{ url_for('search') }}" method="post" >
-        <div class="input-group gap-3">
-
-            <input type="text" name="query" id="name" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Search</button>
-            </div>
-            <div class="input-group-append">
-                <a href="{{ url_for('get_exercises') }}"> 
-                    <button   class="btn btn-outline-primary rounded-0 m-0" type="button" id="search-btn">Reset</button>
-                </a>
-            </div>
-        </div>
+       <div class="input-group gap-3">
+          <input type="text" name="query" id="name" class="form-control thick-text rounded-0 colorDark" placeholder="Search" aria-label="Search" aria-describedby="search-btn">
+          <div class="input-group-append">
+             <button type="submit" class="btn btn-outline-primary colorDark dark-border thick-text rounded-0 m-0 button-hover"   id="search-btn">Search</button>
+          </div>
+          <div class="input-group-append">
+             <a href="{{ url_for('get_exercises') }}"> 
+             <button   class="btn btn-outline-primary rounded-0 m-0 colorDark dark-border button-hover thick-text" type="button" id="reset-btn">Reset</button>
+             </a>
+          </div>
+       </div>
     </form>
-</div>
-
-<div class="col-12 justify-content-center  mb-4  p-0">      
-    <select id="categorySelect" class="form-select form-select-l rounded-0" aria-label=".form-select-sm example">
-        <option value="all" selected>All Categories</option>
-        {% for category in categories %}
-        <option value="{{ category }}">{{ category }}</option>
-        {% endfor %}
+ </div>
+ <div class="col-12 justify-content-center  mb-4  p-0">
+    <select id="categorySelect" class="form-select form-select-l rounded-0 colorDark thick-text" aria-label=".form-select-sm example">
+       <option value="all" selected>All Categories</option>
+       {% for category in categories %}
+       <option value="{{ category }}">{{ category }}</option>
+       {% endfor %}
     </select>
-</div>
+ </div>
 
  
 
@@ -35,7 +33,6 @@
 
 <div class="accordion row d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
     {% for exercise in exercises %}
-
         {% if loop.index is even %}
     <div class="col-12 col-md-6 m-0 p-0 ps-2" data-category="{{ exercise.category_name }}">
         {% else %}
@@ -46,13 +43,14 @@
             <div class="accordion-header " id="headingOne">
                 <div class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">
                     <p class="mb-2">{{exercise.exercise_name}}</p>
-                    <a class="nav-link btn-outline-dark ms-3"  href="{{ url_for('profile', username=exercise.created_by) }}"><p class="mb-2">By: {{exercise.created_by}}</p> </a> 
+                    <a class="nav-link btn-outline-dark ms-3"  href="{{ url_for('profile', username=exercise.created_by) }}">
+                        <p class="mb-2">By: {{exercise.created_by}}</p> 
+                    </a> 
                 </div>
 
-                <p class="ms-3 text-uppercase">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times</p>  
-
+                <p class="ms-3 text-uppercase colorDark">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times <br>category: {{exercise.category_name}}</p>
                 <div class="input-group-append m-3">
-                    <button type="button"   class="btn btn-outline-primary exercise-button rounded-0" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
+                    <button type="button"   class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                             data-exercise-id="{{ exercise._id }}" 
                             data-exercise-title="{{ exercise.exercise_name }}" 
                             data-exercise-description="{{ exercise.instructions }}"
@@ -67,15 +65,13 @@
                     
             <div id="{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <p> Description: {{exercise.instructions}}<br></p>
+                    <p class="colorDark"> Description: {{exercise.instructions}}<br></p>
                 </div>
             </div>
         </div>
     </div>
     
     {% endfor %}
-
- 
 
 </div>
 
@@ -84,36 +80,32 @@
 <!-- Modal PLAY2 -->
 <div class="modal fade" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 80vh; overflow-y: auto;">
-      <div class="modal-content">
-        <div class="modal-header">
-
-          <h5 class="modal-title exercise-title"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <h2 class="exercise-title"></h2>
-          <p class="exercise-id"></p>
-          <p class="exercise-instructions"></p>
-
-          <div class="breathing mb-5">
-            <div class="box m-auto">
-                <div id="circle2"></div>
-                <div id="circle"></div>
-                <div id="circletext"> </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title exercise-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div id="timer" class="ms-auto d-flex justify-content-center">TIME:</div>
-            <div   id="cycle-counter" class="ms-auto d-flex justify-content-center">Cycle:</div>
-            <div class="d-flex justify-content-center mt-5">
-                <button id="start" class="btn btn-outline-primary rounded-0 me-3" type="button" >Start</button>
-                <button id="stop" class="btn btn-outline-primary rounded-0 me-3" type="button" >Stop</button>
+            <div class="modal-body">
+                <h2 class="exercise-title"></h2>
+                <p class="exercise-id"></p>
+                <p class="exercise-instructions"></p>
+                <div class="breathing mb-5">
+                    <div class="box m-auto">
+                        <div id="circle2"></div>
+                        <div id="circle"></div>
+                        <div id="circletext"> </div>
+                    </div>
+                    <div id="timer" class="ms-auto d-flex justify-content-center">TIME:</div>
+                    <div   id="cycle-counter" class="ms-auto d-flex justify-content-center">Cycle:</div>
+                    <div class="d-flex justify-content-center mt-5">
+                        <button id="start" class="btn btn-outline-primary rounded-0 me-3" type="button" >Start</button>
+                        <button id="stop" class="btn btn-outline-primary rounded-0 me-3" type="button" >Stop</button>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
   <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
   <script src="{{ url_for('static', filename='js/select-menu.js') }}"></script>
