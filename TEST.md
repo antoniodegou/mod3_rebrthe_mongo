@@ -71,4 +71,52 @@ No errors were found on PEP8 on my Flask app
 
 I use WAVE chrome extension for every page on accessibility. I got no error.  
 
-![PYTHON VALID](https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/wave-valid.png)
+![ACCESS VALID](https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/wave-valid.png)
+
+
+| Column 1  | Column 2  |
+|:----------|:----------|
+| Cell 1    | Cell 2    |
+
+
+
+### Performance Testing
+
+All pages were tested with google lighthouse.
+
+<details><summary>HOME ROUTE</summary>
+
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/test-home.png" width="60%">
+
+</details>
+
+
+<details><summary>PROFILE ROUTE</summary>
+
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/test-profile.png" width="60%">
+
+</details>
+ 
+
+<details><summary>EXERCISES ROUTE</summary>
+
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/test-exercises.png" width="60%">
+
+</details>
+
+ 
+<details><summary>PROFILE USER ROUTE</summary>
+
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/test-profile-user.png" width="60%">
+
+</details>
+
+<details><summary>ADMIN ROUTE</summary>
+
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/test-admin.png" width="60%">
+
+</details>
+
+
+
+

@@ -11,9 +11,7 @@
              <button type="submit" class="btn btn-outline-primary colorDark dark-border thick-text rounded-0 m-0 button-hover"   id="search-btn">Search</button>
           </div>
           <div class="input-group-append">
-             <a href="{{ url_for('get_exercises') }}"> 
-             <button   class="btn btn-outline-primary rounded-0 m-0 colorDark dark-border button-hover thick-text" type="button" id="reset-btn">Reset</button>
-             </a>
+            <a href="{{ url_for('get_exercises') }}" class="btn btn-outline-primary colorDark dark-border thick-text rounded-0 m-0 button-hover" id="reset-btn">Reset</a>
           </div>
        </div>
     </form>
@@ -32,23 +30,24 @@
  
 
 <div class="accordion row d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
+
     {% for exercise in exercises %}
         {% if loop.index is even %}
+
     <div class="col-12 col-md-6 m-0 p-0 ps-2" data-category="{{ exercise.category_name }}">
-        {% else %}
+    {% else %}
     <div class="col-12 col-md-6 m-0 p-0 pe-2" data-category="{{ exercise.category_name }}">
-        {% endif %}
+    {% endif %}
 
         <div class="accordion-item rounded-0 m-0 mb-4">
             <div class="accordion-header " id="headingOne">
-                <div class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">
+
+                <div class="accordion-button pb-0 ps-3  colorDark" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{exercise._id}}"  aria-expanded="false"  aria-controls="collapse{{exercise._id}}">
                     <p class="mb-2">{{exercise.exercise_name}}</p>
-                    <a class="nav-link btn-outline-dark ms-3"  href="{{ url_for('profile', username=exercise.created_by) }}">
-                        <p class="mb-2">By: {{exercise.created_by}}</p> 
-                    </a> 
                 </div>
 
                 <p class="ms-3 text-uppercase colorDark">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times <br>category: {{exercise.category_name}}</p>
+
                 <div class="input-group-append m-3">
                     <button type="button"   class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
                             data-exercise-id="{{ exercise._id }}" 
@@ -63,7 +62,7 @@
                 </div>
             </div>
                     
-            <div id="{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapse{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="heading{{exercise._id}}" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <p class="colorDark"> Description: {{exercise.instructions}}<br></p>
                 </div>
@@ -78,9 +77,9 @@
  
 
 <!-- Modal PLAY2 -->
-<div class="modal fade" id="exerciseModal222" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 80vh; overflow-y: auto;">
-        <div class="modal-content">
+<div class="modal fade  " id="exerciseModal222" tabindex="-1"   aria-hidden="true">
+    <div class="modal-dialog   modal-dialog-centered modal-dialog-scrollable" style="height: 80vh; overflow-y: auto;">
+        <div class="modal-content rounded-0 border-0">
             <div class="modal-header">
                 <h5 class="modal-title exercise-title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

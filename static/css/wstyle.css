@@ -1,56 +1,85 @@
-:root {
+      :root {
     --myblack: #4f332e;
     --mywhite: white;
 }
 
+
+
+  html, body {
+    font-family: 'Satoshi-Variable' , Arial, sans-serif;
+  }
+  h1, h2, button[type=submit], h3, h4{
+    font-weight: 900;
+  }
 @font-face {
-    font-family: 'Satoshi-Variable';
-    src: url('/static/fonts/Satoshi-Variable.woff2') format('woff2'),
-         url('/static/fonts/Satoshi-Variable.woff') format('woff'),
-         url('/static/fonts/Satoshi-Variable.ttf') format('truetype');
-         font-weight: 300 900;
-         font-display: swap;
-         font-style: normal;
+  font-family: 'Satoshi-Variable';
+  src: url('/static/fonts/Satoshi-Variable.woff2') format('woff2'),
+        url('/static/fonts/Satoshi-Variable.woff') format('woff'),
+        url('/static/fonts/Satoshi-Variable.ttf') format('truetype');
+        font-weight: 300 900;
+        font-display: swap;
+        font-style: normal;
   }
 
-html, body {
-    font-family: 'Satoshi-Variable' ;
-}
-    h1, h2, button[type=submit], h3, h4{
-    font-weight: 900;
-    }
 
-    a:active, .active,  button {
+      /* Critical CSS for above-the-fold content */
+
+      a:active, .active,  button {
         text-decoration: underline!important;
-    }
-
-    .noUnder{
+      }
+      .noUnder{
         text-decoration: none!important;
+      }
+      body{
+          position: relative;
+      }
+      body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background: 
+        radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
+        radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
+        radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
+        radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
+        radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
+      background-size: 200% 200%;
+      background-position: 0% 100%;
+      height: 100vh;
     }
-
-
-body{
-    position: relative;
-}
-
-body::after {
-    position: fixed;
-    content: "";
-    left: 0;
-    top: 0;
-    right:0;
-    bottom:0;
-    z-index: -1;
-    background: 
-    radial-gradient(49% 81% at 45% 47%, #FFE20345 0%, #073AFF00 100%),
-    radial-gradient(113% 91% at 17% -2%, #008BFFFF 1%, #FF000000 99%),
-    radial-gradient(142% 91% at 83% 7%, #FFDB00FF 1%, #FF000000 99%),
-    radial-gradient(142% 91% at -6% 74%, #FF0049FF 1%, #FF000000 99%),
-    radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #FF0000FF 100%);
-    background-size: 200% 200%;
-    animation: BGgradient 10s ease infinite;
-    height: 100vh;
-}
+    
+    body::before {
+      animation: BGgradient1 10s ease infinite;
+      opacity: 1;
+    }
+    
+    body::after {
+      animation: BGgradient2 10s ease infinite;
+      opacity: 0;
+    }
+    
+    @keyframes BGgradient1 {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+    
+    @keyframes BGgradient2 {
+      0%, 100% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
 
 .modal-content{
     overflow:hidden;
@@ -64,17 +93,7 @@ body::after {
     animation: gradient 10s ease infinite;
 }
 
-@keyframes BGgradient {
-    0% {
-      background-position: 0% 100%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 100%;
-    }
-  }
+
 
 .colorLight{
     color:var(--mywhite)!important;

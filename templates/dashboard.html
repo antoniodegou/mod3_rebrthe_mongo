@@ -2,8 +2,6 @@
 {% block content %}
 
  
-  
-
 <div class="input-group-append mt-3 mb-5">
     <h2 class="colorDark">Exercises by: {{username}}</h2>
    <button class="btn btn-outline-primary rounded-0 colorDark dark-border thick-text button-hover" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"   >Add Exercise</button>
@@ -15,10 +13,20 @@
     {% for exercise in exercises %} 
         {% if username == exercise.created_by %} 
 
-    <div class="col-12 col-md-6 m-0 p-0 pe-4">
-        <div class="accordion-item rounded-0    m-0 mb-4 ">
+    {% if loop.index is even %}
+    <div class="col-12 col-md-6 m-0 p-0 ps-md-2" data-category="{{ exercise.category_name }}">
+    {% else %}
+    <div class="col-12 col-md-6 m-0 p-0 pe-md-2" data-category="{{ exercise.category_name }}">
+    {% endif %}
+
+
+        <div class="accordion-item rounded-0 m-0 mb-4 ">
             <div class="accordion-header " id="headingOne">
-                <p  class="accordion-button pb-0 ps-3" data-bs-toggle="collapse" data-bs-target="#{{exercise._id}}"  aria-expanded="false" aria-controls="collapseOne">{{exercise.exercise_name}}</p>
+
+                <div class="accordion-button pb-0 ps-3  colorDark" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{exercise._id}}"  aria-expanded="false"  aria-controls="collapse{{exercise._id}}">
+                    <p class="mb-2">{{exercise.exercise_name}}</p>
+                </div>
+
                 <p class="ms-3 text-uppercase colorDark">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times <br>category: {{exercise.category_name}}</p>
       
                 <div class="input-group-append m-3">
@@ -34,7 +42,7 @@
                 </div>
             </div>
             
-            <div id="{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div  id="collapse{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="heading{{exercise._id}}" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <p class="colorDark"> Description: {{exercise.instructions}}<br></p>
                     <div class="input-group-append m-3 ms-0">
