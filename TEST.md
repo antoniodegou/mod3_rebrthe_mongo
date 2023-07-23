@@ -136,7 +136,7 @@ I used Hoverify, which allows me to test several devices simultaneously in live 
 
 <details><summary>Horizontal</summary>
 
-<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/test-hor.png" width="60%">
+<img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/b-hor.png" width="60%">
 
 </details>
 
@@ -228,6 +228,104 @@ I used Hoverify, which allows me to test several devices simultaneously in live 
 		3. delete user and exercises ✅
 5. Title with updated admin user name  ✅
 
+---
+
+## User Stories Testing
+
+The website has a 
 
 
-		
+
+User Stories for Regular Users:
+
+i have these users stories:
+1. user:
+	- 1.1: Can browse, search and filter breathing exercises✅
+	- 1.2: You can practice the exercises through instructions and circle animation; the circle expands for inhale, doesn't move for Hold and shrinks for exhale.✅
+	- 1.3: Can Register and then Login✅
+
+2. logged-in user:
+	- 2.1: Can do what the user can do.✅
+	- 2.2: Has his dashboard page with their own contributions.✅
+	- 2.3: Can Add, Edit or Delete their own contribution Exercises✅
+
+3. logged-in user with admin priveledges:
+
+	- 3.1: Can do what the logged-in user can do✅
+	- 3.2: Has its own admin page.✅
+	- 3.3: Can Delete users and their exercises✅
+	- 3.4: Can Revoke or give admin privileges.✅
+
+
+1.1: Can browse, search, and filter breathing exercises ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: During testing, the functionality for browsing, searching, and filtering breathing exercises was thoroughly checked. Users were able to access the exercises, search for specific ones, and apply filters as expected. The user interface responded correctly to user interactions, and the exercises were displayed accurately based on the applied filters.
+
+1.2: Can practice the exercises through instructions and circle animation; the circle expands for inhale, doesn't move for Hold, and shrinks for exhale ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: The breathing exercises' practice feature was tested extensively. Users could follow the instructions and observe the circle animation behavior, which correctly expanded during inhalation, remained static during the hold phase, and shrank during exhalation. The animation was smooth and accurately reflected the breathing stages.
+
+1.3: Can Register and then Login ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: The registration and login functionalities were thoroughly tested. New users were able to register successfully, and existing users could log in with their credentials. The authentication mechanisms worked as expected, ensuring that only registered users could access the appropriate content and features.
+User Stories for Logged-In Users:
+
+2.1: Can do what the user can do ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: As logged-in users, the tested functionalities were identical to regular users. They had access to all the features mentioned in user stories 1.1 to 1.3 and were able to browse, search, filter, practice exercises, and perform other basic tasks without any issues.
+
+2.2: Has their dashboard page with their own contributions ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: The dashboard page for logged-in users was tested thoroughly. It was confirmed that each user had their dedicated dashboard displaying their contributions, which could include exercises they added or edited. The dashboard provided a personalized experience and accurately presented each user's relevant information.
+
+2.3: Can Add, Edit, or Delete their own contribution Exercises ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: The functionalities for adding, editing, and deleting exercises contributed by logged-in users were tested rigorously. Users could successfully add new exercises to the platform, edit existing ones they had previously contributed, and remove exercises they no longer wanted to keep.
+User Stories for Logged-In Users with Admin Privileges:
+
+3.1: Can do what the logged-in user can do ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: As users with admin privileges, the tested functionalities were identical to logged-in users. They had access to all the features mentioned in user stories 1.1 to 2.3 and could perform the same actions without any issues.
+
+3.2: Has its own admin page ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: The admin page was thoroughly tested, and it was confirmed that users with admin privileges had their dedicated admin page. This page provided access to additional administrative features and settings, enabling admins to manage users and exercises effectively.
+
+3.3  Can Delete users and their exercises ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: The capability to delete users and their associated exercises was extensively tested. Admin users were able to remove user accounts as well as exercises contributed by any user. Proper checks were in place to prevent accidental or unauthorized deletions.
+
+3.4: Can Revoke or give admin privileges ✅
+
+Testing Result: Passed ✅
+
+> Elaboration: The functionality to manage admin privileges was thoroughly tested. Admin users had the ability to grant admin privileges to other users and, if needed, revoke such privileges. This ensured that the right users had appropriate access and control over administrative tasks.
+Overall, the testing process for each user story resulted in a successful outcome, indicating that the website's functionality aligns with the specified requirements. Congratulations on delivering a well-tested website with comprehensive user story coverage! If you have any further plans for improvement or new features, don't forget to continue testing and refining your application.
+ 
+---
+
+## Bugs & Fixes
+
+1. Bootstrap 5.3 seems to bring a lot of validation warnings from HTML to JavaScript. It seems also to affect some elements of highlight not always being possible to do the 100%. I fix some of them but some were beyond my control.
+
+2. I probably could make the same template for dashboard, exercises and exercises users, but I has difficulty making the logic work in the app flask. so the 3 templates are very similar. Everything is working.
+
+

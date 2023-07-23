@@ -1,15 +1,17 @@
 {% extends "base.html" %}
+
 {% block content %}
 {% if session.user %}
-<div class="app container mb-5 pb-5"  >
-   <div class="row h-100 d-flex align-items-center ">
+<!-- Content for logged-in users -->
+<div class="app container mb-5 pb-5">
+   <div class="row h-100 d-flex align-items-center">
       <div class="col-md-6 col-12  d-flex align-items-center justify-content-center flex-column">
          <h1 id="headertitle" class="title headertitle colorDark">re<span>B  </span> &nbsp;  rthe</h1>
          <p class="mt-3 colorDark">The breathing exercise database</p>
       </div>
-      <div class="col-md-6 col-12  p-0 d-flex justify-content-center ">
-         <div class="breathing d-flex justify-content-center align-items-center ">
-            <div class="circle-center d-flex justify-content-center align-items-center ">
+      <div class="col-md-6 col-12  p-0 d-flex justify-content-center">
+         <div class="breathing d-flex justify-content-center align-items-center">
+            <div class="circle-center d-flex justify-content-center align-items-center">
                <div class="circle-static d-flex justify-content-center align-items-center">
                </div>
             </div>
@@ -18,57 +20,61 @@
    </div>
 </div>
 {% endif %}
+
 {% if not session.user %}
-<div id="app container mb-5 pb-5"  >
+<!-- Content for non-logged-in users -->
+<div id="app container mb-5 pb-5">
    <div class="row h-100 d-flex align-items-center">
       <div class="col-md-6 col-12  d-flex align-items-center justify-content-center flex-column">
          <h1 id="headertitle" class="title headertitle colorDark">re<span>B  </span> &nbsp;  rthe</h1>
          <p class="mt-3 colorDark">The breathing exercise database</p>
       </div>
       <div class="col-md-6 col-12  p-0  ">
-         <div id="homecard"  class="      rounded-3">
+         <div id="homecard"  class="rounded-3">
             <div id="formcont" class="form-container p-4">
-               <div id="signin-form" class=" my-card  p-4 m-auto rounded-2  ">
-                  <h2 class="pb-3">signin</h2>
-                  <form  method="POST" action="{{ url_for('login') }}" >
+               <!-- Sign-in form -->
+               <div id="signin-form" class="my-card p-4 m-auto rounded-2">
+                  <h2 class="pb-3">Sign in</h2>
+                  <form method="POST" action="{{ url_for('login') }}">
                      <div class="form-floating mb-3">
                         <input type="name" class="form-control rounded-0 colorDark" id="username" name="username" placeholder="username">
-                        <label for="username" class="colorDark">name</label>
+                        <label for="username" class="colorDark">Name</label>
                      </div>
-                     <div class="form-floating  mb-5">
+                     <div class="form-floating mb-5">
                         <input type="password" class="form-control rounded-0" id="Password" name="password" placeholder="Password" autocomplete="current-password">
                         <label for="Password" class="colorDark">Password</label>
                      </div>
                      <button type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
                   </form>
                   <div class="mt-3 mb-5">
-                     <p class="text-end mb-0 colorDark">if your don't have an account</p>
-                     <a id="signup-button" href="" class="text-end  colorDark">
-                        <h3>signup</h3>
+                     <p class="text-end mb-0 colorDark">If you don't have an account</p>
+                     <a id="signup-button" href="" class="text-end colorDark">
+                        <h3>Sign up</h3>
                      </a>
                   </div>
                </div>
-               <div  id="signup-form" class=" my-card  p-4 m-auto rounded-2  hiding  ">
-                  <h2 class="pb-3">signup</h2>
+               <!-- Sign-up form -->
+               <div id="signup-form" class="my-card p-4 m-auto rounded-2 hiding">
+                  <h2 class="pb-3">Sign up</h2>
                   <form method="POST" action="{{ url_for('register') }}">
                      <div class="form-floating mb-3">
                         <input type="name" class="form-control rounded-0" id="usernameS" name="username" placeholder="username">
-                        <label for="usernameS" class="colorDark">name</label>
+                        <label for="usernameS" class="colorDark">Name</label>
                      </div>
                      <div class="form-floating mb-3">
                         <input type="email" class="form-control rounded-0" id="email" name="email" placeholder="name@example.com">
                         <label for="email" class="colorDark">Email address</label>
                      </div>
-                     <div class="form-floating  mb-3">
+                     <div class="form-floating mb-3">
                         <input type="password" class="form-control rounded-0" id="floatingPassword" name="password" placeholder="Password" autocomplete="new-password">
                         <label for="floatingPassword" class="colorDark">Password</label>
                      </div>
-                     <button   type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
+                     <button type="submit" class="btn btn-outline-dark rounded-0 mb-2">Submit</button>
                   </form>
                   <div class="mt-3 mb-5">
-                     <p class="text-end  mb-0 colorDark">if you are already registered</p>
+                     <p class="text-end mb-0 colorDark">If you are already registered</p>
                      <a id="signin-button" href="" class="text-end colorDark">
-                        <h3>signin</h3>
+                        <h3>Sign in</h3>
                      </a>
                   </div>
                </div>
@@ -78,35 +84,38 @@
    </div>
 </div>
 {% endif %}
-<br><br><br><br><br><br>
-<div class="container row mt-5 mb-5">
-   <div class="col-12 col-md-6 d-flex align-items-center  ">
+
+<br><br><br><br>
+<div class="container row m-0 mt-5 mb-5">
+   <div class="col-12 col-md-6 d-flex align-items-center">
       <img src="{{ url_for('static', filename='img/body.svg')}}" alt="" width="100%" height="100%">
    </div>
-   <div class=" col-12  col-md-6  d-flex align-items-center justify-content-center flex-column">
-      <h2 class=" ">Discover the Power of Breath</h2>
-      <p class=" ">reBrthe is your ultimate destination for exploring a vast collection of breathing exercises designed to improve your well-being. </p>
+   <div class="col-12 col-md-6 d-flex align-items-center justify-content-center flex-column">
+      <h2 class="">Discover the Power of Breath</h2>
+      <p class="">reBrthe is your ultimate destination for exploring a vast collection of breathing exercises designed to improve your well-being. </p>
    </div>
 </div>
-<div class="container row mt-5">
-   <div class=" col-12  col-md-6  d-flex align-items-center justify-content-center flex-column">
-      <h2 class=" ">The wikipedia of Breathing work</h2>
-      <p class=" "> Our comprehensive database offers a diverse range of breathing techniques that can be practiced.</p>
+<div class="container  row m-0 mt-5">
+   <div class="col-12 col-md-6 d-flex align-items-center justify-content-center flex-column">
+      <h2 class="">The Wikipedia of Breathing Work</h2>
+      <p class="">Our comprehensive database offers a diverse range of breathing techniques that can be practiced.</p>
       <p>Each breathing exercise in our database is accompanied by detailed information about its specific benefits. From reducing stress and anxiety to improving focus and sleep quality, reBrthe empowers you to harness the full potential of conscious breathing. Explore our extensive collection to find the exercises that align with your personal goals.</p>
    </div>
-   <div class="col-12 col-md-6 d-flex align-items-center  ">
+   <div class="col-12 col-md-6 d-flex align-items-center">
       <img src="{{ url_for('static', filename='img/info.svg')}}" alt="" width="100%" height="100%">
    </div>
 </div>
-<div class="container row mt-5 mb-5">
-   <div class="col-12 col-md-6 d-flex align-items-center  ">
+<div class="container row m-0 mt-5 mb-5">
+   <div class="col-12 col-md-6 d-flex align-items-center">
       <img src="{{ url_for('static', filename='img/practice.svg')}}" alt="" width="100%" height="100%">
    </div>
-   <div class=" col-12  col-md-6  d-flex align-items-center justify-content-center flex-column">
-      <h2 class=" ">Practice</h2>
-      <p class=" ">You can practice any of the exercise with our timer and graphic circle. Our system will indicate the timming or in breathe , hold or out breathe. this goes on for a number of pre define cycles.</p>
+   <div class="col-12 col-md-6 d-flex align-items-center justify-content-center flex-column">
+      <h2 class="">Practice</h2>
+      <p class="">You can practice any of the exercise with our timer and graphic circle. Our system will indicate the timing or in-breath, hold, or out-breath. This goes on for a number of predefined cycles.</p>
    </div>
 </div>
+
+<!-- Include the JavaScript file if user is not logged in -->
 {% if not session.user %}
 <script src="{{ url_for('static', filename='js/script.js')}}"></script>
 {% endif %}

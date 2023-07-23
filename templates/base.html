@@ -1,83 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title and description -->
     <title>reBrthe</title>
     <meta name="description" content="reBrthe - the breathing exercise database">
-
-
-<link rel="apple-touch-icon" sizes="180x180"   href="{{ url_for('static', filename='img/favicon_io/apple-touch-icon.png')}}">
-<link rel="icon" type="image/png" sizes="32x32"   href="{{ url_for('static', filename='img/favicon_io/favicon-32x32.png')}}">
-<link rel="icon" type="image/png" sizes="16x16"   href="{{ url_for('static', filename='img/favicon_io/favicon-16x16.png')}}">
-<link rel="manifest"   href="{{ url_for('static', filename='img/favicon_io/site.webmanifest')}}">  
-
+    <!-- Favicon links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicon_io/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon_io/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon_io/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/favicon_io/site.webmanifest')}}">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" media="all">
+    <!-- Custom stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/wstyle.css')}}" media="all">
+    <!-- Custom styles (if any) -->
     {% block styles %}
     {% endblock %}
-
-
-
 </head>
- 
 <body class="container-md d-flex flex-column min-vh-100 colorLight">
- 
-            
-  <header class="row">
-    <nav class="navbar navbar-expand-lg bg-light mb-5 mt-1" aria-label="Main navigation">
-      <div class="container-fluid">
-        <a class="navbar-brand mb-0 pb-0 me-1 noUnder" href="{{ url_for('get_home') }}"> <h1 class=" noUnder colorDark  noUnder">re<span class="colorDark noUnder">B  </span> &nbsp;  rthe</h1></a>
-        {% if session.user %}
-        <p class="colorDark mt-3 mb-0">,{{- username -}}!</p>
-        {% endif %}
-        <button class="navbar-toggler rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button> 
-        <div class="collapse navbar-collapse   justify-content-end" id="navbarNav">
-          <ul class="navbar-nav  ">
-            <li class="nav-item">
-              <a class="nav-link"   href="{{url_for('get_home')}}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('get_exercises')}}">Exercises</a>
-            </li>
-            {% if session.user %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('profile', username=session['user'])}}">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login') }}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('register')}}">Signup</a>
-            </li>
-            {% endif %}
-            <!-- only show if user is logged in and has admin -->
-            {% if admin %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{-url_for('admin', username=session['user'])-}}">Admin</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-
+    <!-- Header -->
+    <header class="row">
+        <nav class="navbar navbar-expand-lg bg-light mb-5 mt-1" aria-label="Main navigation">
+            <div class="container-fluid">
+                <!-- Brand logo -->
+                <a class="navbar-brand mb-0 pb-0 me-1 noUnder" href="{{ url_for('get_home') }}">
+                    <h1 class=" noUnder colorDark  noUnder">re<span class="colorDark noUnder">B  </span> &nbsp;  rthe</h1>
+                </a>
+                <!-- Show username if user is logged in -->
+                {% if session.user %}
+                <p class="colorDark mt-3 mb-0">,{{- username -}}!</p>
+                {% endif %}
+                <!-- Navbar toggle button for mobile -->
+                <button class="navbar-toggler rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <!-- Home link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('get_home')}}">Home</a>
+                        </li>
+                        <!-- Exercises link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('get_exercises')}}">Exercises</a>
+                        </li>
+                        <!-- If user is logged in -->
+                        {% if session.user %}
+                        <!-- Dashboard link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('profile', username=session['user'])}}">Dashboard</a>
+                        </li>
+                        <!-- Logout link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                        </li>
+                        {% else %}
+                        <!-- Login link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('login') }}">Login</a>
+                        </li>
+                        <!-- Signup link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('register')}}">Signup</a>
+                        </li>
+                        {% endif %}
+                        <!-- Show if user is logged in and has admin privileges -->
+                        {% if admin %}
+                        <!-- Admin link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{-url_for('admin', username=session['user'])-}}">Admin</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Flash messages -->
     {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <!-- flash messages in a bootstrap toast-->
-   <section>
-        <div class="toast-container position-fixed top-0 start-0 p-3 ">
-          {% for message in messages %}
-            <div class="toast rounded-0 " role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+    {% if messages %}
+    <section>
+        <div class="toast-container position-fixed top-0 start-0 p-3">
+            <!-- Display flash messages in a Bootstrap toast -->
+            {% for message in messages %}
+            <div class="toast rounded-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
                 <div class="toast-header">
                     <strong class="me-auto">Flash Message</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -86,57 +97,61 @@
                     {{ message }}
                 </div>
             </div>
-          {% endfor %}
+            {% endfor %}
         </div>
-      </section>
-      {% endif %}
+    </section>
+    {% endif %}
     {% endwith %}
+    <!-- Main content -->
+    <div class="flex-grow-1">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Footer -->
+    <footer class="row py-3 my-4 ms-auto container-md pb-5" aria-label="Footer navigation">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <!-- Footer links -->
+            <li class="nav-item">
+                <a class="nav-link colorDark" href="{{ url_for('get_home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link colorDark" href="{{ url_for('get_exercises') }}">Exercises</a>
+            </li>
+            <!-- If user is logged in -->
+            {% if session.user %}
+            <!-- Dashboard link -->
+            <li class="nav-item">
+                <a class="nav-link colorDark" href="{{ url_for('profile', username=session['user']) }}">Dashboard</a>
+            </li>
+            <!-- Logout link -->
+            <li class="nav-item">
+                <a class="nav-link colorDark" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+            {% else %}
+            <!-- Login link -->
+            <li class="nav-item">
+                <a class="nav-link colorDark" href="{{ url_for('login') }}">Login</a>
+            </li>
+            <!-- Signup link -->
+            <li class="nav-item">
+                <a class="nav-link colorDark" href="{{ url_for('register') }}">Signup</a>
+            </li>
+            {% endif %}
+            <!-- Show if user is logged in and has admin privileges -->
+            {% if admin %}
+            <!-- Admin link -->
+            <li class="nav-item">
+                <a class="nav-link colorDark" href="{{ url_for('admin', username=session['user'])  }}">Admin</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- Copyright information -->
+        <p class="text-center text-muted" id="currentYear">&copy; reBrthe, Inc</p>
 
-  <!-- Main content -->
-  <div class="flex-grow-1">
-  {% block content %}
-  {% endblock %}
-</div>
-  <!-- Footer -->
-
-  <footer class="row py-3 my-4 ms-auto container-md pb-5  " aria-label="Footer navigation">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item">
-        <a class="nav-link  colorDark"  href="{{ url_for('get_home') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link colorDark" href="{{ url_for('get_exercises') }}">Exercises</a>
-      </li>
-      {% if session.user %}
-      <li class="nav-item">
-        <a class="nav-link colorDark" href="{{ url_for('profile', username=session['user']) }}">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link colorDark" href="{{ url_for('logout') }}">Logout</a>
-      </li>
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link colorDark" href="{{ url_for('login') }}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link colorDark" href="{{ url_for('register') }}">Signup</a>
-      </li>
-
-      {% endif %}
-      <!-- only show if user is logged in and has admin -->
-      {% if admin %}
-      <li class="nav-item">
-        <a class="nav-link colorDark" href="{{ url_for('admin', username=session['user'])  }}">Admin</a>
-      </li>
-      {% endif %}
-    </ul>
-    <p class="text-center text-muted">© 2023 reBrthe, Inc</p>
-  </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>  
-     
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Custom JS (if any) -->
     <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
-
 </body>
 </html>
