@@ -326,6 +326,7 @@ Details of all features on the finished site, expanding on the broader features 
 	* delete exercise
 	* delete user
 	* add/revoke admin priveledges 
+	* flash message are shown through a Bootstrap toast
 
 ### Home (/)
 
