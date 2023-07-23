@@ -1,145 +1,137 @@
 {% extends "base.html" %}
 {% block content %}
 
- 
+<!-- Title and Add Exercise Button -->
 <div class="input-group-append mt-3 mb-5">
-    <h2 class="colorDark">Exercises by: {{username}}</h2>
-   <button class="btn btn-outline-primary rounded-0 colorDark dark-border thick-text button-hover" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"   >Add Exercise</button>
+   <h2 class="colorDark">Exercises by: {{username}}</h2>
+   <button class="btn btn-outline-primary rounded-0 colorDark dark-border thick-text button-hover" type="button" id="search-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Exercise</button>
 </div>
 
+<!-- Exercises Display Area -->
+<div class="accordion row d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
+   {% for exercise in exercises %} 
+   {% if username == exercise.created_by %} 
+   {% if loop.index is even %}
+   <div class="col-12 col-md-6 m-0 p-0 ps-md-2" data-category="{{ exercise.category_name }}">
+   {% else %}
+   <div class="col-12 col-md-6 m-0 p-0 pe-md-2" data-category="{{ exercise.category_name }}">
+   {% endif %}
 
-<div class="accordion  row  d-flex align-items-center justify-content-center p-0 m-0" id="accordionExample">
-
-    {% for exercise in exercises %} 
-        {% if username == exercise.created_by %} 
-
-    {% if loop.index is even %}
-    <div class="col-12 col-md-6 m-0 p-0 ps-md-2" data-category="{{ exercise.category_name }}">
-    {% else %}
-    <div class="col-12 col-md-6 m-0 p-0 pe-md-2" data-category="{{ exercise.category_name }}">
-    {% endif %}
-
-
-        <div class="accordion-item rounded-0 m-0 mb-4 ">
-            <div class="accordion-header " id="headingOne">
-
-                <div class="accordion-button pb-0 ps-3  colorDark" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{exercise._id}}"  aria-expanded="false"  aria-controls="collapse{{exercise._id}}">
-                    <p class="mb-2">{{exercise.exercise_name}}</p>
-                </div>
-
-                <p class="ms-3 text-uppercase colorDark">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times <br>category: {{exercise.category_name}}</p>
-      
-                <div class="input-group-append m-3">
-                    <button type="button"   class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
-                    data-exercise-id="{{ exercise._id }}" 
-                    data-exercise-title="{{ exercise.exercise_name }}" 
-                    data-exercise-description="{{ exercise.instructions }}"
-                    data-exercise-in="{{ exercise.in }}"
-                    data-exercise-hold="{{ exercise.hold }}"
-                    data-exercise-out="{{ exercise.out }}"
-                    data-exercise-cycles="{{ exercise.cycles }}"
-                    > Play </button>
-                </div>
+      <!-- Exercise Item -->
+      <div class="accordion-item rounded-0 m-0 mb-4">
+         <div class="accordion-header" id="headingOne">
+            <div class="accordion-button pb-0 ps-3 colorDark" role="button" data-bs-toggle="collapse" data-bs-target="#collapse{{exercise._id}}" aria-expanded="false" aria-controls="collapse{{exercise._id}}">
+               <p class="mb-2">{{exercise.exercise_name}}</p>
             </div>
-            
-            <div  id="collapse{{exercise._id}}" class="accordion-collapse collapse " aria-labelledby="heading{{exercise._id}}" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <p class="colorDark"> Description: {{exercise.instructions}}<br></p>
-                    <div class="input-group-append m-3 ms-0">
-                        <button class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" type="button"   data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
-
-                        <button type="button" class="btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text" data-bs-toggle="modal" data-bs-target="#deleteModal{{exercise._id}}"> Delete it?  </button>
-                    </div>
-                </div>
+            <p class="ms-3 text-uppercase colorDark">IN: {{exercise.in}} HOLD: {{exercise.hold}} OUT: {{exercise.out}} - {{exercise.cycles}} Times <br>category: {{exercise.category_name}}</p>
+            <div class="input-group-append m-3">
+               <!-- Play Exercise Button -->
+               <button type="button" class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" data-bs-toggle="modal" data-bs-target="#exerciseModal222" 
+                  data-exercise-id="{{ exercise._id }}" 
+                  data-exercise-title="{{ exercise.exercise_name }}" 
+                  data-exercise-description="{{ exercise.instructions }}"
+                  data-exercise-in="{{ exercise.in }}"
+                  data-exercise-hold="{{ exercise.hold }}"
+                  data-exercise-out="{{ exercise.out }}"
+                  data-exercise-cycles="{{ exercise.cycles }}"
+               >Play</button>
             </div>
-        </div>
-    </div>
- 
-      <!-- DELETE Modal -->
-      <div class="modal fade" id="deleteModal{{exercise._id}}" tabindex="-1"   aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content rounded-0 border-0 ">
-    
-            <div class="modal-body d-flex justify-content-center row flex-column">
-                <div class="col-12    d-flex justify-content-center mb-5  mt-5"> 
-                    <h2>Are you sure?</h2>
-                </div>
-                <div class="col-12 d-flex justify-content-center mb-5">
-                    <button type="button" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5"  data-bs-dismiss="modal"> No</button>
-                    <button class="btn btn-outline-primary dark-border button-hover thick-text   rounded-0 me-3 " type="button">
-                    <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4 exercise-button  thick-text colorDark button-hover dark-border">Yes</a>
-                    </button>
-                </div>
+         </div>
+         <!-- Exercise Details Collapse Section -->
+         <div id="collapse{{exercise._id}}" class="accordion-collapse collapse" aria-labelledby="heading{{exercise._id}}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+               <p class="colorDark"> Description: {{exercise.instructions}}<br></p>
+               <div class="input-group-append m-3 ms-0">
+                  <!-- Edit Exercise Button -->
+                  <button class="btn btn-outline-primary colorDark exercise-button button-hover thick-text rounded-0 dark-border me-5" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalEdit_{{exercise._id}}" data-bs-backdrop="static" data-exercise-id="{{ exercise._id }}">Edit</button>
+                  <!-- Delete Exercise Button -->
+                  <button type="button" class="btn btn-outline-primary dark-border button-hover colorDark rounded-0 me-3 thick-text" data-bs-toggle="modal" data-bs-target="#deleteModal{{exercise._id}}">Delete it?</button>
+               </div>
             </div>
-    
-          </div>
-        </div>
+         </div>
       </div>
-
-
-    <!-- Modal EDIT -->
-    <div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1"   aria-hidden="true" data-bs-backdrop="static" >
-        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content rounded-0 border-0">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body"> 
-                <form  method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
-                    <h1>{{exercise.exercise_name}}</h1>  
-                    <div class="form-floating mb-3">       
-                        <input type="text" class="form-control rounded-0" id="exercise_nameE{{exercise._id}}" name="exercise_nameE{{exercise._id}}" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
-                        <label for="exercise_nameE{{exercise._id}}" class="rounded-0">Exercise Name</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-0" id="category_nameE{{exercise._id}}" name="category_nameE{{exercise._id}}" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
-                        <label for="category_nameE{{exercise._id}}" class="rounded-0">Category</label>
-                    </div>
-                    <div class="row g-2 mb-3">
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <input type="number" class="form-control rounded-0" id="inE{{exercise._id}}" name="inE{{exercise._id}}" placeholder="5" value="{{exercise.in}}">
-                                <label for="inE{{exercise._id}}" class="rounded-0">In Breath</label>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <input type="number" class="form-control rounded-0" id="holdE{{exercise._id}}" name="holdE{{exercise._id}}" placeholder="5" value="{{exercise.hold}}">
-                                <label for="holdE{{exercise._id}}" class="rounded-0">Hold</label>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <input type="number" class="form-control rounded-0" id="outE{{exercise._id}}" name="outE{{exercise._id}}" placeholder="5" value="{{exercise.out}}">
-                                <label for="outE{{exercise._id}}" class="rounded-0">Out breath</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control rounded-0 pb-5" placeholder="Leave a comment here" id="instructionsE{{exercise._id}}" name="instructionsE{{exercise._id}}" rows="20">{{exercise.instructions}}</textarea>
-                        <label for="instructionsE{{exercise._id}}" class="rounded-0">Description/Instructions</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-0" id="cyclesE{{exercise._id}}" name="cyclesE{{exercise._id}}" placeholder="25" value="{{exercise.cycles}}">
-                        <label for="cyclesE{{exercise._id}}" class="rounded-0">Cicles</label>
-                    </div>
-                    <div class="mb-4 mt-4">
-                        <button type="submit" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5" data-bs-dismiss="modal">Edit Exercise</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>
+   </div>
+   <!-- DELETE Modal -->
+   <div class="modal fade" id="deleteModal{{exercise._id}}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+       <div class="modal-content rounded-0 border-0">
+          <div class="modal-body d-flex justify-content-center row flex-column">
+             <div class="col-12 d-flex justify-content-center mb-5 mt-5">
+                <h2>Are you sure?</h2>
+             </div>
+             <div class="col-12 d-flex justify-content-center mb-5">
+                <!-- Button to cancel the deletion -->
+                <button type="button" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5" data-bs-dismiss="modal"> No</button>
+                <!-- Button to confirm the deletion -->
+                <button class="btn btn-outline-primary dark-border button-hover thick-text rounded-0 me-3 " type="button">
+                <!-- Link to perform the deletion through a URL -->
+                <a href="{{ url_for('delete_task', exercise_id=exercise['_id'], username=session['user']) }}" class="btn-small green accent-4 exercise-button thick-text colorDark button-hover dark-border">Yes</a>
+                </button>
+             </div>
+          </div>
+       </div>
     </div>
-
-
-        {% endif %}
-    {% endfor %}
-
+ </div>
+   <!-- Modal EDIT -->
+   <div class="modal fade" id="exampleModalEdit_{{exercise._id}}" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+       <div class="modal-content rounded-0 border-0">
+          <div class="modal-header">
+             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Exercise</h1>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+             <form  method="POST" action="{{ url_for('manage_task', identifier=exercise['_id']) }}">
+                <h1>{{exercise.exercise_name}}</h1>
+                <!-- Form to edit exercise details -->
+                <div class="form-floating mb-3">       
+                   <input type="text" class="form-control rounded-0" id="exercise_nameE{{exercise._id}}" name="exercise_nameE{{exercise._id}}" placeholder="{{exercise.exercise_name}}" value="{{exercise.exercise_name}}">
+                   <label for="exercise_nameE{{exercise._id}}" class="rounded-0">Exercise Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                   <input type="text" class="form-control rounded-0" id="category_nameE{{exercise._id}}" name="category_nameE{{exercise._id}}" placeholder="{{exercise.category_name}}" value="{{exercise.category_name}}">
+                   <label for="category_nameE{{exercise._id}}" class="rounded-0">Category</label>
+                </div>
+                <div class="row g-2 mb-3">
+                   <div class="col-md">
+                      <div class="form-floating">
+                         <input type="number" class="form-control rounded-0" id="inE{{exercise._id}}" name="inE{{exercise._id}}" placeholder="5" value="{{exercise.in}}">
+                         <label for="inE{{exercise._id}}" class="rounded-0">In Breath</label>
+                      </div>
+                   </div>
+                   <div class="col-md">
+                      <div class="form-floating">
+                         <input type="number" class="form-control rounded-0" id="holdE{{exercise._id}}" name="holdE{{exercise._id}}" placeholder="5" value="{{exercise.hold}}">
+                         <label for="holdE{{exercise._id}}" class="rounded-0">Hold</label>
+                      </div>
+                   </div>
+                   <div class="col-md">
+                      <div class="form-floating">
+                         <input type="number" class="form-control rounded-0" id="outE{{exercise._id}}" name="outE{{exercise._id}}" placeholder="5" value="{{exercise.out}}">
+                         <label for="outE{{exercise._id}}" class="rounded-0">Out breath</label>
+                      </div>
+                   </div>
+                </div>
+                <div class="form-floating mb-3">
+                   <textarea class="form-control rounded-0 pb-5" placeholder="Leave a comment here" id="instructionsE{{exercise._id}}" name="instructionsE{{exercise._id}}" rows="20">{{exercise.instructions}}</textarea>
+                   <label for="instructionsE{{exercise._id}}" class="rounded-0">Description/Instructions</label>
+                </div>
+                <div class="form-floating mb-3">
+                   <input type="number" class="form-control rounded-0" id="cyclesE{{exercise._id}}" name="cyclesE{{exercise._id}}" placeholder="25" value="{{exercise.cycles}}">
+                   <label for="cyclesE{{exercise._id}}" class="rounded-0">Cicles</label>
+                </div>
+                <div class="mb-4 mt-4">
+                   <!-- Button to submit the edited exercise -->
+                   <button type="submit" class="btn btn-outline-primary dark-border button-hover thick-text colorDark rounded-0 me-5" data-bs-dismiss="modal">Edit Exercise</button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+ </div>
+ {% endif %}
+ {% endfor %}
 </div>
-
-
 <!-- Modal ADD -->
 <div class="modal fade" id="exampleModal" tabindex="-1"   aria-hidden="true" data-bs-backdrop="static" >
    <div class="modal-dialog modal-dialog-centered">
@@ -148,7 +140,7 @@
             <h1 class="modal-title fs-5 " id="exampleModalLabel">Add Exercise</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
-         <div class="modal-body"> 
+         <div class="modal-body">
             <form name="add_form" method="POST" action="{{ url_for('manage_task', identifier='new')}}">
                <div class="form-floating mb-3">
                   <input type="text" class="form-control colorDark rounded-0" id="exercise_name" name="exercise_name" placeholder="Exercise 1" required>
@@ -187,56 +179,41 @@
                   <label for="cycles"  class="colorDark">Cicles</label>
                </div>
                <div class="mt-4 mb-4">
-               <button type="submit" class="btn  dark-border button-hover thick-text colorDark rounded-0 me-5 ps-5 pe-5" data-bs-dismiss="modal">Add Exercise</button>
-            </div>
-
+                  <button type="submit" class="btn  dark-border button-hover thick-text colorDark rounded-0 me-5 ps-5 pe-5" data-bs-dismiss="modal">Add Exercise</button>
+               </div>
             </form>
          </div>
-
       </div>
    </div>
 </div>
-
-
 <!-- Modal PLAY2 -->
 <div class="modal fade" id="exerciseModal222" tabindex="-1"   aria-hidden="true">
-    <div class="modal-dialog    modal-dialog-centered modal-dialog-scrollable"  >
+   <div class="modal-dialog    modal-dialog-centered modal-dialog-scrollable"  >
       <div class="modal-content rounded-0 border-0">
-        <div class="modal-header">
-
-          <h5 class="modal-title exercise-title">READY?</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+         <div class="modal-header">
+            <h5 class="modal-title exercise-title">READY?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
             <h2 class="exercise-title">PRESS START!</h2>
-          <p class="exercise-id"></p>
-          <p class="exercise-instructions"></p>
-
-          <div class="breathing mb-5">
-            <div class="box m-auto">
-                <div id="circle2"></div>
-                <div id="circle"></div>
-                <div id="circletext"> </div>
+            <p class="exercise-id"></p>
+            <p class="exercise-instructions"></p>
+            <div class="breathing mb-5">
+               <div class="box m-auto">
+                  <div id="circle2"></div>
+                  <div id="circle"></div>
+                  <div id="circletext"> </div>
+               </div>
+               <div id="timer" class="ms-auto d-flex justify-content-center">TIME:</div>
+               <div   id="cycle-counter" class="ms-auto d-flex justify-content-center">Cycle:</div>
+               <div class="d-flex justify-content-center mt-5">
+                  <button id="start" class="btn btn-outline-primary rounded-0 me-3" type="button" >Start</button>
+                  <button id="stop" class="btn btn-outline-primary rounded-0 me-3" type="button" >Stop</button>
+               </div>
             </div>
-            <div id="timer" class="ms-auto d-flex justify-content-center">TIME:</div>
-            <div   id="cycle-counter" class="ms-auto d-flex justify-content-center">Cycle:</div>
-            <div class="d-flex justify-content-center mt-5">
-                <button id="start" class="btn btn-outline-primary rounded-0 me-3" type="button" >Start</button>
-                <button id="stop" class="btn btn-outline-primary rounded-0 me-3" type="button" >Stop</button>
-            </div>
-        </div>
-
-
-        </div>
+         </div>
       </div>
-    </div>
-  </div>
-
-  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-
-
-
-
-
-
+   </div>
+</div>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}
