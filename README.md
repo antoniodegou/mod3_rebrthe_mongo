@@ -135,7 +135,7 @@ All of these apply for new or returning users:
 
 Based on the features and the user stories, I developed a flow chart for the site.
 
-![Site Flow Chart](readme-img/planning_flow_diagram.jpg)
+![Site Flow Chart](https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/flow.png)
 
 
 These nav links will be displayed based on who the user is and whether they're logged in:
