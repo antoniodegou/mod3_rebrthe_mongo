@@ -1,6 +1,6 @@
 # Rebrthe
 
-Description: reBrthe is a breathing exercise database that provides users with information and guided practice for various breathing exercises. Users can explore different breathing exercises and practice them with the help of a play button.
+ reBrthe is a breathing exercise database that provides users with information and guided practice for various breathing exercises. Users can explore different breathing exercises and practice them with the help of a play button.
 
 
 ![Mockup](https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/mockup.png)
@@ -34,7 +34,7 @@ The live Website can be found [here](https://rebrthe-flask-mongo.herokuapp.com/)
 
 #### Site Goals
 
-The primary purpose of reBrthe is to provide a central platform for individuals to learn, practice, share and benefit from different breathing exercises. The platform promotes better mental and physical well-being through mindful breathing practices by offering guided activities and information on their benefits.
+The primary purpose of reBrthe is to provide a central platform for individuals to learn, practice, share and benefit from different breathing exercises. The platform promotes better mental and physical well-being through mindful breathing practices, offering guided activities and information on their benefits.
 
 #### Target Audience
 
@@ -42,7 +42,7 @@ reBrthe is intended for anyone who wants to explore the benefits of various brea
 
 #### User Stories:
 
-All of these apply for new or returning users:
+All of these apply to new or returning users:
 
 1. user:
 	
@@ -157,19 +157,18 @@ These nav links will be displayed based on who the user is and whether they're l
 	
 - 1.1: Can browse, search and filter breathing exercises
 
-The site is built with HTML, CSS, JAVASCRIPT; with the help of Bootstrap and a combination of javascript, you can use the select to filter through de diverse categories or use a search field that searches through names and descriptions of each exercise.
+The site is built with HTML, CSS, and JAVASCRIPT; with the help of Bootstrap and a combination of javascript, you can use the select to filter through de diverse categories or use a search field that searches through names and descriptions of each exercise.
 
 It's Responsive for several devices. As a user without an account, I want to understand the site's purpose immediately upon entering.
 
 - 1.2: You can practice the exercises through instructions and circle animation; the circle expands for inhale, doesn't move for Hold and shrinks for exhale.
 
-Each exercise on the reBrthe platform features a "Play" button. A modal window opens when a user clicks this button, presenting a "Play" and "Stop" button inside. The exercise starts by clicking the "Play" button within the modal, allowing the user to practice their breathing. Throughout the exercise, the user receives clear instructions on when to inhale, hold their breath, and exhale, all for a specific and predefined duration. This guided experience enables users to practice mindful breathing, following the structured breathing patterns provided by the platform.
+Each exercise on the reBrthe platform features a "Play" button. A modal window opens when a user clicks this button, presenting a "Play" and "Stop" button inside. The exercise starts by clicking the "Play" button within the modal, allowing the user to practice the breathing exercise. Throughout the exercise, the user receives clear instructions on when to inhale, hold their breath, and exhale, all for a specific and predefined duration. This guided experience enables users to practice mindful breathing, following the structured breathing patterns provided by the platform.
 
 
 - 1.3: Can Register and then Login
 
-
-Users can register and login to the reBrthe platform through two convenient access points: the home page header and the top menu, where "Login" and "Sign Up" buttons are available.
+Users can register and log in to the reBrthe platform through two convenient access points: the home page header and the top menu, where the "Login" and "Sign Up" buttons are available.
 
 2. logged-in user:
 	- 2.1: Can do what the user can do.
@@ -178,11 +177,11 @@ Users can register and login to the reBrthe platform through two convenient acce
 
 Logged-in users enjoy several privileges and functionalities on the reBrthe platform:
 
-Dashboard Page: Users have access to a personalised dashboard that showcases their own contributions.
+Dashboard Page: Users can access a personalised dashboard showcasing their contributions.
 
-Add, Edit, or Delete Exercises: On the dashboard page, users can easily add new breathing exercises using the "ADD EXERCISE" button. Each exercise panel also features "EDIT" and "DELETE" buttons, enabling users to modify or remove their own contributions.
+Add, Edit, or Delete Exercises: Users can easily add new breathing exercises on the dashboard page using the "ADD EXERCISE" button. Each exercise panel also features "EDIT" and "DELETE" buttons, enabling users to modify or remove their own contributions.
 
-Interactive Interface: The dashboard utilises the accordion and modal components from Bootstrap, providing an interactive and user-friendly experience for managing exercises efficiently. The familiar and intuitive interface streamlines the process of creating, editing, and deleting exercises, making it convenient for logged-in users to engage with their contributions.
+Interactive Interface: The dashboard utilises the accordion and modal components from Bootstrap, providing an interactive and user-friendly experience for managing exercises efficiently. The familiar and intuitive interface streamlines creating, editing, and deleting exercises, making it convenient for logged-in users to engage with their contributions.
 
 3. logged-in user with admin priveledges:
 
@@ -195,16 +194,15 @@ Logged-in users with admin privileges possess additional capabilities on the reB
 
 Admin Dashboard: An exclusive admin page allows them to manage user-related activities efficiently.
 
-User and Exercise Management: Admins can delete both users and their exercises from the platform.
+User and Exercise Management: Admins can delete users and their exercises from the platform.
 
 Admin Privilege Control: They have the authority to grant or revoke admin privileges from other users.
 
-The admin page is thoughtfully designed using Bootstrap's accordion component, facilitating easy navigation and organisation. Admins can sort users by username using the Select component and have a single button to perform the selected action on other users. These features empower admins to maintain the platform effectively and make informed decisions about user management and privileges.
+The admin page is thoughtfully designed using Bootstrap's accordion component, facilitating easy navigation and organisation. Admins can sort users by username using the Select component and have a single button to perform the selected action on other users. These features empower admins to maintain the platform effectively and make informed user management and privileges decisions.
 
 
 ### **Skeleton Plane**
 
-[For wireframes see Surface Plane](#wireframes)
 
 #### Database Design
 
@@ -434,13 +432,13 @@ Details of all features on the finished site, expanding on the broader features 
 - [Python](<https://en.wikipedia.org/wiki/Python_(programming_language)>)
   - Used to build the core of the backend of the project as well as the running/viewing of the website
   - Python Modules Used:
-1. click==8.1.3
-1. dnspython==2.3.0
-1. Flask==2.3.2
-1. Flask-PyMongo==2.3.0
-1. itsdangerous==2.1.2
-1. pymongo==4.3.3
-1. Werkzeug==2.3.4
+		1. click==8.1.3
+		2. dnspython==2.3.0
+		3. Flask==2.3.2
+		4. Flask-PyMongo==2.3.0
+		5. itsdangerous==2.1.2
+		6. pymongo==4.3.3
+		7. Werkzeug==2.3.4
 
 ### Tools
 

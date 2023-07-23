@@ -76,13 +76,11 @@ I use WAVE chrome extension for every page on accessibility. I got no error.
 <img src="https://raw.githubusercontent.com/antoniodegou/mod3_rebrthe_mongo/main/readme-img/wave-valid.png" width="60%">
 
 
-| Column 1  | Column 2  |
-|:----------|:----------|
-| Cell 1    | Cell 2    |
+ 
 
 
 
-### Performance Testing
+### Performance Testing 💯💯💯
 
 All pages were tested with google lighthouse.
 
@@ -322,7 +320,7 @@ Overall, the testing process for each user story resulted in a successful outcom
  
 ---
 
-## Bugs & Fixes
+## Bugs & Fixes  😡
 
 1. Bootstrap 5.3 seems to bring a lot of validation warnings from HTML to JavaScript. It seems also to affect some elements of highlight not always being possible to do the 100%. I fix some of them but some were beyond my control.
 
