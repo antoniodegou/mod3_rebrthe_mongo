@@ -328,4 +328,8 @@ Overall, the testing process for each user story resulted in a successful outcom
 
 2. I probably could make the same template for dashboard, exercises and exercises users, but I has difficulty making the logic work in the app flask. so the 3 templates are very similar. Everything is working.
 
+3. There is a lot of template that have their own javascript, so a lot of the template have their own script tag , sometimes more. probably there is a more optimized way of doing this but i couldn't figure it out yet. 
+
+
+
 

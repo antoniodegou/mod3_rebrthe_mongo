@@ -2,20 +2,22 @@
 
 {% block content %}
  
-  <h2>Welcome to admin page, {{ username }}</h2>
+  <!-- Display a welcome message with the username -->
+  <h2>Welcome to the admin page, {{ username }}</h2>
 
-<div class="col-12 justify-content-center  mb-4 mt-4 p-0">      
+  <!-- Dropdown menu to select users -->
+  <div class="col-12 justify-content-center mb-4 mt-4 p-0">      
     <select id="categorySelect" class="form-select form-select-l rounded-0" aria-label=".form-select-sm example">
-        <option value="all" selected>All Contributers</option>
+        <option value="all" selected>All Contributors</option>
+        <!-- Iterate through the list of users and create an option for each user -->
         {% for user in users %}
-        <option value="{{ user.username}}">{{ user.username }}</option>
+        <option value="{{ user.username }}">{{ user.username }}</option>
         {% endfor %}
     </select>
-</div>
+  </div>
 
-
-
-<div class="accordion row d-flex align-items-center justify-content-center p-0 m-0" id="usersAccordion">
+  <!-- Accordions to display user information -->
+  <div class="accordion row d-flex align-items-center justify-content-center p-0 m-0" id="usersAccordion">
 
     {% for user in users %}
   
@@ -25,57 +27,61 @@
       <div class="col-12 col-md-6 m-0 p-0 pe-2" data-category="{{user.username}}">
           {% endif %}
 
+      <!-- Accordion item for each user -->
       <div class="accordion-item rounded-0 mb-3">
         <h2 class="accordion-header" id="user{{ loop.index }}">
+          <!-- Button to toggle the accordion content -->
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
             Username: {{ user.username }}
           </button>
         </h2>    
         <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="user{{ loop.index }}" data-bs-parent="#usersAccordion">
           <div class="accordion-body">
+            <!-- Display user information inside the accordion body -->
             <p>Email: {{ user.email }} 
               <br> Admin Privileges: {% if user.is_admin %}Yes{% else %}No{% endif %}
               <br>
+              <!-- Loop through exercise_count to find the number of exercises for this user -->
               {% for exercise_count in exercises_count %}
                 {% if exercise_count.username == user.username %}
                   Number of exercises: {{ exercise_count.count }} 
                 {% endif %}
               {% endfor %}
             </p>
-          
 
+            <!-- Form to perform actions on users -->
             <form method="post" class="mb-5" action="{{ url_for('admin', username=username) }}">
+              <!-- Hidden input field to store the user ID -->
               <input type="hidden" name="user_id" class="form-select form-select-l mb-3 rounded-0" value="{{ user._id }}">
+              <!-- Dropdown menu to select the action -->
               <select name="action" class="form-select form-select-l mb-3 rounded-0">
                 <option value="delete">Delete User and Exercises</option>
                 <option value="grant_admin">Grant Admin Privileges</option>
                 <option value="revoke_admin">Revoke Admin Privileges</option>
               </select>
-              <button type="button" class="btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text" data-bs-toggle="modal" data-bs-target="#deleteModal{{user._id}}" > Proced?  </button>
+              <!-- Button to open the delete confirmation modal -->
+              <button type="button" class="btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text" data-bs-toggle="modal" data-bs-target="#deleteModal{{user._id}}" > Proceed?  </button>
 
-
-                              <!-- DELETE Modal -->
-                <div class="modal fade" id="deleteModal{{user._id}}" tabindex="-1"   aria-hidden="true">
-                  <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content rounded-0 border-0 ">
+              <!-- DELETE Modal -->
+              <div class="modal fade" id="deleteModal{{user._id}}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content rounded-0 border-0 ">
               
-                      <div class="modal-body d-flex justify-content-center row flex-column">
-                          <div class="col-12    d-flex justify-content-center mb-5  mt-5"> 
-                              <h2>Are you sure?</h2>
-                          </div>
-                          <div class="col-12 d-flex justify-content-center mb-5">
-                              <button type="button" class="mt-4 btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text"  data-bs-dismiss="modal"> No</button>
-
-
-                              <button type="submit" class="mt-4 btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text">Do it!</button>
-                          </div>
+                    <div class="modal-body d-flex justify-content-center row flex-column">
+                      <div class="col-12 d-flex justify-content-center mb-5"> 
+                        <h2>Are you sure?</h2>
                       </div>
-              
+                      <div class="col-12 d-flex justify-content-center mb-5">
+                        <!-- Button to close the modal without performing the action -->
+                        <button type="button" class="mt-4 btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text" data-bs-dismiss="modal"> No</button>
+                        <!-- Button to submit the form and perform the action -->
+                        <button type="submit" class="mt-4 btn btn-outline-primary dark-border button-hover  colorDark rounded-0 me-3 thick-text">Do it!</button>
+                      </div>
                     </div>
+              
                   </div>
                 </div>
-
- 
+              </div>
             </form>
           </div>
         </div>
@@ -83,15 +89,9 @@
 
     </div>  
 
-
-
-
-
     {% endfor %}
 
-</div>
+  </div>
 
-<script src="{{ url_for('static', filename='js/select-menu.js') }}"></script>
-
-
+  <script src="{{ url_for('static', filename='js/select-menu.js') }}"></script>
 {% endblock %}
